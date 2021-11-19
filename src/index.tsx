@@ -1,15 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { SnackbarProvider } from "notistack";
+import { BrowserRouter } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import "./index.css";
 
 const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#4af1a6",
+      main: "#ef6c00",
     },
     secondary: {
       main: "#121212",
@@ -112,9 +116,13 @@ const theme = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider maxSnack={3}>
+          <App />
+        </SnackbarProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,8 +1,15 @@
-import React from "react";
+import React, { FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Typography, TextField, Button, Box } from "@mui/material";
-import { Link } from "react-router-dom";
 
 const AccountPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const onLoginHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate("/home");
+  };
+
   return (
     <Box
       display="flex"
@@ -19,7 +26,7 @@ const AccountPage: React.FC = () => {
         Enter your Poof private key* to enter your Poof account
       </Typography>
 
-      <Box component="form" noValidate sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={onLoginHandler} noValidate sx={{ mt: 1 }}>
         <TextField
           margin="normal"
           required

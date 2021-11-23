@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   Typography,
   TextField,
@@ -17,13 +18,27 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+const Web3 = require('web3');
+
 
 const AccountCreatePage: React.FC = () => {
+  const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+  let account = web3.eth.accounts.create(web3.utils.randomHex(32));
+
+  let wallet = web3.eth.accounts.wallet.add(account);
+  let keystore = wallet.encrypt(web3.utils.randomHex(32));
+
+  // console.log({
+  //   account: account,
+  //   wallet: wallet,
+  //   keystore: keystore
+  // });
+  
   const [privateKeyBackedUp, setPrivateKeyBackedUp] = useState(false);
-  const [privateKey] = useState(
-    "Loremipsum,dolorsitametconsecteturadipisicingelit"
-  );
-  const [open, setOpen] = useState(false);
+  const [password, setPassword] = useState("");
+  const [privateKey] = useState(account.privateKey.slice(2));
+  const [openPasswordDialog, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,6 +47,13 @@ const AccountCreatePage: React.FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const encryptPrivateKey = () => {
+    const keystoreJsonV3 = web3.eth.accounts.encrypt(privateKey, password);
+    console.log(keystoreJsonV3);
+    
+    navigate("/");
+  }
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -108,7 +130,7 @@ const AccountCreatePage: React.FC = () => {
           </Box>
         </Box>
       </Box>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={openPasswordDialog} onClose={handleClose}>
         <DialogTitle>Enter account password</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -120,6 +142,9 @@ const AccountCreatePage: React.FC = () => {
             margin="normal"
             label="Password"
             type="password"
+            onChange={(v) => {
+              setPassword(v.target.value);
+            }}
             fullWidth
           />
         </DialogContent>
@@ -127,7 +152,7 @@ const AccountCreatePage: React.FC = () => {
           <Button onClick={handleClose} variant="outlined">
             Cancel
           </Button>
-          <Button onClick={handleClose} variant="contained">
+          <Button onClick={encryptPrivateKey} variant="contained">
             Enter
           </Button>
         </DialogActions>

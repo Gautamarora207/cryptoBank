@@ -8,6 +8,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import LoremTwoPage from "./pages/LoremTwoPage";
 import LoremOnePage from "./pages/LoremOnePage";
 import AccountPage from "./pages/account/AccountPage";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 import AccountCreatePage from "./pages/account/AccountCreatePage";
 
 import "./App.css";
@@ -27,6 +28,8 @@ const App: React.FC = () => {
           <Route path="/account" element={<AccountPage />} />
           <Route path="/account/create" element={<AccountCreatePage />} />
         </Route>
+
+        <Route path="/home" element={<DashboardPage />} />
       </Routes>
     </>
   );

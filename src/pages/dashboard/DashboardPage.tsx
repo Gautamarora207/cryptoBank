@@ -1,7 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import LanguageIcon from "@mui/icons-material/Language";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import React, { useState } from "react";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import {
@@ -9,7 +6,6 @@ import {
   Button,
   Card,
   CardContent,
-  Container,
   Grid,
   IconButton,
   Paper,
@@ -21,12 +17,17 @@ import {
   TableRow,
   Typography,
   CardHeader,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
 import UploadIcon from "@mui/icons-material/Upload";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
 
 const DashboardPage: React.FC = () => {
   const assetBalances = [
@@ -80,104 +81,40 @@ const DashboardPage: React.FC = () => {
     },
   ];
 
+  const wallets = [
+    {
+      title: "Valora",
+      description:
+        "Connect to valora, a mobile payments app that works worldwide",
+      image: "https://via.placeholder.com/50",
+    },
+    {
+      title: "Install Celo Extension Wallet",
+      description: "Use a wallet from the celo chrom extension",
+      image: "https://via.placeholder.com/50",
+    },
+    {
+      title: "Ledger",
+      description: "Sync with your ledger hardware wallet",
+      image: "https://via.placeholder.com/50",
+    },
+    {
+      title: "Install MetaMask",
+      description: "Use the metamask chrome extension",
+      image: "https://via.placeholder.com/50",
+    },
+  ];
+
+  const [isConnectWalletModalOpen, setIsConnectWalletModalOpen] = useState(
+    true
+  );
+
+  const handleConnectWalletModalClose = () => {
+    setIsConnectWalletModalOpen(false);
+  };
+
   return (
-    <Container maxWidth="xl">
-      <Box display="flex" alignItems="center" py={2} mb={12}>
-        <Box flex="1">
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Typography
-              fontWeight="bold"
-              variant="h5"
-              component="div"
-              color="text.primary"
-              sx={{ textTransform: "uppercase" }}
-            >
-              Semilla{" "}
-              <Typography
-                component="span"
-                variant="h5"
-                fontWeight="bold"
-                color="primary"
-              >
-                Labs
-              </Typography>
-            </Typography>
-          </Link>
-        </Box>
-
-        <Box display="flex" flex="1" justifyContent="center" gap={2}>
-          <Link to="/home" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Portfolio
-            </Typography>
-          </Link>
-          <Link to="/home" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Send & Request
-            </Typography>
-          </Link>
-          <Link to="/home" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Loans
-            </Typography>
-          </Link>
-          <Link to="/home" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Docs
-            </Typography>
-          </Link>
-        </Box>
-
-        <Box display="flex" flex="1" justifyContent="flex-end" gap={2}>
-          <Button
-            color="primary"
-            sx={{ background: "rgba(239, 108, 0, 0.08)" }}
-          >
-            <LanguageIcon />
-            <Box component="span" ml={1}>
-              Celo
-            </Box>
-          </Button>
-          <Button
-            color="primary"
-            sx={{ background: "rgba(239, 108, 0, 0.08)" }}
-          >
-            <PersonOutlineIcon />
-            <Box component="span" ml={1}>
-              0xc64b..8b4c7
-            </Box>
-          </Button>
-        </Box>
-      </Box>
-
+    <>
       <Box mb={12}>
         <Typography variant="h6" component="div" mb={3}>
           Your Wallet
@@ -255,120 +192,126 @@ const DashboardPage: React.FC = () => {
           </Grid>
 
           <Grid md={4} item>
-            <Card
-              variant="outlined"
-              sx={[
-                {
-                  borderRadius: 4,
-                  height: "100%",
-                  cursor: "pointer",
-                },
-                {
-                  "&:hover": {
-                    background: "rgba(239, 108, 0, 0.08)",
+            <Link to="/home/send" style={{ textDecoration: "none" }}>
+              <Card
+                variant="outlined"
+                sx={[
+                  {
+                    borderRadius: 4,
+                    height: "100%",
+                    cursor: "pointer",
                   },
-                },
-              ]}
-            >
-              <CardContent sx={{ padding: 3, display: "flex", gap: 2 }}>
-                <Box>
-                  <IconButton
-                    color="primary"
-                    sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                  {
+                    "&:hover": {
+                      background: "rgba(239, 108, 0, 0.08)",
+                    },
+                  },
+                ]}
+              >
+                <CardContent sx={{ padding: 3, display: "flex", gap: 2 }}>
+                  <Box>
+                    <IconButton
+                      color="primary"
+                      sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                    >
+                      <UploadIcon fontSize="large" />
+                    </IconButton>
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
                   >
-                    <UploadIcon fontSize="large" />
-                  </IconButton>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="center"
-                >
-                  <Typography fontWeight="bold">Send</Typography>
-                  <Typography variant="body2">
-                    Send crypto to privately to any celo user
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
+                    <Typography fontWeight="bold">Send</Typography>
+                    <Typography variant="body2">
+                      Send crypto to privately to any celo user
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
 
           <Grid md={4} item>
-            <Card
-              variant="outlined"
-              sx={[
-                {
-                  borderRadius: 4,
-                  height: "100%",
-                  cursor: "pointer",
-                },
-                {
-                  "&:hover": {
-                    background: "rgba(239, 108, 0, 0.08)",
+            <Link to="/home/request" style={{ textDecoration: "none" }}>
+              <Card
+                variant="outlined"
+                sx={[
+                  {
+                    borderRadius: 4,
+                    height: "100%",
+                    cursor: "pointer",
                   },
-                },
-              ]}
-            >
-              <CardContent sx={{ padding: 3, display: "flex", gap: 2 }}>
-                <Box>
-                  <IconButton
-                    color="primary"
-                    sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                  {
+                    "&:hover": {
+                      background: "rgba(239, 108, 0, 0.08)",
+                    },
+                  },
+                ]}
+              >
+                <CardContent sx={{ padding: 3, display: "flex", gap: 2 }}>
+                  <Box>
+                    <IconButton
+                      color="primary"
+                      sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                    >
+                      <RequestPageIcon fontSize="large" />
+                    </IconButton>
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
                   >
-                    <RequestPageIcon fontSize="large" />
-                  </IconButton>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="center"
-                >
-                  <Typography fontWeight="bold">Request Payment</Typography>
-                  <Typography variant="body2">
-                    Generate a private crypto request link
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
+                    <Typography fontWeight="bold">Request Payment</Typography>
+                    <Typography variant="body2">
+                      Generate a private crypto request link
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
 
           <Grid md={4} item>
-            <Card
-              variant="outlined"
-              sx={[
-                {
-                  borderRadius: 4,
-                  height: "100%",
-                  cursor: "pointer",
-                },
-                {
-                  "&:hover": {
-                    background: "rgba(239, 108, 0, 0.08)",
+            <Link to="/home/loans" style={{ textDecoration: "none" }}>
+              <Card
+                variant="outlined"
+                sx={[
+                  {
+                    borderRadius: 4,
+                    height: "100%",
+                    cursor: "pointer",
                   },
-                },
-              ]}
-            >
-              <CardContent sx={{ padding: 3, display: "flex", gap: 2 }}>
-                <Box>
-                  <IconButton
-                    color="primary"
-                    sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                  {
+                    "&:hover": {
+                      background: "rgba(239, 108, 0, 0.08)",
+                    },
+                  },
+                ]}
+              >
+                <CardContent sx={{ padding: 3, display: "flex", gap: 2 }}>
+                  <Box>
+                    <IconButton
+                      color="primary"
+                      sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                    >
+                      <AccountBalanceIcon fontSize="large" />
+                    </IconButton>
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
                   >
-                    <AccountBalanceIcon fontSize="large" />
-                  </IconButton>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="center"
-                >
-                  <Typography fontWeight="bold">Borrow</Typography>
-                  <Typography variant="body2">
-                    Use your crypto holdings as collateral
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
+                    <Typography fontWeight="bold">Borrow</Typography>
+                    <Typography variant="body2">
+                      Use your crypto holdings as collateral
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
 
           <Grid item md={8}>
@@ -634,7 +577,58 @@ const DashboardPage: React.FC = () => {
           </Grid>
         </Grid>
       </Box>
-    </Container>
+
+      <Dialog
+        onClose={handleConnectWalletModalClose}
+        open={isConnectWalletModalOpen}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>
+          Connect a wallet{" "}
+          <IconButton
+            aria-label="close"
+            onClick={handleConnectWalletModalClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent
+          sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+        >
+          {wallets.map((wallet, index) => (
+            <Box
+              key={index}
+              display="flex"
+              alignItems="center"
+              gap={2}
+              px={1}
+              py={1}
+              sx={[
+                { cursor: "pointer", borderRadius: 2 },
+                {
+                  "&:hover": {
+                    background: "rgba(255, 255, 255, 0.08)",
+                  },
+                },
+              ]}
+            >
+              <img src={wallet.image} alt={wallet.title} />
+              <Box>
+                <Typography fontWeight="bold">{wallet.title}</Typography>
+                <Typography variant="body2">{wallet.description}</Typography>
+              </Box>
+            </Box>
+          ))}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

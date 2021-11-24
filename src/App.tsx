@@ -8,9 +8,10 @@ import AuthLayout from "./layouts/AuthLayout";
 import LoremTwoPage from "./pages/LoremTwoPage";
 import LoremOnePage from "./pages/LoremOnePage";
 import SendPage from "./pages/dashboard/SendPage";
-import LoansPage from "./pages/dashboard/LoansPage";
 import AccountPage from "./pages/account/AccountPage";
 import DashboardLayout from "./layouts/DashboardLayout";
+import ReceivePage from "./pages/dashboard/ReceivePage";
+import SendReciveLayout from "./layouts/SendReciveLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import AccountCreatePage from "./pages/account/AccountCreatePage";
 
@@ -34,8 +35,12 @@ const App: React.FC = () => {
 
         <Route path="/home" element={<DashboardLayout />}>
           <Route path="/home" element={<DashboardPage />} />
-          <Route path="/home/loans" element={<LoansPage />} />
-          <Route path="/home/send" element={<SendPage />} />
+          <Route path="/home/send" element={<SendReciveLayout />}>
+            <Route path="/home/send" element={<SendPage />} />
+          </Route>
+          <Route path="/home/request" element={<SendReciveLayout />}>
+            <Route path="/home/request" element={<ReceivePage />} />
+          </Route>
         </Route>
       </Routes>
     </>

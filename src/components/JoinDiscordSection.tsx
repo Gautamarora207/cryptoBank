@@ -12,7 +12,7 @@ const JoinDiscordSection: React.FC = () => {
       flexDirection={{ xs: "column", sm: "row" }}
       gap={{ xs: 2, md: 0 }}
       sx={{
-        backgroundColor: "#fff3e0",
+        backgroundColor: "#ffffe6",
         borderRadius: "8px",
       }}
     >

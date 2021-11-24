@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Button, Box } from "@mui/material";
 
-import HeroSvg from "../assets/images/hero.svg";
+import HeroImg from "../assets/images/hero.png";
 
 const HomeHero: React.FC = () => {
   return (
@@ -51,7 +51,7 @@ const HomeHero: React.FC = () => {
           height="auto"
           component="img"
           alt="Now they see it, now they don’t"
-          src={HeroSvg}
+          src={HeroImg}
         />
       </Box>
     </Box>

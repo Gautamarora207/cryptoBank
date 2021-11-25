@@ -131,7 +131,7 @@ const DashboardNavbar: React.FC = () => {
         gap={2}
         order={{ xs: 2, md: 3 }}
       >
-        <Box>
+        {/* <Box>
           <Button
             color="primary"
             sx={{ background: "rgba(255, 255, 64, 0.08)" }}
@@ -141,7 +141,7 @@ const DashboardNavbar: React.FC = () => {
           >
             {isDarkMode ? <DarkModeIcon /> : <LightModeIcon />}
           </Button>
-        </Box>
+        </Box> */}
 
         <Box>
           <Button

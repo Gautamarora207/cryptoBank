@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { Provider } from "react-redux";
+
 
 import HomePage from "./pages/HomePage";
 import MainLayout from "./layouts/MainLayout";
@@ -19,6 +21,7 @@ import AccountCreatePage from "./pages/account/AccountCreatePage";
 import "./App.css";
 import themeOptions from "./config/themeOptions";
 import { useConcealThemeContext } from "./context/ConcealTheme";
+import store from "./store/configureStore";
 
 const App: React.FC = () => {
   const {
@@ -35,31 +38,33 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <Provider store={store}>
+        <CssBaseline />
 
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/lorem1" element={<LoremOnePage />} />
-          <Route path="/lorem2" element={<LoremTwoPage />} />
-        </Route>
-
-        <Route path="/account" element={<AuthLayout />}>
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/account/create" element={<AccountCreatePage />} />
-        </Route>
-
-        <Route path="/home" element={<DashboardLayout />}>
-          <Route path="/home" element={<DashboardPage />} />
-          <Route path="/home/send" element={<SendReciveLayout />}>
-            <Route path="/home/send" element={<SendPage />} />
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/lorem1" element={<LoremOnePage />} />
+            <Route path="/lorem2" element={<LoremTwoPage />} />
           </Route>
-          <Route path="/home/request" element={<SendReciveLayout />}>
-            <Route path="/home/request" element={<ReceivePage />} />
+
+          <Route path="/account" element={<AuthLayout />}>
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/account/create" element={<AccountCreatePage />} />
           </Route>
-          <Route path="/home/deposit" element={<DepositPage />} />
-        </Route>
-      </Routes>
+
+          <Route path="/home" element={<DashboardLayout />}>
+            <Route path="/home" element={<DashboardPage />} />
+            <Route path="/home/send" element={<SendReciveLayout />}>
+              <Route path="/home/send" element={<SendPage />} />
+            </Route>
+            <Route path="/home/request" element={<SendReciveLayout />}>
+              <Route path="/home/request" element={<ReceivePage />} />
+            </Route>
+            <Route path="/home/deposit" element={<DepositPage />} />
+          </Route>
+        </Routes>
+      </Provider>
     </ThemeProvider>
   );
 };

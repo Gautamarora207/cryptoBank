@@ -1,10 +1,21 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import LanguageIcon from "@mui/icons-material/Language";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Container, Box, Button, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const DashboardLayout: React.FC = () => {
+  const navigate = useNavigate();
+  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address === undefined ? undefined : addressSelector.user.address.toLowerCase());
+  console.log(userAddress);
+
+  useEffect(() => {
+    if(userAddress === undefined) {
+      navigate('/account');
+    }
+  });
+
   return (
     <Container maxWidth="xl">
       <Box display="flex" alignItems="center" py={2} mb={12}>
@@ -97,7 +108,7 @@ const DashboardLayout: React.FC = () => {
           >
             <PersonOutlineIcon />
             <Box component="span" ml={1}>
-              0xc64b..8b4c7
+              {userAddress === undefined ? " ": userAddress.slice(0, 6) + "..." + userAddress.slice(8, 12)}
             </Box>
           </Button>
         </Box>

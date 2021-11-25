@@ -1,20 +1,20 @@
 import React, { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
+
 import {
   Typography,
   TextField,
   Button,
   Box,
-  Checkbox,
-  FormControlLabel,
-  InputAdornment,
-  IconButton,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import { userAccountLoaded, userCryptoLoaded } from "../../store/actions";
 
 const Web3 = require('web3');
 
@@ -24,9 +24,21 @@ const AccountPage: React.FC = () => {
   const [privateKey, setPrivateKey] = useState("");
   const [password, setPassword] = useState("");
   const [openPasswordDialog, setOpen] = useState(false);
-  const [loginWithPassword, setLoginWithPassword] = useState(true);
+
+  const dispatch = useDispatch();
+
   const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 
+  const serialisedUserCrypto = localStorage.getItem("userCrypto");
+  let userCrypto: any;
+
+  const [loginWithPassword, setLoginWithPassword] = useState(serialisedUserCrypto != null ? true : false);
+
+  if(serialisedUserCrypto != null) {
+    userCrypto = JSON.parse(serialisedUserCrypto);
+  }
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,17 +51,42 @@ const AccountPage: React.FC = () => {
   const encryptPrivateKey = () => {
     const keystoreJsonV3 = web3.eth.accounts.encrypt(privateKey, password);
     console.log(keystoreJsonV3);
-    
+    localStorage.setItem('userCrypto', JSON.stringify(keystoreJsonV3));
     navigate("/");
   }
 
+
   const onLoginHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const account =  web3.eth.accounts.privateKeyToAccount('0x'+privateKey);
-    console.log(account);
-    handleClickOpen();
-    // navigate("/home");
+    if(loginWithPassword) {
+      try {
+        const account = web3.eth.accounts.decrypt(userCrypto, password);
+        dispatch(userAccountLoaded(account.address));
+        navigate("/home");
+      } catch(e) {
+        enqueueSnackbar("Incorrect password, please try again", {
+          variant: "error",
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+      }
+    } else {
+      try {
+        const account =  web3.eth.accounts.privateKeyToAccount('0x'+privateKey);
+        dispatch(userAccountLoaded(account.address));
+        handleClickOpen();
+      } catch(e) {
+        enqueueSnackbar("Please enter a valid private key!", {
+          variant: "error",
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+      }
+    } 
   };
+
+  const onLogoutHandler = () => {
+    setLoginWithPassword(false);
+    localStorage.removeItem('userCrypto');
+  }
 
   return (
     <Box
@@ -72,8 +109,9 @@ const AccountPage: React.FC = () => {
           margin="normal"
           required
           fullWidth
+          type={loginWithPassword ? "password" : ""}
           label={loginWithPassword ? "Password" : "Private Key"}
-          value={privateKey}
+          value={loginWithPassword ? password : privateKey}
           onChange={(v) => {
             loginWithPassword ? setPassword(v.target.value) : setPrivateKey(v.target.value);
           }}
@@ -93,9 +131,10 @@ const AccountPage: React.FC = () => {
             <Button
             fullWidth
             onClick={
-              () => { setLoginWithPassword(false);}
+              () => { 
+                onLogoutHandler();
+              }
             }
-           
             variant="outlined"
             sx={{ mt: 1, mb: 1 }}
           >

@@ -27,9 +27,15 @@ import RequestPageIcon from "@mui/icons-material/RequestPage";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CloseIcon from "@mui/icons-material/Close";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const DashboardPage: React.FC = () => {
+  const navigate = useNavigate();
+  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
+
+  const [address, setAddress] = useState(userAddress === undefined ? "" : userAddress);
+
   const assetBalances = [
     {
       name: "CELO",
@@ -106,7 +112,7 @@ const DashboardPage: React.FC = () => {
   ];
 
   const [isConnectWalletModalOpen, setIsConnectWalletModalOpen] = useState(
-    true
+    userAddress === undefined ? false : true
   );
 
   const handleConnectWalletModalClose = () => {

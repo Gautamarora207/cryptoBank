@@ -1,6 +1,8 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
+import { Provider } from "react-redux";
+
 
 import HomePage from "./pages/HomePage";
 import MainLayout from "./layouts/MainLayout";
@@ -15,10 +17,12 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import AccountCreatePage from "./pages/account/AccountCreatePage";
 
 import "./App.css";
+import store from "./store/configureStore";
 
 const App: React.FC = () => {
   return (
     <>
+    <Provider store={store}>
       <CssBaseline />
       <Routes>
         <Route path="/" element={<MainLayout />}>
@@ -38,6 +42,7 @@ const App: React.FC = () => {
           <Route path="/home/send" element={<SendPage />} />
         </Route>
       </Routes>
+      </Provider>
     </>
   );
 };

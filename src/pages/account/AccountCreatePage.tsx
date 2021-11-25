@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import {
   Typography,
@@ -18,6 +19,8 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
+import { userAccountLoaded, userCryptoLoaded } from "../../store/actions";
 const Web3 = require('web3');
 
 
@@ -28,12 +31,8 @@ const AccountCreatePage: React.FC = () => {
   let wallet = web3.eth.accounts.wallet.add(account);
   let keystore = wallet.encrypt(web3.utils.randomHex(32));
 
-  // console.log({
-  //   account: account,
-  //   wallet: wallet,
-  //   keystore: keystore
-  // });
-  
+  const dispatch = useDispatch();
+
   const [privateKeyBackedUp, setPrivateKeyBackedUp] = useState(false);
   const [password, setPassword] = useState("");
   const [privateKey] = useState(account.privateKey.slice(2));
@@ -50,9 +49,9 @@ const AccountCreatePage: React.FC = () => {
 
   const encryptPrivateKey = () => {
     const keystoreJsonV3 = web3.eth.accounts.encrypt(privateKey, password);
-    console.log(keystoreJsonV3);
-    
-    navigate("/");
+    localStorage.setItem('userCrypto', JSON.stringify(keystoreJsonV3));
+    dispatch(userAccountLoaded(account.address));
+    navigate("/home");
   }
 
   const { enqueueSnackbar } = useSnackbar();
@@ -161,4 +160,5 @@ const AccountCreatePage: React.FC = () => {
   );
 };
 
-export default AccountCreatePage;
+// export default connect(mapStateToProps)(AccountCreatePage);
+export default AccountCreatePage

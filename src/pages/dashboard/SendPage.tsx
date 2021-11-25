@@ -44,8 +44,8 @@ const SendPage: React.FC = () => {
           </Typography>
         </Box>
 
-        <Grid container>
-          <Grid item md={5}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={5}>
             <Box>
               <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
                 <Paper sx={{ height: "100%" }}>
@@ -99,7 +99,13 @@ const SendPage: React.FC = () => {
             </Box>
           </Grid>
 
-          <Grid item md={7} display="flex" justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            md={7}
+            display={{ xs: "none", md: "flex" }}
+            justifyContent="center"
+          >
             <Box
               width="auto"
               height="350px"

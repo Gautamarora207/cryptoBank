@@ -117,8 +117,8 @@ const DashboardPage: React.FC = () => {
         <Typography variant="h6" component="div" mb={3}>
           Your Wallet
         </Typography>
-        <Grid container columnSpacing={4} mb={4}>
-          <Grid md={4} item>
+        <Grid container spacing={4} mb={4}>
+          <Grid xs={12} sm={6} lg={4} item>
             <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
               <Paper sx={{ height: "100%" }}>
                 <CardContent sx={{ padding: 3 }}>
@@ -128,21 +128,23 @@ const DashboardPage: React.FC = () => {
                   <Typography mb={2} variant="h4" component="div">
                     $0
                   </Typography>
-                  <Button
-                    variant="contained"
-                    disableElevation
-                    size="small"
-                    sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
-                  >
-                    <GetAppIcon fontSize="small" />
-                    Deposit
-                  </Button>
+                  <Link to="/home/deposit" style={{ textDecoration: "none" }}>
+                    <Button
+                      variant="contained"
+                      disableElevation
+                      size="small"
+                      sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                    >
+                      <GetAppIcon fontSize="small" />
+                      Deposit
+                    </Button>
+                  </Link>
                 </CardContent>
               </Paper>
             </Card>
           </Grid>
 
-          <Grid md={4} item>
+          <Grid xs={12} sm={6} lg={4} item>
             <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
               <Paper sx={{ height: "100%" }}>
                 <CardContent sx={{ padding: 3 }}>
@@ -163,8 +165,8 @@ const DashboardPage: React.FC = () => {
           </Grid>
         </Grid>
 
-        <Grid container columnSpacing={4} mb={4}>
-          <Grid md={4} item>
+        <Grid container spacing={4} mb={4}>
+          <Grid xs={12} sm={6} lg={4} item>
             <Link to="/home/send" style={{ textDecoration: "none" }}>
               <Card
                 variant="outlined"
@@ -205,7 +207,7 @@ const DashboardPage: React.FC = () => {
             </Link>
           </Grid>
 
-          <Grid md={4} item>
+          <Grid xs={12} sm={6} lg={4} item>
             <Link to="/home/request" style={{ textDecoration: "none" }}>
               <Card
                 variant="outlined"
@@ -247,8 +249,8 @@ const DashboardPage: React.FC = () => {
           </Grid>
         </Grid>
 
-        <Grid container columnSpacing={4}>
-          <Grid item md={8}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={8}>
             <TableContainer
               sx={{ borderRadius: 4, height: "100%" }}
               component={Paper}
@@ -338,7 +340,7 @@ const DashboardPage: React.FC = () => {
             </TableContainer>
           </Grid>
 
-          <Grid item md={4}>
+          <Grid item xs={12} md={4}>
             <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
               <CardHeader subheader="Transaction History" />
               <Paper sx={{ height: "100%" }}>

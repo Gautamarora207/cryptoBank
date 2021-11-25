@@ -22,18 +22,19 @@ const Navbar: React.FC = () => {
               color="text.primary"
               sx={{ textTransform: "uppercase" }}
             >
-              Semilla{" "}
+              Conceal{" "}
               <Typography
                 component="span"
                 variant="h5"
                 fontWeight="bold"
                 color="primary"
               >
-                Labs
+                Protocol
               </Typography>
             </Typography>
           </Link>
         </Box>
+
         <Box sx={{ display: { sm: "none" } }}>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Typography
@@ -43,18 +44,19 @@ const Navbar: React.FC = () => {
               color="text.primary"
               sx={{ textTransform: "uppercase" }}
             >
-              S{" "}
+              C{" "}
               <Typography
                 component="span"
                 variant="h5"
                 fontWeight="bold"
                 color="primary"
               >
-                L
+                P
               </Typography>
             </Typography>
           </Link>
         </Box>
+
         <Box sx={{ display: "flex", gap: "1rem" }}>
           <Link to="/lorem1" style={{ textDecoration: "none" }}>
             <Button>Lorem 1</Button>

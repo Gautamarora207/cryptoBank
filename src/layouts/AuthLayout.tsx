@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-import HeroSvg from "../assets/images/hero.svg";
+import HeroSvg from "../assets/images/hero.png";
 
 const AuthLayout: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const AuthLayout: React.FC = () => {
         justifyContent="center"
         sx={{
           backgroundRepeat: "no-repeat",
-          backgroundColor: "#fff3e0",
+          backgroundColor: "#fcfdbf",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

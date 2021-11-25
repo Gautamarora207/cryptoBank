@@ -1,6 +1,3 @@
-import React, { useState } from "react";
-import GetAppIcon from "@mui/icons-material/GetApp";
-import IosShareIcon from "@mui/icons-material/IosShare";
 import {
   Box,
   Button,
@@ -21,8 +18,9 @@ import {
   DialogTitle,
   DialogContent,
 } from "@mui/material";
+import React, { useState } from "react";
+import GetAppIcon from "@mui/icons-material/GetApp";
 import UploadIcon from "@mui/icons-material/Upload";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -125,7 +123,7 @@ const DashboardPage: React.FC = () => {
         <Typography variant="h6" component="div" mb={3}>
           Your Wallet
         </Typography>
-        <Grid container rowSpacing={4} columnSpacing={4}>
+        <Grid container columnSpacing={4} mb={4}>
           <Grid md={4} item>
             <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
               <Paper sx={{ height: "100%" }}>
@@ -169,34 +167,9 @@ const DashboardPage: React.FC = () => {
               </Paper>
             </Card>
           </Grid>
+        </Grid>
 
-          <Grid md={4} item>
-            <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
-              <Paper sx={{ height: "100%" }}>
-                <CardContent sx={{ padding: 3 }}>
-                  <Typography mb={1} variant="body2" sx={{ color: "#aaa" }}>
-                    Loans
-                  </Typography>
-                  <Typography mb={2} variant="h4" component="div">
-                    $0
-                  </Typography>
-                  <Box display="flex" gap={2}>
-                    <Button
-                      disableElevation
-                      size="small"
-                      variant="contained"
-                      sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
-                    >
-                      <IosShareIcon fontSize="small" />
-                      Repay
-                    </Button>
-                    Available Credit: $0
-                  </Box>
-                </CardContent>
-              </Paper>
-            </Card>
-          </Grid>
-
+        <Grid container columnSpacing={4} mb={4}>
           <Grid md={4} item>
             <Link to="/home/send" style={{ textDecoration: "none" }}>
               <Card
@@ -209,7 +182,7 @@ const DashboardPage: React.FC = () => {
                   },
                   {
                     "&:hover": {
-                      background: "rgba(239, 108, 0, 0.08)",
+                      background: "rgba(255, 255, 64, 0.08)",
                     },
                   },
                 ]}
@@ -218,7 +191,7 @@ const DashboardPage: React.FC = () => {
                   <Box>
                     <IconButton
                       color="primary"
-                      sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                      sx={{ background: "rgba(255, 255, 64, 0.08)" }}
                     >
                       <UploadIcon fontSize="large" />
                     </IconButton>
@@ -250,7 +223,7 @@ const DashboardPage: React.FC = () => {
                   },
                   {
                     "&:hover": {
-                      background: "rgba(239, 108, 0, 0.08)",
+                      background: "rgba(255, 255, 64, 0.08)",
                     },
                   },
                 ]}
@@ -259,7 +232,7 @@ const DashboardPage: React.FC = () => {
                   <Box>
                     <IconButton
                       color="primary"
-                      sx={{ background: "rgba(239, 108, 0, 0.08)" }}
+                      sx={{ background: "rgba(255, 255, 64, 0.08)" }}
                     >
                       <RequestPageIcon fontSize="large" />
                     </IconButton>
@@ -278,52 +251,14 @@ const DashboardPage: React.FC = () => {
               </Card>
             </Link>
           </Grid>
+        </Grid>
 
-          <Grid md={4} item>
-            <Link to="/home/loans" style={{ textDecoration: "none" }}>
-              <Card
-                variant="outlined"
-                sx={[
-                  {
-                    borderRadius: 4,
-                    height: "100%",
-                    cursor: "pointer",
-                  },
-                  {
-                    "&:hover": {
-                      background: "rgba(239, 108, 0, 0.08)",
-                    },
-                  },
-                ]}
-              >
-                <CardContent sx={{ padding: 3, display: "flex", gap: 2 }}>
-                  <Box>
-                    <IconButton
-                      color="primary"
-                      sx={{ background: "rgba(239, 108, 0, 0.08)" }}
-                    >
-                      <AccountBalanceIcon fontSize="large" />
-                    </IconButton>
-                  </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                  >
-                    <Typography fontWeight="bold">Borrow</Typography>
-                    <Typography variant="body2">
-                      Use your crypto holdings as collateral
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Link>
-          </Grid>
-
+        <Grid container columnSpacing={4}>
           <Grid item md={8}>
             <TableContainer
               sx={{ borderRadius: 4, height: "100%" }}
               component={Paper}
+              variant="outlined"
             >
               <Table size="medium">
                 <TableHead>
@@ -374,12 +309,12 @@ const DashboardPage: React.FC = () => {
                           color="primary"
                           sx={[
                             {
-                              background: "rgba(239, 108, 0, 0.08)",
+                              background: "rgba(255, 255, 64, 0.08)",
                               mr: 1,
                             },
                             {
                               "&:hover": {
-                                background: "rgba(255, 255, 255, 0.08)",
+                                background: "rgba(255, 255, 255, 0.02)",
                               },
                             },
                           ]}
@@ -390,11 +325,11 @@ const DashboardPage: React.FC = () => {
                           color="primary"
                           sx={[
                             {
-                              background: "rgba(239, 108, 0, 0.08)",
+                              background: "rgba(255, 255, 64, 0.08)",
                             },
                             {
                               "&:hover": {
-                                background: "rgba(255, 255, 255, 0.08)",
+                                background: "rgba(255, 255, 255, 0.2)",
                               },
                             },
                           ]}

@@ -6,6 +6,8 @@ function user(state = {}, action:any) {
       return { ...state,  address: action.address }
     case 'USER_CRYPTO':
       return { ...state,  crypto: action.crypto }
+    case 'USER_NETWORK' :
+      return { ...state, network: action.network }
     default:
       return state
   }

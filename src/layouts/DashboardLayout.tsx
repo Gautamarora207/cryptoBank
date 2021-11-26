@@ -9,13 +9,21 @@ import {
   Typography,
   Menu,
   MenuItem,
+  Select,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { networkData, supportedNetworkNames } from "../constants";
+import { userNetworkLoaded } from "../store/actions";
+
 
 const DashboardLayout: React.FC = () => {
   const navigate = useNavigate();
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address === undefined ? undefined : addressSelector.user.address.toLowerCase());
-  console.log(userAddress);
+  
+  const dispatch = useDispatch();
+
+  const [selectedNetwork, setSelectedNetwork]= useState(0);
+
 
   useEffect(() => {
     if(userAddress === undefined) {
@@ -38,6 +46,13 @@ const DashboardLayout: React.FC = () => {
     setUserContextMenuEl(null);
   };
 
+
+  const onLogoutHandler = () => {
+    setUserContextMenuEl(null);
+    localStorage.removeItem('userCrypto');
+    navigate('/account');
+  }
+
   const [
     accountsContextMenuEl,
     setAccountsContextMenuEl,
@@ -54,6 +69,14 @@ const DashboardLayout: React.FC = () => {
   const handleAccountMenuClose = () => {
     setAccountsContextMenuEl(null);
   };
+
+  const handleNetworkChange = (v:any) => {
+    setSelectedNetwork(v);
+    dispatch(userNetworkLoaded({
+      name: supportedNetworkNames[v]
+    }))
+    handleAccountMenuClose();
+  }
 
   return (
     <Container maxWidth="xl">
@@ -130,20 +153,20 @@ const DashboardLayout: React.FC = () => {
             >
               <LanguageIcon />
               <Box component="span" ml={1}>
-                Celo
+             { supportedNetworkNames[selectedNetwork] }
               </Box>
             </Button>
 
+           
             <Menu
               anchorEl={accountsContextMenuEl}
               open={isAccountContextMenuOpen}
               onClose={handleAccountMenuClose}
+              defaultValue={selectedNetwork}
             >
-              <MenuItem onClick={handleAccountMenuClose}>Celo</MenuItem>
-              <MenuItem onClick={handleAccountMenuClose}>Fantom</MenuItem>
-              <MenuItem onClick={handleAccountMenuClose}>Avalanche</MenuItem>
-              <MenuItem onClick={handleAccountMenuClose}>Polygon</MenuItem>
-              <MenuItem onClick={handleAccountMenuClose}>Ethereum</MenuItem>
+             {supportedNetworkNames.map((network:any) => (
+                <MenuItem onClick={() => handleNetworkChange(supportedNetworkNames.indexOf(network))}>{network}</MenuItem>
+             ))}    
             </Menu>
           </Box>
 
@@ -155,7 +178,7 @@ const DashboardLayout: React.FC = () => {
             >
               <PersonOutlineIcon />
               <Box component="span" ml={1}>
-                0xc64b..8b4c7
+                { userAddress === undefined ? '' : userAddress.slice(0,5) + '...' + userAddress.slice(9,12) }
               </Box>
             </Button>
 
@@ -167,13 +190,13 @@ const DashboardLayout: React.FC = () => {
               <MenuItem onClick={handleUserMenuClose}>
                 <PersonOutlineIcon />
                 <Box component="span" ml={1}>
-                  0xc64bd05b4146..bf1607af8b4c7
+                  { userAddress }
                 </Box>
               </MenuItem>
-              <MenuItem onClick={handleUserMenuClose}>Logout</MenuItem>
+              <MenuItem onClick={onLogoutHandler}>Logout</MenuItem>
             </Menu>
           </Box>
-        </Box>
+        </Box> 
       </Box>
 
       <Outlet />

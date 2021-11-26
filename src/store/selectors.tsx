@@ -8,3 +8,7 @@ export const addressSelector = createSelector(address, a => a)
 
 const crypto = (state:any) => get(state, 'user.crypto')
 export const cryptoSelector = createSelector(crypto, c => c)
+
+
+const network = (state:any) => get(state, 'user.network')
+export const networkSelector = createSelector(network, n => n)

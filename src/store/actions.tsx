@@ -12,3 +12,12 @@ export function userCryptoLoaded(crypto:any) {
     crypto
   }
 }
+
+// Network
+
+export function userNetworkLoaded(network: any) {
+  return {
+    type: 'USER_NETWORK',
+    network
+  }
+}

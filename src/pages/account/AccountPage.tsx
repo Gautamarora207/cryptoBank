@@ -52,7 +52,7 @@ const AccountPage: React.FC = () => {
     const keystoreJsonV3 = web3.eth.accounts.encrypt(privateKey, password);
     console.log(keystoreJsonV3);
     localStorage.setItem('userCrypto', JSON.stringify(keystoreJsonV3));
-    navigate("/");
+    navigate("/home");
   }
 
 

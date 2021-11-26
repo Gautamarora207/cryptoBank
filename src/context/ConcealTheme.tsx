@@ -7,10 +7,11 @@ type State = {
 type Actions = { type: "toggleDarkMode" };
 
 const initialState: State = {
-  isDarkMode:
-    (localStorage.getItem("isDarkMode") as "true" | "false") === "true"
-      ? true
-      : false,
+  isDarkMode: true,
+  // isDarkMode:
+  //   (localStorage.getItem("isDarkMode") as "true" | "false") === "true"
+  //     ? true
+  //     : false,
 };
 
 const ConcealThemeContext = createContext<{

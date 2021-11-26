@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Link, Typography } from "@mui/material";
 
+import Logo from "../assets/images/logo.png";
+
 const Footer: React.FC = () => {
   return (
     <Box
@@ -20,9 +22,18 @@ const Footer: React.FC = () => {
       }}
     >
       <Box gridArea="copyright">
-        <Typography fontWeight="bold" mb={4}>
+        {/* <Typography fontWeight="bold" mb={4}>
           Lorem
-        </Typography>
+        </Typography> */}
+        <Box mb={4} textAlign={{ xs: "center", sm: "left" }}>
+          <Box
+            component="img"
+            src={Logo}
+            alt="logo"
+            width="150px"
+            height="auto"
+          />
+        </Box>
         <Typography variant="body2" mb={4}>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero neque
           fuga id inventore maxime asperiores nisi.

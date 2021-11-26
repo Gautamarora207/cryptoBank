@@ -1,10 +1,14 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-import { Link } from "react-router-dom";
+
+import Logo from "../assets/images/logo.png";
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <AppBar elevation={0} position="static" sx={{ mb: 8 }}>
+    <AppBar elevation={0} position="static" sx={{ py: 2, mb: 8 }}>
       <Toolbar
         sx={{
           display: "flex",
@@ -13,49 +17,15 @@ const Navbar: React.FC = () => {
         }}
         disableGutters
       >
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Typography
-              fontWeight="bold"
-              variant="h5"
-              component="div"
-              color="text.primary"
-              sx={{ textTransform: "uppercase" }}
-            >
-              Conceal{" "}
-              <Typography
-                component="span"
-                variant="h5"
-                fontWeight="bold"
-                color="primary"
-              >
-                Protocol
-              </Typography>
-            </Typography>
-          </Link>
-        </Box>
-
-        <Box sx={{ display: { sm: "none" } }}>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Typography
-              fontWeight="bold"
-              variant="h5"
-              component="div"
-              color="text.primary"
-              sx={{ textTransform: "uppercase" }}
-            >
-              C{" "}
-              <Typography
-                component="span"
-                variant="h5"
-                fontWeight="bold"
-                color="primary"
-              >
-                P
-              </Typography>
-            </Typography>
-          </Link>
-        </Box>
+        <Box
+          component="img"
+          src={Logo}
+          alt="Conceal Protocol"
+          width={{ xs: "100px", md: "150px", lg: "180px" }}
+          height="auto"
+          sx={{ cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        />
 
         <Box sx={{ display: "flex", gap: "1rem" }}>
           <Link to="/lorem1" style={{ textDecoration: "none" }}>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LanguageIcon from "@mui/icons-material/Language";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+// import DarkModeIcon from "@mui/icons-material/DarkMode";
+// import LightModeIcon from "@mui/icons-material/LightMode";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { Typography, Button, Menu, MenuItem, Box } from "@mui/material";
 
-import { useConcealThemeContext } from "../context/ConcealTheme";
+import Logo from "../assets/images/logo.png";
 
 const DashboardNavbar: React.FC = () => {
   const [
@@ -41,10 +41,7 @@ const DashboardNavbar: React.FC = () => {
     setAccountsContextMenuEl(null);
   };
 
-  const {
-    state: { isDarkMode },
-    dispatch,
-  } = useConcealThemeContext();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -56,25 +53,15 @@ const DashboardNavbar: React.FC = () => {
       mb={{ xs: 2, md: 12 }}
     >
       <Box flex="1" order={1}>
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <Typography
-            fontWeight="bold"
-            variant="h5"
-            component="div"
-            color="text.primary"
-            sx={{ textTransform: "uppercase" }}
-          >
-            Conceal{" "}
-            <Typography
-              component="span"
-              variant="h5"
-              fontWeight="bold"
-              color="primary"
-            >
-              Protocol
-            </Typography>
-          </Typography>
-        </Link>
+        <Box
+          component="img"
+          src={Logo}
+          alt="Conceal Protocol"
+          width={{ xs: "150px", lg: "180px" }}
+          height="auto"
+          sx={{ cursor: "pointer" }}
+          onClick={() => navigate("/home")}
+        />
       </Box>
 
       <Box

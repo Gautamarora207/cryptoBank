@@ -16,6 +16,8 @@ import { networkData, supportedNetworkNames } from "../constants";
 import { userNetworkLoaded } from "../store/actions";
 
 
+import DashboardNavbar from "../components/DashboardNavbar";
+
 const DashboardLayout: React.FC = () => {
   const navigate = useNavigate();
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address === undefined ? undefined : addressSelector.user.address.toLowerCase());
@@ -26,8 +28,8 @@ const DashboardLayout: React.FC = () => {
 
 
   useEffect(() => {
-    if(userAddress === undefined) {
-      navigate('/account');
+    if (userAddress === undefined) {
+      navigate("/account");
     }
   });
 

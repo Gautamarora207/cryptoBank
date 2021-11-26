@@ -1,6 +1,6 @@
 import React from "react";
-import { CssBaseline } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { Provider } from "react-redux";
 
 
@@ -13,43 +13,59 @@ import SendPage from "./pages/dashboard/SendPage";
 import AccountPage from "./pages/account/AccountPage";
 import DashboardLayout from "./layouts/DashboardLayout";
 import ReceivePage from "./pages/dashboard/ReceivePage";
+import DepositPage from "./pages/dashboard/DepositPage";
 import SendReciveLayout from "./layouts/SendReciveLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import AccountCreatePage from "./pages/account/AccountCreatePage";
 
 import "./App.css";
+import themeOptions from "./config/themeOptions";
+import { useConcealThemeContext } from "./context/ConcealTheme";
 import store from "./store/configureStore";
 
 const App: React.FC = () => {
+  const {
+    state: { isDarkMode },
+  } = useConcealThemeContext();
+
+  const theme = createTheme({
+    ...themeOptions,
+    palette: {
+      ...themeOptions.palette,
+      mode: isDarkMode ? "dark" : "light",
+    },
+  });
+
   return (
-    <>
-     
-    <Provider store={store}>
-      <CssBaseline />
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/lorem1" element={<LoremOnePage />} />
-          <Route path="/lorem2" element={<LoremTwoPage />} />
-        </Route>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <CssBaseline />
 
-        <Route path="/account" element={<AuthLayout />}>
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/account/create" element={<AccountCreatePage />} />
-        </Route>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/lorem1" element={<LoremOnePage />} />
+            <Route path="/lorem2" element={<LoremTwoPage />} />
+          </Route>
 
-        <Route path="/home" element={<DashboardLayout />}>
-          <Route path="/home" element={<DashboardPage />} />
-          <Route path="/home/send" element={<SendReciveLayout />}>
-            <Route path="/home/send" element={<SendPage />} />
+          <Route path="/account" element={<AuthLayout />}>
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/account/create" element={<AccountCreatePage />} />
           </Route>
-          <Route path="/home/request" element={<SendReciveLayout />}>
-            <Route path="/home/request" element={<ReceivePage />} />
+
+          <Route path="/home" element={<DashboardLayout />}>
+            <Route path="/home" element={<DashboardPage />} />
+            <Route path="/home/send" element={<SendReciveLayout />}>
+              <Route path="/home/send" element={<SendPage />} />
+            </Route>
+            <Route path="/home/request" element={<SendReciveLayout />}>
+              <Route path="/home/request" element={<ReceivePage />} />
+            </Route>
+            <Route path="/home/deposit" element={<DepositPage />} />
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
       </Provider>
-    </>
+    </ThemeProvider>
   );
 };
 

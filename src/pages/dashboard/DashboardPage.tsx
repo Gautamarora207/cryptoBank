@@ -18,7 +18,7 @@ import {
   DialogTitle,
   DialogContent,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import UploadIcon from "@mui/icons-material/Upload";
 import RequestPageIcon from "@mui/icons-material/RequestPage";
@@ -26,13 +26,23 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, connect, useDispatch } from "react-redux";
+import { networkSelector } from '../../store/selectors';
+import { useTokenBalance } from "../../hooks/useTokenBalance";
+import { CURRENCY_MAP, networkChainIds, networkGasCurrencys, supportedNetworkNames } from "../../constants";
+import { userNetworkLoaded } from "../../store/actions";
+
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
 
   const [address, setAddress] = useState(userAddress === undefined ? "" : userAddress);
+  const [balance, setBalance ] = useState(0);
+
+  let balances = [];
+
+  
 
   const assetBalances = [
     {
@@ -109,6 +119,30 @@ const DashboardPage: React.FC = () => {
     },
   ];
 
+  const dispatch = useDispatch();
+
+  let userNetwork = useSelector(
+    (networkSelector:any) => 
+      networkSelector.user.network === undefined ?  
+      dispatch(userNetworkLoaded({
+        name: supportedNetworkNames[0],
+        chainId: networkChainIds[0],
+        gasCurrency: networkGasCurrencys[0],
+  })).network : networkSelector.user.network );
+  
+
+  // for(let i = 0; i < CURRENCY_MAP[userNetwork.chainId].length)
+  
+  useTokenBalance(
+    CURRENCY_MAP[userNetwork.chainId][userNetwork.gasCurrency.toLowerCase()],
+    userNetwork.gasCurrency.toLowerCase(),
+    address
+  ).then((v) => setBalance(v));
+
+
+  useEffect(() => {
+  }, [userNetwork]);
+
   const [isConnectWalletModalOpen, setIsConnectWalletModalOpen] = useState(
     userAddress === undefined ? false : true
   );
@@ -132,7 +166,7 @@ const DashboardPage: React.FC = () => {
                     Wallet Balance
                   </Typography>
                   <Typography mb={2} variant="h4" component="div">
-                    $0
+                    {userNetwork.gasCurrency+" " +balance} 
                   </Typography>
                   <Link to="/home/deposit" style={{ textDecoration: "none" }}>
                     <Button
@@ -258,7 +292,7 @@ const DashboardPage: React.FC = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             <TableContainer
-              sx={{ borderRadius: 4, height: "100%" }}
+              sx={{ borderRadius: 4, height: "25%", minHeight:"150px" }}
               component={Paper}
               variant="outlined"
             >
@@ -268,15 +302,12 @@ const DashboardPage: React.FC = () => {
                     <TableCell></TableCell>
                     <TableCell align="left">Assets</TableCell>
                     <TableCell align="left">Balance</TableCell>
-                    <TableCell align="left">Credit Available</TableCell>
-                    <TableCell align="left">APR</TableCell>
                     <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {assetBalances.map((item, index) => (
-                    <TableRow
-                      key={index}
+                <TableRow
+                      key={0}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell>
@@ -297,15 +328,13 @@ const DashboardPage: React.FC = () => {
                         </IconButton>
                       </TableCell>
                       <TableCell>
-                        <Box>{item.name}</Box>
-                        <Box>{`${item.percentage}%`}</Box>
+                        <Box>{userNetwork.gasCurrency}</Box>
+                        {/* <Box>{`${item.percentage}%`}</Box> */}
                       </TableCell>
                       <TableCell align="left">
-                        <Box>{item.balance}</Box>
-                        <Box>{`$${item.balanceAmount}`}</Box>
+                        <Box>{balance}</Box>
+                        {/* <Box>{`$${item.balanceAmount}`}</Box> */}
                       </TableCell>
-                      <TableCell align="left">{`$${item.creditAvailable}`}</TableCell>
-                      <TableCell align="left">{`${item.apr}%`}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           color="primary"
@@ -340,7 +369,9 @@ const DashboardPage: React.FC = () => {
                         </IconButton>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  {/* {assetBalances.map((item, index) => (
+                
+                  ))} */}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -575,4 +606,10 @@ const DashboardPage: React.FC = () => {
   );
 };
 
-export default DashboardPage;
+function mapStateToProps(state:any) {
+  return {
+    network: networkSelector(state)
+  }
+}
+
+export default connect(mapStateToProps)(DashboardPage);

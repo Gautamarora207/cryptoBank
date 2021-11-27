@@ -1,0 +1,700 @@
+{
+  "contractName": "ILendingPool",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_reserve",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint16",
+          "name": "_referralCode",
+          "type": "uint16"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_reserve\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"uint16\",\"name\":\"_referralCode\",\"type\":\"uint16\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol\":\"ILendingPool\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol\":{\"keccak256\":\"0x25197e10dce1d85f906d37ebb268dc2fb0c74a9e2fa276ee2acac6b1023237ed\",\"urls\":[\"bzz-raw://866f96ff89b79e6291b116cbf144ece73ae5ad3f4f042af4cdac65356609f8bf\",\"dweb:/ipfs/QmfSoKoYe3zG86QYCAWjkFPoECpJEkYRUBJaSbir52Z3H6\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.5.17;\n\n// Interfaces in this file come from Moola.\n\ninterface IAToken {\n  function redeem(uint256 _amount) external;\n}\n\ninterface ILendingPoolCore {\n  function getReserveATokenAddress(address _reserve)\n    external\n    view\n    returns (address);\n}\n\ninterface ILendingPool {\n  function deposit(\n    address _reserve,\n    uint256 _amount,\n    uint16 _referralCode\n  ) external payable;\n}\n",
+  "sourcePath": "/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol",
+  "ast": {
+    "absolutePath": "/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol",
+    "exportedSymbols": {
+      "IAToken": [
+        2537
+      ],
+      "ILendingPool": [
+        2555
+      ],
+      "ILendingPoolCore": [
+        2545
+      ]
+    },
+    "id": 2556,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2531,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:24:15"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2537,
+        "linearizedBaseContracts": [
+          2537
+        ],
+        "name": "IAToken",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2536,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "redeem",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2534,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2533,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2536,
+                  "src": "142:15:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2532,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "142:7:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "141:17:15"
+            },
+            "returnParameters": {
+              "id": 2535,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "167:0:15"
+            },
+            "scope": 2537,
+            "src": "126:42:15",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2556,
+        "src": "104:66:15"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2545,
+        "linearizedBaseContracts": [
+          2545
+        ],
+        "name": "ILendingPoolCore",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2544,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getReserveATokenAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2540,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2539,
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "236:16:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2538,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "236:7:15",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "235:18:15"
+            },
+            "returnParameters": {
+              "id": 2543,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2542,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "289:7:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2541,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "289:7:15",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "288:9:15"
+            },
+            "scope": 2545,
+            "src": "203:95:15",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2556,
+        "src": "172:128:15"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2555,
+        "linearizedBaseContracts": [
+          2555
+        ],
+        "name": "ILendingPool",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2554,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2552,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2547,
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2554,
+                  "src": "351:16:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2546,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "351:7:15",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2549,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2554,
+                  "src": "373:15:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2548,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "373:7:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2551,
+                  "name": "_referralCode",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2554,
+                  "src": "394:20:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint16",
+                    "typeString": "uint16"
+                  },
+                  "typeName": {
+                    "id": 2550,
+                    "name": "uint16",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "394:6:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint16",
+                      "typeString": "uint16"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "345:73:15"
+            },
+            "returnParameters": {
+              "id": 2553,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "435:0:15"
+            },
+            "scope": 2555,
+            "src": "329:107:15",
+            "stateMutability": "payable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2556,
+        "src": "302:136:15"
+      }
+    ],
+    "src": "33:406:15"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol",
+    "exportedSymbols": {
+      "IAToken": [
+        2537
+      ],
+      "ILendingPool": [
+        2555
+      ],
+      "ILendingPoolCore": [
+        2545
+      ]
+    },
+    "id": 2556,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2531,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:24:15"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2537,
+        "linearizedBaseContracts": [
+          2537
+        ],
+        "name": "IAToken",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2536,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "redeem",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2534,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2533,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2536,
+                  "src": "142:15:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2532,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "142:7:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "141:17:15"
+            },
+            "returnParameters": {
+              "id": 2535,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "167:0:15"
+            },
+            "scope": 2537,
+            "src": "126:42:15",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2556,
+        "src": "104:66:15"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2545,
+        "linearizedBaseContracts": [
+          2545
+        ],
+        "name": "ILendingPoolCore",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2544,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getReserveATokenAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2540,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2539,
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "236:16:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2538,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "236:7:15",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "235:18:15"
+            },
+            "returnParameters": {
+              "id": 2543,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2542,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2544,
+                  "src": "289:7:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2541,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "289:7:15",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "288:9:15"
+            },
+            "scope": 2545,
+            "src": "203:95:15",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2556,
+        "src": "172:128:15"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 2555,
+        "linearizedBaseContracts": [
+          2555
+        ],
+        "name": "ILendingPool",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "id": 2554,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2552,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2547,
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2554,
+                  "src": "351:16:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2546,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "351:7:15",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2549,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2554,
+                  "src": "373:15:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2548,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "373:7:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2551,
+                  "name": "_referralCode",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2554,
+                  "src": "394:20:15",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint16",
+                    "typeString": "uint16"
+                  },
+                  "typeName": {
+                    "id": 2550,
+                    "name": "uint16",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "394:6:15",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint16",
+                      "typeString": "uint16"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "345:73:15"
+            },
+            "returnParameters": {
+              "id": 2553,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "435:0:15"
+            },
+            "scope": 2555,
+            "src": "329:107:15",
+            "stateMutability": "payable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 2556,
+        "src": "302:136:15"
+      }
+    ],
+    "src": "33:406:15"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.2.3",
+  "updatedAt": "2021-11-21T05:39:00.676Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

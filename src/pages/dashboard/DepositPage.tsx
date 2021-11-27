@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
+
 import SendReceiveSvg from "../../assets/images/hero.png";
 
 const DepositPage: React.FC = () => {

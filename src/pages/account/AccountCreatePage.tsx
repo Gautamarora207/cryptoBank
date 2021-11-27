@@ -29,7 +29,7 @@ const AccountCreatePage: React.FC = () => {
   let account = web3.eth.accounts.create(web3.utils.randomHex(32));
 
   let wallet = web3.eth.accounts.wallet.add(account);
-  let keystore = wallet.encrypt(web3.utils.randomHex(32));
+  // let keystore = wallet.encrypt(web3.utils.randomHex(32));
 
   const dispatch = useDispatch();
 

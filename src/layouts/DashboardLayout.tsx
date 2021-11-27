@@ -12,11 +12,9 @@ import {
   Select,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { networkData, supportedNetworkNames } from "../constants";
+import { networkChainIds, networkGasCurrencys, supportedNetworkNames } from "../constants";
 import { userNetworkLoaded } from "../store/actions";
 
-
-import DashboardNavbar from "../components/DashboardNavbar";
 
 const DashboardLayout: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +22,16 @@ const DashboardLayout: React.FC = () => {
   
   const dispatch = useDispatch();
 
-  const [selectedNetwork, setSelectedNetwork]= useState(0);
+  let userNetwork = useSelector(
+    (networkSelector:any) => 
+      networkSelector.user.network === undefined ?  
+      dispatch(userNetworkLoaded({
+        name: supportedNetworkNames[0],
+        chainId: networkChainIds[0],
+        gasCurrency: networkGasCurrencys[0],
+  })).network : networkSelector.user.network );
+
+  const [selectedNetwork, setSelectedNetwork]= useState(supportedNetworkNames.indexOf(userNetwork.name));
 
 
   useEffect(() => {
@@ -75,77 +82,100 @@ const DashboardLayout: React.FC = () => {
   const handleNetworkChange = (v:any) => {
     setSelectedNetwork(v);
     dispatch(userNetworkLoaded({
-      name: supportedNetworkNames[v]
+      name: supportedNetworkNames[v],
+      chainId: networkChainIds[v],
+      gasCurrency: networkGasCurrencys[v],
     }))
     handleAccountMenuClose();
   }
 
   return (
     <Container maxWidth="xl">
-      <Box display="flex" alignItems="center" py={2} mb={12}>
-        <Box flex="1">
-          <Link to="/" style={{ textDecoration: "none" }}>
+      <Box
+      display="flex"
+      flexDirection={{ xs: "column", md: "row" }}
+      gap={2}
+      alignItems="center"
+      py={2}
+      mb={{ xs: 2, md: 12 }}
+    >
+      <Box flex="1" order={1}>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Typography
+            fontWeight="bold"
+            variant="h5"
+            component="div"
+            color="text.primary"
+            sx={{ textTransform: "uppercase" }}
+          >
+            Conceal{" "}
             <Typography
-              fontWeight="bold"
+              component="span"
               variant="h5"
-              component="div"
-              color="text.primary"
-              sx={{ textTransform: "uppercase" }}
+              fontWeight="bold"
+              color="primary"
             >
-              Conceal{" "}
-              <Typography
-                component="span"
-                variant="h5"
-                fontWeight="bold"
-                color="primary"
-              >
-                Protocol
-              </Typography>
+              Protocol
             </Typography>
-          </Link>
-        </Box>
+          </Typography>
+        </Link>
+      </Box>
 
-        <Box display="flex" flex="1" justifyContent="center" gap={2}>
-          <Link to="/home" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Portfolio
-            </Typography>
-          </Link>
+      <Box
+        display="flex"
+        flex="1"
+        justifyContent="center"
+        gap={2}
+        order={{ xs: 3, md: 2 }}
+      >
+        <Link to="/home" style={{ textDecoration: "none" }}>
+          <Typography
+            color="text.primary"
+            sx={[
+              {
+                "&:hover": { color: "primary.main" },
+              },
+            ]}
+          >
+            Portfolio
+          </Typography>
+        </Link>
 
-          <Link to="/home/send" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Send & Request
-            </Typography>
-          </Link>
+        <Link to="/home/send" style={{ textDecoration: "none" }}>
+          <Typography
+            color="text.primary"
+            sx={[
+              {
+                "&:hover": { color: "primary.main" },
+              },
+            ]}
+          >
+            Send & Request
+          </Typography>
+        </Link>
 
-          <Link to="/home" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Docs
-            </Typography>
-          </Link>
-        </Box>
+        <Link to="/home" style={{ textDecoration: "none" }}>
+          <Typography
+            color="text.primary"
+            sx={[
+              {
+                "&:hover": { color: "primary.main" },
+              },
+            ]}
+          >
+            Docs
+          </Typography>
+        </Link>
+      </Box>
+     
 
+      <Box
+        display="flex"
+        flex="1"
+        justifyContent="flex-end"
+        gap={2}
+        order={{ xs: 2, md: 3 }}
+      >
         <Box display="flex" flex="1" justifyContent="flex-end" gap={2}>
           <Box>
             <Button
@@ -167,7 +197,7 @@ const DashboardLayout: React.FC = () => {
               defaultValue={selectedNetwork}
             >
              {supportedNetworkNames.map((network:any) => (
-                <MenuItem onClick={() => handleNetworkChange(supportedNetworkNames.indexOf(network))}>{network}</MenuItem>
+                <MenuItem key={network} onClick={() => handleNetworkChange(supportedNetworkNames.indexOf(network))}>{network}</MenuItem>
              ))}    
             </Menu>
           </Box>
@@ -199,6 +229,7 @@ const DashboardLayout: React.FC = () => {
             </Menu>
           </Box>
         </Box> 
+      </Box>
       </Box>
 
       <Outlet />

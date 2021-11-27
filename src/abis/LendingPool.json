@@ -1,0 +1,1212 @@
+{
+  "contractName": "LendingPool",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract LendingPoolCore",
+          "name": "_core",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_reserve",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint16",
+          "name": "_moolaReferralCode",
+          "type": "uint16"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.17+commit.d19bba13\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract LendingPoolCore\",\"name\":\"_core\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_reserve\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"uint16\",\"name\":\"_moolaReferralCode\",\"type\":\"uint16\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPool.sol\":\"LendingPool\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/gautam/Documents/poof-core/contracts/Mocks/ERC20Mock.sol\":{\"keccak256\":\"0x36fa1db6e79d0cd232138f103f33a2dcf0d328bb8831d05f7acce859feb2ebea\",\"urls\":[\"bzz-raw://f540ed91944f0f1c1b5308d79022ca6446043787c1159478d32fac12148db1cb\",\"dweb:/ipfs/QmWQ9kLDn5PgWinhKu2ouRi2AqDdgPXDoqA3AYdV4PUJi4\"]},\"/Users/gautam/Documents/poof-core/contracts/Mocks/moola/AToken.sol\":{\"keccak256\":\"0x8325c54259cf62742a2e0def337ae04a95c317ebc1b298f38299acc9179c7289\",\"urls\":[\"bzz-raw://09e0e74569320724bfad6d6e54e713741e25dc6ea767d523ca62b3c5d077681a\",\"dweb:/ipfs/QmV28dyx3dvTPm5utBTD4EiHoYWX5mSbnjF2waYEcZ6LDL\"]},\"/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPool.sol\":{\"keccak256\":\"0x1dadd462cb8892faf78b9fb5a845ef2445b6859fb5a1de9f68af4fca6f607a56\",\"urls\":[\"bzz-raw://471b089d512e9ef724b86884be610eefa0ea1830c839a5e25e1e669ef7b41460\",\"dweb:/ipfs/QmRwwhgVyyNtuXgejdZPVQ8sMpRKtV8eiWgYXrda3UZAs4\"]},\"/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPoolCore.sol\":{\"keccak256\":\"0x69e9b8db20edf16de7d1c5e19cc8f118ccb292ad84a83086a8c3c3f171d8b753\",\"urls\":[\"bzz-raw://c4b5e9ce1c6a25ad3ea46bd48b2504cc8e343af4e311c9260ecfb92ce90c1f49\",\"dweb:/ipfs/QmZgquTD1Cf33Bz3pXUhoKeoZvrDQVFJ37ApFRhdHZtDJQ\"]},\"/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol\":{\"keccak256\":\"0x25197e10dce1d85f906d37ebb268dc2fb0c74a9e2fa276ee2acac6b1023237ed\",\"urls\":[\"bzz-raw://866f96ff89b79e6291b116cbf144ece73ae5ad3f4f042af4cdac65356609f8bf\",\"dweb:/ipfs/QmfSoKoYe3zG86QYCAWjkFPoECpJEkYRUBJaSbir52Z3H6\"]},\"@openzeppelin/contracts/GSN/Context.sol\":{\"keccak256\":\"0x90a3995645af7562d84b9d69363ffa5ae7217714ab61e951bf7bc450f40e4061\",\"urls\":[\"bzz-raw://216ef9d6b614db4eb46970b4e84903f2534a45572dd30a79f0041f1a5830f436\",\"dweb:/ipfs/QmNPrJ4MWKUAWzKXpUqeyKRUfosaoANZAqXgvepdrCwZAG\"]},\"@openzeppelin/contracts/access/Roles.sol\":{\"keccak256\":\"0xb002c378d7b82a101bd659c341518953ca0919d342c0a400196982c0e7e7bcdb\",\"urls\":[\"bzz-raw://00a788c4631466c220b385bdd100c571d24b2deccd657615cfbcef6cadf669a4\",\"dweb:/ipfs/QmTEwDbjJNxmMNCDMqtuou3dyM8Wtp8Q9NFvn7SAVM7Jf3\"]},\"@openzeppelin/contracts/access/roles/MinterRole.sol\":{\"keccak256\":\"0xbe8eef6f2cb4e427f5c5d8a76865ccd06e55a4f1d6671ba312d45bfa705aedbf\",\"urls\":[\"bzz-raw://badf338a5e22c8658c01fe2ce89b487d9dbf6d2d9d5eb49df7415383e2498765\",\"dweb:/ipfs/QmP5aMkvFwMJyuQjKE8ADh5tkWYqonb4KjgkAjgYEVVFAv\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0x640b6dee7a4b830bdfd52b5031a07fc2b12209f5b2e29e5d364a7d37f69d8076\",\"urls\":[\"bzz-raw://31113152e1ddb78fe7a4197f247591ca894e93f916867beb708d8e747b6cc74f\",\"dweb:/ipfs/QmbZaJyXdpsYGykVhHH9qpVGQg9DGCxE2QufbCUy3daTgq\"]},\"@openzeppelin/contracts/token/ERC20/ERC20.sol\":{\"keccak256\":\"0xb15af804e2bc97db51e4e103f13de9fe13f87e6b835d7a88c897966c0e58506e\",\"urls\":[\"bzz-raw://1e8cff8437557fc915a3bed968fcd8f2df9809599e665ef69c2c9ce628548055\",\"dweb:/ipfs/QmP5spYP8vs2jvLF8zNrXUbqB79hMsoEvMHiLcBxerWKcm\"]},\"@openzeppelin/contracts/token/ERC20/ERC20Detailed.sol\":{\"keccak256\":\"0x4a3a810b7ebe742e897e1fd428b3eeed2196d3acea58eaf9c566ed10d545d2ed\",\"urls\":[\"bzz-raw://28d03f328e19e4099d5013de0649afaeaabac1a614e130767ab1cb4aca9775b6\",\"dweb:/ipfs/Qmb9iW7yNuYehB2NfhRMs9TakqbLVQhBhmGMkaDZ5g1Eb4\"]},\"@openzeppelin/contracts/token/ERC20/ERC20Mintable.sol\":{\"keccak256\":\"0xa2b957cf89692c504962afb7506999155f83385373f808243246cd5879de5940\",\"urls\":[\"bzz-raw://c44ae0ad1bce141c33b962f8b4e9228bdf8df36c8ac363b4f0bf9498b8bfc32a\",\"dweb:/ipfs/QmcSBRdFwVvy2wFZrBwo5cvqNP4UHh9Eyzf8jnxBgnPqfe\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0xe5bb0f57cff3e299f360052ba50f1ea0fff046df2be070b6943e0e3c3fdad8a9\",\"urls\":[\"bzz-raw://59fd025151435da35faa8093a5c7a17de02de9d08ad27275c5cdf05050820d91\",\"dweb:/ipfs/QmQMvwEcPhoRXzbXyrdoeRtvLoifUW9Qh7Luho7bmUPRkc\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516101fe3803806101fe8339818101604052602081101561003357600080fd5b5051600080546001600160a01b039092166001600160a01b0319909216919091179055610199806100656000396000f3fe60806040526004361061001e5760003560e01c8063d2d0e06614610023575b600080fd5b6100596004803603606081101561003957600080fd5b5080356001600160a01b0316906020810135906040013561ffff1661005b565b005b6000809054906101000a90046001600160a01b03166001600160a01b031663fc0c546a6040518163ffffffff1660e01b815260040160206040518083038186803b1580156100a857600080fd5b505afa1580156100bc573d6000803e3d6000fd5b505050506040513d60208110156100d257600080fd5b50516001600160a01b0384811691161480156100f357508061ffff16610fa5145b1561015f5760008054604080516311f9fbc960e21b81523360048201526024810186905290516001600160a01b03909216926347e7ef249260448084019382900301818387803b15801561014657600080fd5b505af115801561015a573d6000803e3d6000fd5b505050505b50505056fea265627a7a72315820a976127b806775ec294cfec5c9be709f7ae721af2d9043165af5dd3ef63b2cda64736f6c63430005110032",
+  "deployedBytecode": "0x60806040526004361061001e5760003560e01c8063d2d0e06614610023575b600080fd5b6100596004803603606081101561003957600080fd5b5080356001600160a01b0316906020810135906040013561ffff1661005b565b005b6000809054906101000a90046001600160a01b03166001600160a01b031663fc0c546a6040518163ffffffff1660e01b815260040160206040518083038186803b1580156100a857600080fd5b505afa1580156100bc573d6000803e3d6000fd5b505050506040513d60208110156100d257600080fd5b50516001600160a01b0384811691161480156100f357508061ffff16610fa5145b1561015f5760008054604080516311f9fbc960e21b81523360048201526024810186905290516001600160a01b03909216926347e7ef249260448084019382900301818387803b15801561014657600080fd5b505af115801561015a573d6000803e3d6000fd5b505050505b50505056fea265627a7a72315820a976127b806775ec294cfec5c9be709f7ae721af2d9043165af5dd3ef63b2cda64736f6c63430005110032",
+  "sourceMap": "96:352:11:-;;;146:66;8:9:-1;5:2;;;30:1;27;20:12;5:2;146:66:11;;;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;146:66:11;195:4;:12;;-1:-1:-1;;;;;195:12:11;;;-1:-1:-1;;;;;;195:12:11;;;;;;;;;96:352;;;;;;",
+  "deployedSourceMap": "96:352:11:-;;;;;;;;;;;;;;;;;;;;;216:230;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;216:230:11;;-1:-1:-1;;;;;216:230:11;;;;;;;;;;;;;:::i;:::-;;;350:4;;;;;;;;;-1:-1:-1;;;;;350:4:11;-1:-1:-1;;;;;350:10:11;;:12;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;350:12:11;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;350:12:11;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;350:12:11;-1:-1:-1;;;;;338:24:11;;;;;;:54;;;;;366:18;:26;;388:4;366:26;338:54;334:108;;;402:4;;;:33;;;-1:-1:-1;;;402:33:11;;415:10;402:33;;;;;;;;;;;;-1:-1:-1;;;;;402:4:11;;;;:12;;:33;;;;;;;;;;:4;;:33;;;5:2:-1;;;;30:1;27;20:12;5:2;402:33:11;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;402:33:11;;;;334:108;216:230;;;:::o",
+  "source": "pragma solidity ^0.5.0;\n\nimport \"../../interfaces/IMoola.sol\";\nimport \"./LendingPoolCore.sol\";\n\ncontract LendingPool {\n  LendingPoolCore core;\n\n  constructor (LendingPoolCore _core) public {\n    core = _core;\n  }\n\n  function deposit(\n    address _reserve,\n    uint256 _amount,\n    uint16 _moolaReferralCode\n  ) external payable {\n    if (_reserve == core.token() && _moolaReferralCode == 4005) {\n      core.deposit(msg.sender, _amount);\n    }\n  }\n}\n\n\n",
+  "sourcePath": "/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPool.sol",
+  "ast": {
+    "absolutePath": "/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPool.sol",
+    "exportedSymbols": {
+      "LendingPool": [
+        1333
+      ]
+    },
+    "id": 1334,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1289,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:11"
+      },
+      {
+        "absolutePath": "/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol",
+        "file": "../../interfaces/IMoola.sol",
+        "id": 1290,
+        "nodeType": "ImportDirective",
+        "scope": 1334,
+        "sourceUnit": 2556,
+        "src": "25:37:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPoolCore.sol",
+        "file": "./LendingPoolCore.sol",
+        "id": 1291,
+        "nodeType": "ImportDirective",
+        "scope": 1334,
+        "sourceUnit": 1411,
+        "src": "63:31:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1333,
+        "linearizedBaseContracts": [
+          1333
+        ],
+        "name": "LendingPool",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1293,
+            "name": "core",
+            "nodeType": "VariableDeclaration",
+            "scope": 1333,
+            "src": "121:20:11",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+              "typeString": "contract LendingPoolCore"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1292,
+              "name": "LendingPoolCore",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1410,
+              "src": "121:15:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                "typeString": "contract LendingPoolCore"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1302,
+              "nodeType": "Block",
+              "src": "189:23:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1300,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1298,
+                      "name": "core",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1293,
+                      "src": "195:4:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                        "typeString": "contract LendingPoolCore"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1299,
+                      "name": "_core",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1295,
+                      "src": "202:5:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                        "typeString": "contract LendingPoolCore"
+                      }
+                    },
+                    "src": "195:12:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                      "typeString": "contract LendingPoolCore"
+                    }
+                  },
+                  "id": 1301,
+                  "nodeType": "ExpressionStatement",
+                  "src": "195:12:11"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1303,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1296,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1295,
+                  "name": "_core",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "159:21:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                    "typeString": "contract LendingPoolCore"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 1294,
+                    "name": "LendingPoolCore",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 1410,
+                    "src": "159:15:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                      "typeString": "contract LendingPoolCore"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "158:23:11"
+            },
+            "returnParameters": {
+              "id": 1297,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "189:0:11"
+            },
+            "scope": 1333,
+            "src": "146:66:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1331,
+              "nodeType": "Block",
+              "src": "328:118:11",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "id": 1320,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "commonType": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      },
+                      "id": 1316,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "argumentTypes": null,
+                        "id": 1312,
+                        "name": "_reserve",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1305,
+                        "src": "338:8:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "==",
+                      "rightExpression": {
+                        "argumentTypes": null,
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 1313,
+                            "name": "core",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1293,
+                            "src": "350:4:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                              "typeString": "contract LendingPoolCore"
+                            }
+                          },
+                          "id": 1314,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "token",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 1345,
+                          "src": "350:10:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
+                            "typeString": "function () view external returns (address)"
+                          }
+                        },
+                        "id": 1315,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "350:12:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "src": "338:24:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "&&",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "commonType": {
+                        "typeIdentifier": "t_uint16",
+                        "typeString": "uint16"
+                      },
+                      "id": 1319,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "argumentTypes": null,
+                        "id": 1317,
+                        "name": "_moolaReferralCode",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1309,
+                        "src": "366:18:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint16",
+                          "typeString": "uint16"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "==",
+                      "rightExpression": {
+                        "argumentTypes": null,
+                        "hexValue": "34303035",
+                        "id": 1318,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "388:4:11",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_4005_by_1",
+                          "typeString": "int_const 4005"
+                        },
+                        "value": "4005"
+                      },
+                      "src": "366:26:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "338:54:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 1330,
+                  "nodeType": "IfStatement",
+                  "src": "334:108:11",
+                  "trueBody": {
+                    "id": 1329,
+                    "nodeType": "Block",
+                    "src": "394:48:11",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "expression": {
+                                "argumentTypes": null,
+                                "id": 1324,
+                                "name": "msg",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 3857,
+                                "src": "415:3:11",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_magic_message",
+                                  "typeString": "msg"
+                                }
+                              },
+                              "id": 1325,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "sender",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": null,
+                              "src": "415:10:11",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address_payable",
+                                "typeString": "address payable"
+                              }
+                            },
+                            {
+                              "argumentTypes": null,
+                              "id": 1326,
+                              "name": "_amount",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1307,
+                              "src": "427:7:11",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_address_payable",
+                                "typeString": "address payable"
+                              },
+                              {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 1321,
+                              "name": "core",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1293,
+                              "src": "402:4:11",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                                "typeString": "contract LendingPoolCore"
+                              }
+                            },
+                            "id": 1323,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "deposit",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 1409,
+                            "src": "402:12:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$__$",
+                              "typeString": "function (address,uint256) external"
+                            }
+                          },
+                          "id": 1327,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "402:33:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 1328,
+                        "nodeType": "ExpressionStatement",
+                        "src": "402:33:11"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1332,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1310,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1305,
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "238:16:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1304,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "238:7:11",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1307,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "260:15:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1306,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "260:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1309,
+                  "name": "_moolaReferralCode",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "281:25:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint16",
+                    "typeString": "uint16"
+                  },
+                  "typeName": {
+                    "id": 1308,
+                    "name": "uint16",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "281:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint16",
+                      "typeString": "uint16"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "232:78:11"
+            },
+            "returnParameters": {
+              "id": 1311,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "328:0:11"
+            },
+            "scope": 1333,
+            "src": "216:230:11",
+            "stateMutability": "payable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1334,
+        "src": "96:352:11"
+      }
+    ],
+    "src": "0:451:11"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPool.sol",
+    "exportedSymbols": {
+      "LendingPool": [
+        1333
+      ]
+    },
+    "id": 1334,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1289,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:11"
+      },
+      {
+        "absolutePath": "/Users/gautam/Documents/poof-core/contracts/interfaces/IMoola.sol",
+        "file": "../../interfaces/IMoola.sol",
+        "id": 1290,
+        "nodeType": "ImportDirective",
+        "scope": 1334,
+        "sourceUnit": 2556,
+        "src": "25:37:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/gautam/Documents/poof-core/contracts/Mocks/moola/LendingPoolCore.sol",
+        "file": "./LendingPoolCore.sol",
+        "id": 1291,
+        "nodeType": "ImportDirective",
+        "scope": 1334,
+        "sourceUnit": 1411,
+        "src": "63:31:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1333,
+        "linearizedBaseContracts": [
+          1333
+        ],
+        "name": "LendingPool",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1293,
+            "name": "core",
+            "nodeType": "VariableDeclaration",
+            "scope": 1333,
+            "src": "121:20:11",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+              "typeString": "contract LendingPoolCore"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1292,
+              "name": "LendingPoolCore",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1410,
+              "src": "121:15:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                "typeString": "contract LendingPoolCore"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1302,
+              "nodeType": "Block",
+              "src": "189:23:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1300,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1298,
+                      "name": "core",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1293,
+                      "src": "195:4:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                        "typeString": "contract LendingPoolCore"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1299,
+                      "name": "_core",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1295,
+                      "src": "202:5:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                        "typeString": "contract LendingPoolCore"
+                      }
+                    },
+                    "src": "195:12:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                      "typeString": "contract LendingPoolCore"
+                    }
+                  },
+                  "id": 1301,
+                  "nodeType": "ExpressionStatement",
+                  "src": "195:12:11"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1303,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1296,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1295,
+                  "name": "_core",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1303,
+                  "src": "159:21:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                    "typeString": "contract LendingPoolCore"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 1294,
+                    "name": "LendingPoolCore",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 1410,
+                    "src": "159:15:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                      "typeString": "contract LendingPoolCore"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "158:23:11"
+            },
+            "returnParameters": {
+              "id": 1297,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "189:0:11"
+            },
+            "scope": 1333,
+            "src": "146:66:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1331,
+              "nodeType": "Block",
+              "src": "328:118:11",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "id": 1320,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "commonType": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      },
+                      "id": 1316,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "argumentTypes": null,
+                        "id": 1312,
+                        "name": "_reserve",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1305,
+                        "src": "338:8:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "==",
+                      "rightExpression": {
+                        "argumentTypes": null,
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 1313,
+                            "name": "core",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1293,
+                            "src": "350:4:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                              "typeString": "contract LendingPoolCore"
+                            }
+                          },
+                          "id": 1314,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "token",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 1345,
+                          "src": "350:10:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_view$__$returns$_t_address_$",
+                            "typeString": "function () view external returns (address)"
+                          }
+                        },
+                        "id": 1315,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "350:12:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "src": "338:24:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "&&",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "commonType": {
+                        "typeIdentifier": "t_uint16",
+                        "typeString": "uint16"
+                      },
+                      "id": 1319,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "argumentTypes": null,
+                        "id": 1317,
+                        "name": "_moolaReferralCode",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1309,
+                        "src": "366:18:11",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint16",
+                          "typeString": "uint16"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "==",
+                      "rightExpression": {
+                        "argumentTypes": null,
+                        "hexValue": "34303035",
+                        "id": 1318,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "388:4:11",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_4005_by_1",
+                          "typeString": "int_const 4005"
+                        },
+                        "value": "4005"
+                      },
+                      "src": "366:26:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "338:54:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": null,
+                  "id": 1330,
+                  "nodeType": "IfStatement",
+                  "src": "334:108:11",
+                  "trueBody": {
+                    "id": 1329,
+                    "nodeType": "Block",
+                    "src": "394:48:11",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "expression": {
+                                "argumentTypes": null,
+                                "id": 1324,
+                                "name": "msg",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 3857,
+                                "src": "415:3:11",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_magic_message",
+                                  "typeString": "msg"
+                                }
+                              },
+                              "id": 1325,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberName": "sender",
+                              "nodeType": "MemberAccess",
+                              "referencedDeclaration": null,
+                              "src": "415:10:11",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address_payable",
+                                "typeString": "address payable"
+                              }
+                            },
+                            {
+                              "argumentTypes": null,
+                              "id": 1326,
+                              "name": "_amount",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1307,
+                              "src": "427:7:11",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_address_payable",
+                                "typeString": "address payable"
+                              },
+                              {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 1321,
+                              "name": "core",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1293,
+                              "src": "402:4:11",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_contract$_LendingPoolCore_$1410",
+                                "typeString": "contract LendingPoolCore"
+                              }
+                            },
+                            "id": 1323,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "deposit",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 1409,
+                            "src": "402:12:11",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$__$",
+                              "typeString": "function (address,uint256) external"
+                            }
+                          },
+                          "id": 1327,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "402:33:11",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 1328,
+                        "nodeType": "ExpressionStatement",
+                        "src": "402:33:11"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1332,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1310,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1305,
+                  "name": "_reserve",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "238:16:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1304,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "238:7:11",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1307,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "260:15:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1306,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "260:7:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1309,
+                  "name": "_moolaReferralCode",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1332,
+                  "src": "281:25:11",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint16",
+                    "typeString": "uint16"
+                  },
+                  "typeName": {
+                    "id": 1308,
+                    "name": "uint16",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "281:6:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint16",
+                      "typeString": "uint16"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "232:78:11"
+            },
+            "returnParameters": {
+              "id": 1311,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "328:0:11"
+            },
+            "scope": 1333,
+            "src": "216:230:11",
+            "stateMutability": "payable",
+            "superFunction": null,
+            "visibility": "external"
+          }
+        ],
+        "scope": 1334,
+        "src": "96:352:11"
+      }
+    ],
+    "src": "0:451:11"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.17+commit.d19bba13.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.2.3",
+  "updatedAt": "2021-11-21T05:39:00.577Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

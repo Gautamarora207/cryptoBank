@@ -42,58 +42,6 @@ const DashboardPage: React.FC = () => {
 
   let balances = [];
 
-  
-
-  const assetBalances = [
-    {
-      name: "CELO",
-      percentage: "0",
-      balance: "0",
-      balanceAmount: "0",
-      creditAvailable: "0",
-      apr: "0.00002",
-    },
-    {
-      name: "cUSD",
-      percentage: "0",
-      balance: "0",
-      balanceAmount: "0",
-      creditAvailable: "0",
-      apr: "1.4449",
-    },
-    {
-      name: "cEUR",
-      percentage: "0",
-      balance: "0",
-      balanceAmount: "0",
-      creditAvailable: "0",
-      apr: "0.42996",
-    },
-    {
-      name: "CELO",
-      percentage: "0",
-      balance: "0",
-      balanceAmount: "0",
-      creditAvailable: "0",
-      apr: "0.00002",
-    },
-    {
-      name: "cUSD",
-      percentage: "0",
-      balance: "0",
-      balanceAmount: "0",
-      creditAvailable: "0",
-      apr: "1.4449",
-    },
-    {
-      name: "cEUR",
-      percentage: "0",
-      balance: "0",
-      balanceAmount: "0",
-      creditAvailable: "0",
-      apr: "0.42996",
-    },
-  ];
 
   const wallets = [
     {
@@ -129,15 +77,21 @@ const DashboardPage: React.FC = () => {
         chainId: networkChainIds[0],
         gasCurrency: networkGasCurrencys[0],
   })).network : networkSelector.user.network );
-  
 
-  // for(let i = 0; i < CURRENCY_MAP[userNetwork.chainId].length)
-  
+  Object.values(CURRENCY_MAP[userNetwork.chainId]);
+
   useTokenBalance(
-    CURRENCY_MAP[userNetwork.chainId][userNetwork.gasCurrency.toLowerCase()],
+    CURRENCY_MAP[userNetwork.chainId][userNetwork.gasCurrency],
     userNetwork.gasCurrency.toLowerCase(),
     address
   ).then((v) => setBalance(v));
+  
+  for(var key in CURRENCY_MAP[userNetwork.chainId]) {
+    balances.push({
+      name:key,
+      balance: balance,
+    })
+  }  
 
 
   useEffect(() => {
@@ -292,7 +246,7 @@ const DashboardPage: React.FC = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             <TableContainer
-              sx={{ borderRadius: 4, height: "25%", minHeight:"150px" }}
+              sx={{ borderRadius: 4, height: balances.length > 1 ? "60%" : "25%", minHeight:"150px" }}
               component={Paper}
               variant="outlined"
             >
@@ -306,72 +260,72 @@ const DashboardPage: React.FC = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                <TableRow
-                      key={0}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell>
-                        <IconButton
-                          color="success"
-                          sx={[
-                            {
-                              background: "rgba(102, 187, 106, 0.08)",
-                            },
-                            {
-                              "&:hover": {
-                                background: "rgba(255, 255, 255, 0.08)",
-                              },
-                            },
-                          ]}
-                        >
-                          <MonetizationOnIcon />
-                        </IconButton>
-                      </TableCell>
-                      <TableCell>
-                        <Box>{userNetwork.gasCurrency}</Box>
-                        {/* <Box>{`${item.percentage}%`}</Box> */}
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box>{balance}</Box>
-                        {/* <Box>{`$${item.balanceAmount}`}</Box> */}
-                      </TableCell>
-                      <TableCell align="right">
-                        <IconButton
-                          color="primary"
-                          sx={[
-                            {
-                              background: "rgba(255, 255, 64, 0.08)",
-                              mr: 1,
-                            },
-                            {
-                              "&:hover": {
-                                background: "rgba(255, 255, 255, 0.02)",
-                              },
-                            },
-                          ]}
-                        >
-                          <GetAppIcon />
-                        </IconButton>
-                        <IconButton
-                          color="primary"
-                          sx={[
-                            {
-                              background: "rgba(255, 255, 64, 0.08)",
-                            },
-                            {
-                              "&:hover": {
-                                background: "rgba(255, 255, 255, 0.2)",
-                              },
-                            },
-                          ]}
-                        >
-                          <UploadIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  {/* {assetBalances.map((item, index) => (
-                
-                  ))} */}
+               
+                  {balances.map((item, index) => (
+                     <TableRow
+                     key={index}
+                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                   >
+                     <TableCell>
+                       <IconButton
+                         color="success"
+                         sx={[
+                           {
+                             background: "rgba(102, 187, 106, 0.08)",
+                           },
+                           {
+                             "&:hover": {
+                               background: "rgba(255, 255, 255, 0.08)",
+                             },
+                           },
+                         ]}
+                       >
+                         <MonetizationOnIcon />
+                       </IconButton>
+                     </TableCell>
+                     <TableCell>
+                       <Box>{item.name}</Box>
+                       {/* <Box>{`${item.percentage}%`}</Box> */}
+                     </TableCell>
+                     <TableCell align="left">
+                       <Box>{item.balance}</Box>
+                       {/* <Box>{`$${item.balanceAmount}`}</Box> */}
+                     </TableCell>
+                     <TableCell align="right">
+                       <IconButton
+                         color="primary"
+                         sx={[
+                           {
+                             background: "rgba(255, 255, 64, 0.08)",
+                             mr: 1,
+                           },
+                           {
+                             "&:hover": {
+                               background: "rgba(255, 255, 255, 0.02)",
+                             },
+                           },
+                         ]}
+                       >
+                         <GetAppIcon />
+                       </IconButton>
+                       <IconButton
+                         color="primary"
+                         sx={[
+                           {
+                             background: "rgba(255, 255, 64, 0.08)",
+                           },
+                           {
+                             "&:hover": {
+                               background: "rgba(255, 255, 255, 0.2)",
+                             },
+                           },
+                         ]}
+                       >
+                         <UploadIcon />
+                       </IconButton>
+                     </TableCell>
+                   </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -551,7 +505,6 @@ const DashboardPage: React.FC = () => {
           </Grid>
         </Grid>
       </Box>
-
       <Dialog
         onClose={handleConnectWalletModalClose}
         open={isConnectWalletModalOpen}
@@ -613,3 +566,4 @@ function mapStateToProps(state:any) {
 }
 
 export default connect(mapStateToProps)(DashboardPage);
+

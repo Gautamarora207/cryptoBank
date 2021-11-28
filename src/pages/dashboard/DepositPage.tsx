@@ -1,3 +1,5 @@
+import { ChainId, images, SupportedProviders } from "@celo-tools/use-contractkit";
+import { defaultScreens } from "@celo-tools/use-contractkit/lib/screens";
 import {
   Box,
   Typography,
@@ -11,13 +13,65 @@ import {
   MenuItem,
   TextField,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
 } from "@mui/material";
-import React from "react";
-
-
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import SendReceiveSvg from "../../assets/images/hero.png";
+import { CURRENCY_MAP } from "../../constants";
+import { useDeposit } from "../../hooks/writeContract";
+import { getNotes } from "../../utils/notes";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import CloseIcon from "@mui/icons-material/Close";
+
 
 const DepositPage: React.FC = () => {
+  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
+
+  const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
+  const [amount, setAmount ] = useState("0");
+  const [notes, setNotes] = useState([]);
+
+  const privateKey :any = localStorage.getItem("userPrivateKey");
+
+  let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
+
+  let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
+ 
+
+  function getNotesForDeposit() {
+    
+
+    if(userNetwork.chainId == ChainId.Mainnet) {
+      const notes:any = getNotes(amount,currentSupportedCurrencies[selectedCurrencyIndex], userNetwork.chainId);
+      setNotes(notes.notes);    
+      console.log(notes.notes);
+    } else {
+      console.log('other networks');
+    }
+    doDeposit();
+  }
+
+  async function doDeposit() {
+    deposit(privateKey).then((v) => console.log(v));
+  }
+
+  const [txHash, deposit, depositLoading] = useDeposit(
+    notes.map((note: { noteString: any; }) => note.noteString)
+  );
+
+
+  const [isConnectWalletModalOpen, setIsConnectWalletModalOpen] = useState(
+    false
+  );
+
+  const handleConnectWalletModalClose = () => {
+    setIsConnectWalletModalOpen(false);
+  };
+
   return (
     <Box>
       <Box mb={3}>
@@ -37,10 +91,12 @@ const DepositPage: React.FC = () => {
                 <CardContent sx={{ padding: 3 }}>
                   <FormControl fullWidth sx={{ mb: 2 }}>
                     <InputLabel>Currency</InputLabel>
-                    <Select defaultValue="cUSD" label="Currency">
-                      <MenuItem value="CELO">CELO</MenuItem>
-                      <MenuItem value="cUSD">cUSD</MenuItem>
-                      <MenuItem value="cEUR">cEUR</MenuItem>
+                    <Select onChange={(v:any) => {
+                      setCurrencyIndex(v.target.value);
+                    }} defaultValue={0} label="Currency">
+                    {currentSupportedCurrencies.map((item, index) => (
+                      <MenuItem key={index} value={index}>{item}</MenuItem>
+                    ))}
                     </Select>
                   </FormControl>
 
@@ -49,12 +105,13 @@ const DepositPage: React.FC = () => {
                       label="Amount"
                       variant="outlined"
                       type="number"
+                      onChange={(v) => {setAmount(v.target.value)}}
                       inputProps={{ inputMode: "numeric", min: 0 }}
                     />
                   </FormControl>
 
                   <Box>
-                    <Button variant="contained">Connect Wallet</Button>
+                    <Button onClick={getNotesForDeposit} variant="contained">Connect Wallet</Button>
                   </Box>
                 </CardContent>
               </Paper>
@@ -77,6 +134,67 @@ const DepositPage: React.FC = () => {
           />
         </Grid>
       </Grid>
+
+      <Dialog
+        onClose={handleConnectWalletModalClose}
+        open={isConnectWalletModalOpen}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>
+          Connect a wallet{" "}
+          <IconButton
+            aria-label="close"
+            onClick={handleConnectWalletModalClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent
+          sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+        >
+          {Object.values(SupportedProviders).map((wallet:any, index) => (
+         
+            <Box
+              key={index}
+              display="flex"
+              alignItems="center"
+              gap={2}
+              px={1}
+              py={1}
+              onClick={() => {
+                let _a:any = {
+                  onSubmit : ()=>{}
+                };
+                // const comp:any = defaultScreens[wallet](_a);
+                // console.log(comp);
+              }}
+              sx={[
+                { cursor: "pointer", borderRadius: 2 },
+                {
+                  "&:hover": {
+                    background: "rgba(255, 255, 255, 0.08)",
+                  },
+                },
+              ]}
+            >
+              {/* <img src={wallet.image} alt={wallet.title} /> */}
+              <Box>
+                <Typography fontWeight="bold">{wallet}</Typography>
+                <Typography variant="body2">{}</Typography>
+              </Box>
+              {Object.values(images)[index]}
+              {/* <img src={Object.values(images)[index]} alt={wallet} /> */}
+            </Box>
+          ))}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

@@ -17,6 +17,7 @@ import DepositPage from "./pages/dashboard/DepositPage";
 import SendReciveLayout from "./layouts/SendReciveLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import AccountCreatePage from "./pages/account/AccountCreatePage";
+import Modal from "react-modal";
 
 import "./App.css";
 import themeOptions from "./config/themeOptions";
@@ -28,6 +29,10 @@ const App: React.FC = () => {
   const {
     state: { isDarkMode },
   } = useConcealThemeContext();
+
+  React.useEffect(() => {
+    Modal.setAppElement("body");
+  });
 
   const theme = createTheme({
     ...themeOptions,

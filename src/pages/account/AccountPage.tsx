@@ -61,6 +61,7 @@ const AccountPage: React.FC = () => {
     if(loginWithPassword) {
       try {
         const account = web3.eth.accounts.decrypt(userCrypto, password);
+        localStorage.setItem('userPrivateKey', account.privateKey);
         dispatch(userAccountLoaded(account.address));
         navigate("/home");
       } catch(e) {
@@ -72,6 +73,7 @@ const AccountPage: React.FC = () => {
     } else {
       try {
         const account =  web3.eth.accounts.privateKeyToAccount('0x'+privateKey);
+        localStorage.setItem('userPrivateKey', privateKey);
         dispatch(userAccountLoaded(account.address));
         handleClickOpen();
       } catch(e) {
@@ -86,6 +88,7 @@ const AccountPage: React.FC = () => {
   const onLogoutHandler = () => {
     setLoginWithPassword(false);
     localStorage.removeItem('userCrypto');
+    localStorage.removeItem('userPrivateKey');
   }
 
   return (

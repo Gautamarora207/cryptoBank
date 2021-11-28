@@ -50,6 +50,7 @@ const AccountCreatePage: React.FC = () => {
   const encryptPrivateKey = () => {
     const keystoreJsonV3 = web3.eth.accounts.encrypt(privateKey, password);
     localStorage.setItem('userCrypto', JSON.stringify(keystoreJsonV3));
+    localStorage.setItem('userPrivateKey', privateKey);
     dispatch(userAccountLoaded(account.address));
     navigate("/home");
   }

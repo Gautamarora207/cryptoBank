@@ -13,6 +13,7 @@ export const getNotes = (
     return { notes: [], amount: 0 };
   }
   const res: any[] = [];
+
   const denominations = Object.keys(
     deployments[`netId${chainId}`][currency.toLowerCase()].instanceAddress
   )

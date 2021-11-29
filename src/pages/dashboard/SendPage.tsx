@@ -55,12 +55,15 @@ const SendPage: React.FC = () => {
                         label="Recipient address"
                         variant="outlined"
                         placeholder="Enter wallet address or .nom"
+                        InputLabelProps={{
+                          style: { color: '#fff' },
+                        }}
                       />
                     </FormControl>
 
                     <Box mb={2} display="flex" gap={2}>
                       <FormControl>
-                        <InputLabel>Currency</InputLabel>
+                        <InputLabel><Typography variant="body2">Currency</Typography></InputLabel>
                         <Select defaultValue="cUSD" label="Currency">
                           <MenuItem value="CELO">CELO</MenuItem>
                           <MenuItem value="cUSD">cUSD</MenuItem>
@@ -74,6 +77,9 @@ const SendPage: React.FC = () => {
                           variant="outlined"
                           type="number"
                           inputProps={{ inputMode: "numeric", min: 0 }}
+                          InputLabelProps={{
+                            style: { color: '#fff' },
+                          }}
                         />
                       </FormControl>
                     </Box>

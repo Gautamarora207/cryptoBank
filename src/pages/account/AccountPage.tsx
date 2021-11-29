@@ -103,7 +103,7 @@ const AccountPage: React.FC = () => {
         Log In
       </Typography>
 
-      <Typography component="p" variant="body1" color="text-secondary">
+      <Typography component="p" variant="body2" color="text-secondary">
        {!loginWithPassword ? "Enter your Morphose private key* to enter your Morphose account" : "Enter your password to unlock your Morphose wallet" } 
       </Typography>
 
@@ -119,6 +119,9 @@ const AccountPage: React.FC = () => {
             loginWithPassword ? setPassword(v.target.value) : setPrivateKey(v.target.value);
           }}
           placeholder={loginWithPassword ? "Enter password" : "Enter your private key"} 
+          InputLabelProps={{
+            style: { color: '#fff' },
+          }}
         />
 
         <Button
@@ -163,6 +166,7 @@ const AccountPage: React.FC = () => {
               py: 0.5,
               px: 1,
               display: "inline-block",
+              color:"white"
             }}
           >
             Or

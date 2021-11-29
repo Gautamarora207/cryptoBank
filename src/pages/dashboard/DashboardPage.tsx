@@ -42,31 +42,6 @@ const DashboardPage: React.FC = () => {
 
   let balances = [];
 
-
-  const wallets = [
-    {
-      title: "Valora",
-      description:
-        "Connect to valora, a mobile payments app that works worldwide",
-      image: "https://via.placeholder.com/50",
-    },
-    {
-      title: "Install Celo Extension Wallet",
-      description: "Use a wallet from the celo chrom extension",
-      image: "https://via.placeholder.com/50",
-    },
-    {
-      title: "Ledger",
-      description: "Sync with your ledger hardware wallet",
-      image: "https://via.placeholder.com/50",
-    },
-    {
-      title: "Install MetaMask",
-      description: "Use the metamask chrome extension",
-      image: "https://via.placeholder.com/50",
-    },
-  ];
-
   const dispatch = useDispatch();
 
   let userNetwork = useSelector(
@@ -96,14 +71,6 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
   }, [userNetwork]);
-
-  const [isConnectWalletModalOpen, setIsConnectWalletModalOpen] = useState(
-    userAddress === undefined ? false : true
-  );
-
-  const handleConnectWalletModalClose = () => {
-    setIsConnectWalletModalOpen(false);
-  };
 
   return (
     <>
@@ -505,56 +472,6 @@ const DashboardPage: React.FC = () => {
           </Grid>
         </Grid>
       </Box>
-      <Dialog
-        onClose={handleConnectWalletModalClose}
-        open={isConnectWalletModalOpen}
-        maxWidth="xs"
-        fullWidth
-      >
-        <DialogTitle>
-          Connect a wallet{" "}
-          <IconButton
-            aria-label="close"
-            onClick={handleConnectWalletModalClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent
-          sx={{ display: "flex", flexDirection: "column", gap: 3 }}
-        >
-          {wallets.map((wallet, index) => (
-            <Box
-              key={index}
-              display="flex"
-              alignItems="center"
-              gap={2}
-              px={1}
-              py={1}
-              sx={[
-                { cursor: "pointer", borderRadius: 2 },
-                {
-                  "&:hover": {
-                    background: "rgba(255, 255, 255, 0.08)",
-                  },
-                },
-              ]}
-            >
-              <img src={wallet.image} alt={wallet.title} />
-              <Box>
-                <Typography fontWeight="bold">{wallet.title}</Typography>
-                <Typography variant="body2">{wallet.description}</Typography>
-              </Box>
-            </Box>
-          ))}
-        </DialogContent>
-      </Dialog>
     </>
   );
 };

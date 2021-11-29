@@ -7,7 +7,7 @@ import { PoofKitV2 } from "@poofcash/poof-kit";
 import { Address } from "@celo/base";
 import { PoofKitGlobal } from "./usePoofKit";
 import { useAsyncState } from "./useAsyncState";
-import { defaultScreens } from "@celo-tools/use-contractkit/lib/screens";
+import { useSnackbar } from "notistack";
 
 
 export function useApprove(
@@ -65,7 +65,9 @@ export function useDeposit(
 
   const [loading, setLoading] = React.useState(false);
   const [txHash, setTxHash] = React.useState("");
-  const { getConnectedKit, network, address, connect } = useContractKit();
+  const { getConnectedKit, network, address } = useContractKit();
+  const { enqueueSnackbar } = useSnackbar();
+
 
   const deposit = React.useCallback(
     async (privateKey?: string) => {
@@ -87,8 +89,12 @@ export function useDeposit(
           value: 0,
         });
         setTxHash(tx.transactionHash);
-      } catch (e) {
-        throw e;
+      } catch (e:any) {
+        enqueueSnackbar(e.message, {
+          variant: "error",
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+        console.error(e);
       } finally {
         setLoading(false);
       }

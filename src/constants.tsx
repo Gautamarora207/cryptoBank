@@ -1,4 +1,5 @@
-import { ChainId } from "@celo-tools/use-contractkit";
+import { ChainId, SupportedProviders, WalletTypes } from "@celo-tools/use-contractkit";
+import { defaultScreens } from "@celo-tools/use-contractkit/lib/screens";
 
 export const CURRENCY_MAP: Record<any, Record<string, string>> = {
   [ChainId.Mainnet]: {

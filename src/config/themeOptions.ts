@@ -12,6 +12,35 @@ const themeOptions: ThemeOptions = {
   },
   typography: {
     fontFamily: "Space Mono",
+    body1:{
+      color:"black",
+    },
+    h1:{
+      color:"white",
+    },
+    h2:{
+      color:"white",
+    },
+    h5:{
+      color:"white",
+    },
+    h4:{
+      color:"white",
+    },
+    h3:{
+      color:"white",
+    },
+    h6:{
+      color:"white",
+    },
+    body2:{
+      color:"white",
+    }
+    // allVariants: {
+
+    //   color: "light grey"
+    // },
+
   },
   shape: {
     borderRadius: 4,
@@ -22,8 +51,11 @@ const themeOptions: ThemeOptions = {
         color: "transparent",
       },
       styleOverrides: {
+        colorDefault:{
+          color:"white"
+        },
         colorInherit: {
-          backgroundColor: "#689f38",
+          backgroundColor: "white",
           color: "#fff",
         },
       },

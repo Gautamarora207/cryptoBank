@@ -9,7 +9,7 @@ const HomeSectionOne: React.FC = () => {
       <Typography textAlign="center" variant="h4">
         Lorem, ipsum.
       </Typography>
-      <Typography textAlign="center" variant="body1" color="primary">
+      <Typography textAlign="center" variant="body2" color="primary">
         Lorem ipsum dolor sit amet consectetur adipisicing.
       </Typography>
       <Grid container mt={4} spacing={6}>

@@ -8,7 +8,7 @@ const LoremOnePage: React.FC = () => {
         Page One
       </Typography>
 
-      <Typography variant="body1" component="p" mb={4}>
+      <Typography variant="body2" component="p" mb={4}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
         accusantium recusandae quo deserunt nostrum suscipit beatae, neque eaque
         sapiente distinctio sint. Adipisci iste excepturi expedita amet, et,
@@ -19,7 +19,7 @@ const LoremOnePage: React.FC = () => {
         optio dolorem fugiat voluptatem minima. Tenetur cum vel velit.
       </Typography>
 
-      <Typography variant="body1" component="p" mb={4}>
+      <Typography variant="body2" component="p" mb={4}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi sit
         accusamus eum sapiente facilis laboriosam eligendi beatae nostrum saepe
         est aliquid odio voluptates, placeat sed! Facere tenetur soluta
@@ -28,7 +28,7 @@ const LoremOnePage: React.FC = () => {
         magni unde placeat ipsam?
       </Typography>
 
-      <Typography variant="body1" component="p" mb={4}>
+      <Typography variant="body2" component="p" mb={4}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi hic unde
         nulla placeat vel aliquam laborum magni modi doloremque dolor,
         reiciendis corporis animi nam totam.

@@ -8,6 +8,8 @@ import reportWebVitals from "./reportWebVitals";
 import { ConcealThemeProvider } from "./context/ConcealTheme";
 
 import "./index.css";
+import "@celo-tools/use-contractkit/lib/styles.css";
+
 
 ReactDOM.render(
   <React.StrictMode>

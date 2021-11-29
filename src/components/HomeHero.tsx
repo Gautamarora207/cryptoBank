@@ -25,7 +25,7 @@ const HomeHero: React.FC = () => {
           sit amet
         </Typography>
 
-        <Typography variant="body1" component="div" mb={6}>
+        <Typography variant="body2" component="div" mb={6}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
           consequuntur quod ab dolorum nemo tempore, quisquam quibusdam
           necessitatibus, officia inventore

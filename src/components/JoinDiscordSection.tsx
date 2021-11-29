@@ -20,7 +20,7 @@ const JoinDiscordSection: React.FC = () => {
         <Typography variant="h4" mb={4} component="div" color="secondary">
           Lorem, ipsum dolor.
         </Typography>
-        <Typography variant="body1" mb={4} component="div" color="secondary">
+        <Typography variant="body2" mb={4} component="div" color="secondary">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
           accusantium facere doloribus illum odio voluptas natus dolores labore
           ipsam tempore.

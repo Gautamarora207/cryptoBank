@@ -79,7 +79,7 @@ const AccountCreatePage: React.FC = () => {
           Secure your Poof private key
         </Typography>
 
-        <Typography component="p" variant="body1" color="text-secondary">
+        <Typography component="p" variant="body2" color="text-secondary">
           Copy this key down in a safe location. This key hides your balance and
           authorized transactions. You cannot recover your wallet if this key is
           lost.
@@ -111,6 +111,7 @@ const AccountCreatePage: React.FC = () => {
             control={<Checkbox checked={privateKeyBackedUp} color="primary" />}
             label="I backed up my private key"
             onChange={() => setPrivateKeyBackedUp((i) => !i)}
+            
           />
 
           <Box display="flex" justifyContent="center" gap={1}>
@@ -142,7 +143,7 @@ const AccountCreatePage: React.FC = () => {
             margin="normal"
             label="Password"
             type="password"
-            onChange={(v) => {
+            onChange={(v:any) => {
               setPassword(v.target.value);
             }}
             fullWidth

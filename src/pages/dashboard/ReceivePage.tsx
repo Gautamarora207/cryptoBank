@@ -45,7 +45,7 @@ const ReceivePage: React.FC = () => {
                 <Paper sx={{ height: "100%" }}>
                   <CardContent sx={{ padding: 3 }}>
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                      <InputLabel>Currency</InputLabel>
+                      <InputLabel ><Typography variant="body2">Currency</Typography></InputLabel>
                       <Select defaultValue="cUSD" label="Currency">
                         <MenuItem value="CELO">CELO</MenuItem>
                         <MenuItem value="cUSD">cUSD</MenuItem>
@@ -59,6 +59,9 @@ const ReceivePage: React.FC = () => {
                         variant="outlined"
                         type="number"
                         inputProps={{ inputMode: "numeric", min: 0 }}
+                        InputLabelProps={{
+                          style: { color: '#fff' },
+                        }}
                       />
                     </FormControl>
 

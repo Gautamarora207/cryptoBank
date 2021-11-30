@@ -13,6 +13,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SendReceiveSvg from "../../assets/images/hero.png";
@@ -38,17 +39,25 @@ const DepositPage: React.FC = () => {
   let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
 
   let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
+  const { enqueueSnackbar } = useSnackbar();
  
   function getNotesForDeposit() {
     if(userNetwork.chainId == ChainId.Mainnet) {
       
       const notes:any = getNotes(amount,currentSupportedCurrencies[selectedCurrencyIndex], userNetwork.chainId);
-      setNotes(notes.notes);    
+      setNotes(notes.notes);   
+      initiateDeposit(); 
     } else {
-      doDeposit(CURRENCY_MAP[userNetwork.chainId][userNetwork.gasCurrency], userNetwork.chainId.toString(), userNetwork.gasCurrency, amount.toString(), userAddress).then((v) => console.log(v));
+      try {
+        doDeposit(userNetwork, amount.toString(), userAddress).then((v) => console.log(v));
+      } catch(e:any){
+        enqueueSnackbar(e.message, {
+          variant: "error",
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+      }
       console.log('other networks');
     }
-    initiateDeposit();
   }
 
   async function initiateDeposit() {

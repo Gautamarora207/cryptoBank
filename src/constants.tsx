@@ -44,3 +44,11 @@ export const networkGasCurrencys:any =[
     'MATIC',
     'ETH'
 ];
+
+export const networkRPCUrls = [
+    'https://forno.celo.org',
+    'https://rpc.ftm.tools',
+    'https://api.avax.network/ext/bc/C/rpc',
+    'https://polygon-rpc.com',
+    ''
+];

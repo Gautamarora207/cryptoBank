@@ -29,7 +29,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, connect, useDispatch } from "react-redux";
 import { networkSelector } from '../../store/selectors';
 import { useTokenBalance } from "../../hooks/useTokenBalance";
-import { CURRENCY_MAP, networkChainIds, networkGasCurrencys, supportedNetworkNames } from "../../constants";
+import { CURRENCY_MAP, networkChainIds, networkGasCurrencys, networkRPCUrls, supportedNetworkNames } from "../../constants";
 import { userNetworkLoaded } from "../../store/actions";
 
 
@@ -51,6 +51,7 @@ const DashboardPage: React.FC = () => {
         name: supportedNetworkNames[0],
         chainId: networkChainIds[0],
         gasCurrency: networkGasCurrencys[0],
+        rpcUrl: networkRPCUrls[0],
   })).network : networkSelector.user.network );
 
   Object.values(CURRENCY_MAP[userNetwork.chainId]);

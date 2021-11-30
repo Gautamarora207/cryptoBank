@@ -12,7 +12,7 @@ import {
   Select,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { networkChainIds, networkGasCurrencys, supportedNetworkNames } from "../constants";
+import { networkChainIds, networkGasCurrencys, networkRPCUrls, supportedNetworkNames } from "../constants";
 import { userNetworkLoaded } from "../store/actions";
 
 
@@ -29,6 +29,7 @@ const DashboardLayout: React.FC = () => {
         name: supportedNetworkNames[0],
         chainId: networkChainIds[0],
         gasCurrency: networkGasCurrencys[0],
+        rpcUrl: networkRPCUrls[0],
   })).network : networkSelector.user.network );
 
   const [selectedNetwork, setSelectedNetwork]= useState(supportedNetworkNames.indexOf(userNetwork.name));
@@ -85,6 +86,7 @@ const DashboardLayout: React.FC = () => {
       name: supportedNetworkNames[v],
       chainId: networkChainIds[v],
       gasCurrency: networkGasCurrencys[v],
+      rpcUrl: networkRPCUrls[v],
     }))
     handleAccountMenuClose();
   }

@@ -40,6 +40,7 @@ const DashboardPage: React.FC = () => {
   const [address, setAddress] = useState(userAddress === undefined ? "" : userAddress);
   const [balance, setBalance ] = useState(0);
 
+
   let balances = [];
 
   const dispatch = useDispatch();
@@ -159,7 +160,7 @@ const DashboardPage: React.FC = () => {
                     flexDirection="column"
                     justifyContent="center"
                   >
-                    <Typography fontWeight="bold">Send</Typography>
+                    <Typography variant="body2" fontWeight="bold">Send</Typography>
                     <Typography variant="body2">
                       Send crypto to privately to any celo user
                     </Typography>
@@ -200,7 +201,7 @@ const DashboardPage: React.FC = () => {
                     flexDirection="column"
                     justifyContent="center"
                   >
-                    <Typography fontWeight="bold">Request Payment</Typography>
+                    <Typography variant="body2" fontWeight="bold">Request Payment</Typography>
                     <Typography variant="body2">
                       Generate a private crypto request link
                     </Typography>

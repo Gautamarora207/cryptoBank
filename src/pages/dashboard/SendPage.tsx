@@ -19,8 +19,12 @@ import {
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import SettingsIcon from "@mui/icons-material/Settings";
-
+import ERC20 from "../../abis/ERC20.json";
 import SendReceiveSvg from "../../assets/images/hero.png";
+import { useSelector } from "react-redux";
+import { AbiItem, isAddress } from "web3-utils";
+import { CURRENCY_MAP } from "../../constants";
+import { sendTrx } from "../../hooks/sendTrx";
 
 const SendPage: React.FC = () => {
   const [
@@ -31,6 +35,22 @@ const SendPage: React.FC = () => {
   const handleTransactionSettingsModalClose = () => {
     setIsTransactionSettingsModalOpen(false);
   };
+
+  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
+
+  const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
+  const [amount, setAmount ] = useState("0");
+  const [notes, setNotes] = useState([]);
+
+  const [receiverAddress, setReceiverAddress] = useState("0x5050d1f28B0c4ACD15710C176f6ACDDc01B2ba27");
+
+  const privateKey :any = localStorage.getItem("userPrivateKey");
+  
+  let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
+
+  let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
+  
+  sendTrx(privateKey ,"10", userAddress, receiverAddress);
 
   return (
     <>
@@ -64,10 +84,12 @@ const SendPage: React.FC = () => {
                     <Box mb={2} display="flex" gap={2}>
                       <FormControl>
                         <InputLabel><Typography variant="body2">Currency</Typography></InputLabel>
-                        <Select defaultValue="cUSD" label="Currency">
-                          <MenuItem value="CELO">CELO</MenuItem>
-                          <MenuItem value="cUSD">cUSD</MenuItem>
-                          <MenuItem value="cEUR">cEUR</MenuItem>
+                        <Select  onChange={(v:any) => {
+                            setCurrencyIndex(v.target.value);
+                          }} defaultValue={0} label="Currency">
+                        {currentSupportedCurrencies.map((item, index) => (
+                          <MenuItem key={index} value={index}>{item}</MenuItem>
+                        ))}
                         </Select>
                       </FormControl>
 
@@ -76,6 +98,7 @@ const SendPage: React.FC = () => {
                           label="Amount"
                           variant="outlined"
                           type="number"
+                          onChange={(v:any) => {setAmount(v.target.value)}}
                           inputProps={{ inputMode: "numeric", min: 0 }}
                           InputLabelProps={{
                             style: { color: '#fff' },

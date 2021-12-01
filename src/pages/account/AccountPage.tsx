@@ -104,7 +104,7 @@ const AccountPage: React.FC = () => {
       </Typography>
 
       <Typography component="p" variant="body2" color="text-secondary">
-       {!loginWithPassword ? "Enter your Morphose private key* to enter your Morphose account" : "Enter your password to unlock your Morphose wallet" } 
+       {!loginWithPassword ? "Enter your Morphose account" : "Enter your password to unlock your Morphose wallet" } 
       </Typography>
 
       <Box component="form" onSubmit={onLoginHandler} noValidate sx={{ mt: 1 }}>

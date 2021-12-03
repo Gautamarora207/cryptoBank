@@ -24,6 +24,7 @@ import themeOptions from "./config/themeOptions";
 import { useConcealThemeContext } from "./context/ConcealTheme";
 import store from "./store/configureStore";
 import { ContractKitProvider, DEFAULT_NETWORKS } from "@celo-tools/use-contractkit";
+import CompleteRequest from "./pages/dashboard/CompleteRequest";
 
 const App: React.FC = () => {
   const {
@@ -76,6 +77,10 @@ const App: React.FC = () => {
               <Route path="/home/request" element={<ReceivePage />} />
             </Route>
             <Route path="/home/deposit" element={<DepositPage />} />
+          </Route>
+
+          <Route path="/complete-request" element={<DashboardLayout />}>
+            <Route path="/complete-request" element={<CompleteRequest />} />
           </Route>
         </Routes>
       </Provider>

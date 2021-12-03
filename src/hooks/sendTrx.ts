@@ -1,34 +1,48 @@
-import ERC20 from "../abis/ERC20.json";
-import { toHex } from "../utils/snarks-functions";
+const Web3 = require('web3');
+const Tx = require('ethereumjs-tx').Transaction;
 
-export async function sendTrx(privateKey: string, amount:string, owner: string, receiverAddress:string | null) {  
+
+export async function sendTrx(privateKey: string, userNetwork:any, amount:string, owner: string, receiverAddress:string, enqueueSnackbar:any | null) {  
       
-    const Web3 = require('web3');
-    const Tx = require('ethereumjs-tx');
+    try {
+      const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
+      
+      let gasPrice;
 
-    const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
-    // let contract = new web3.eth.Contract(ERC20.abi, tokenAddress);
+      await web3.eth.getGasPrice(function(e:any, r:any) { gasPrice = r });
 
-    var key = Buffer.from(privateKey); 
 
-    const gasPrice = 10;
-    const gasPriceHex = toHex(gasPrice);
-    const gasLimitHex = toHex(3000000);
+      var bufferPrivateKey = Buffer.from(privateKey.substring(2), 'hex');
+      var rawTx = {
+          nonce: await web3.eth.getTransactionCount(owner) + 1,
+          gasPrice: gasPrice, 
+          gasLimit: '0x2710',
+          to: receiverAddress, 
+          value: amount, 
+          common: {
+            customChain: {
+              name: userNetwork.name,
+              chainId: userNetwork.chainId,
+              networkId: userNetwork.chainId
+            }
+          }
+      };
 
-    var tra = {
-        gasPrice: gasPriceHex,
-        gasLimit: gasLimitHex,
-        data: '',
-        from: owner
-    };
+      var tx = new Tx(rawTx);
+      console.log(tx);
+      tx.sign(bufferPrivateKey);
 
-    var tx = new Tx(tra);
-    tx.sign(key);
+      var serializedTx = tx.serialize();
 
-    var stx = tx.serialize();
-    web3.eth.sendRawTransaction('0x' + stx.toString('hex'), (err:any, hash:any) => {
-        if (err) { console.log(err); return; }
-        console.log('contract creation tx: ' + hash);
-    });
+      web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+          .on('receipt', console.log).on('error', (e:any) =>
+          enqueueSnackbar(e.message, {
+            variant: "error",
+            anchorOrigin: { horizontal: "center", vertical: "top" },
+      }));
+    } catch(e) {
+      throw e;
+    }
+
   }
   

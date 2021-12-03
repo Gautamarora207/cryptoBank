@@ -4,8 +4,8 @@ import { defaultScreens } from "@celo-tools/use-contractkit/lib/screens";
 export const CURRENCY_MAP: Record<any, Record<string, string>> = {
   [ChainId.Mainnet]: {
     CELO: "0x471ece3750da237f93b8e339c536989b8978a438",
-    // cUSD: "0x1410d4ec3d276c0ebbf16ccbe88a4383ae734ed0",
-    // cEUR: "0x57a139c6f0a1b125c172c7690cd9a350828b7607"
+    cUSD: "0x1410d4ec3d276c0ebbf16ccbe88a4383ae734ed0",
+    cEUR: "0x57a139c6f0a1b125c172c7690cd9a350828b7607"
   },
   [250] : {
       FTM: "0x4e15361fd6b4bb609fa63c81a2be19d873717870"

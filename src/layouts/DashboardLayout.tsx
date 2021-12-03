@@ -19,7 +19,7 @@ import { userNetworkLoaded } from "../store/actions";
 const DashboardLayout: React.FC = () => {
   const navigate = useNavigate();
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address === undefined ? undefined : addressSelector.user.address.toLowerCase());
-  
+  console.log(window.location.pathname); 
   const dispatch = useDispatch();
 
   let userNetwork = useSelector(
@@ -36,7 +36,7 @@ const DashboardLayout: React.FC = () => {
 
 
   useEffect(() => {
-    if (userAddress === undefined) {
+    if (userAddress === undefined && window.location.pathname.split('/')[1] != 'complete-request') {
       navigate("/account");
     }
   });
@@ -203,8 +203,17 @@ const DashboardLayout: React.FC = () => {
              ))}    
             </Menu>
           </Box>
-
-          <Box>
+          { userAddress == undefined ?  <Button
+              color="primary"
+              sx={{ background: "rgba(255, 255, 64, 0.08)" }}
+              onClick={handleUserMenuClick}
+            >
+              <PersonOutlineIcon />
+              <Box component="span" ml={1}>
+                Login
+              </Box>
+            </Button> :  
+            <Box>
             <Button
               color="primary"
               sx={{ background: "rgba(255, 255, 64, 0.08)" }}
@@ -230,6 +239,7 @@ const DashboardLayout: React.FC = () => {
               <MenuItem onClick={onLogoutHandler}>Logout</MenuItem>
             </Menu>
           </Box>
+          }
         </Box> 
       </Box>
       </Box>

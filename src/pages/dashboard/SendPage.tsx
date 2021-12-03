@@ -18,15 +18,17 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import SettingsIcon from "@mui/icons-material/Settings";
-import ERC20 from "../../abis/ERC20.json";
 import SendReceiveSvg from "../../assets/images/hero.png";
 import { useSelector } from "react-redux";
-import { AbiItem, isAddress } from "web3-utils";
+import { useSnackbar } from "notistack";
 import { CURRENCY_MAP } from "../../constants";
 import { sendTrx } from "../../hooks/sendTrx";
+const Web3 = require('web3');
+
 
 const SendPage: React.FC = () => {
+  const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
+
   const [
     isTransactionSettingsModalOpen,
     setIsTransactionSettingsModalOpen,
@@ -36,13 +38,19 @@ const SendPage: React.FC = () => {
     setIsTransactionSettingsModalOpen(false);
   };
 
+  let isAddressError: boolean;
+
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
 
   const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
   const [amount, setAmount ] = useState("0");
-  const [notes, setNotes] = useState([]);
 
-  const [receiverAddress, setReceiverAddress] = useState("0x5050d1f28B0c4ACD15710C176f6ACDDc01B2ba27");
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [receiverAddress, setReceiverAddress] = useState("");
+
+  isAddressError = !web3.utils.isAddress(receiverAddress);
+  console.log(isAddressError);
 
   const privateKey :any = localStorage.getItem("userPrivateKey");
   
@@ -50,7 +58,21 @@ const SendPage: React.FC = () => {
 
   let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
   
-  sendTrx(privateKey ,"10", userAddress, receiverAddress);
+  function processTrx() {
+    if(isAddressError) {
+      enqueueSnackbar("Please enter a valid address", {
+        variant: "error",
+        anchorOrigin: { horizontal: "center", vertical: "top" },
+      });
+    } else {
+      try{
+        sendTrx(privateKey, userNetwork, amount, userAddress, receiverAddress,enqueueSnackbar );
+      } catch(e:any) {
+        console.error(e.message);
+      }
+    }
+  }
+  
 
   return (
     <>
@@ -78,8 +100,17 @@ const SendPage: React.FC = () => {
                         InputLabelProps={{
                           style: { color: '#fff' },
                         }}
+                        onChange={
+                          (v:any) => {
+                            setReceiverAddress(v.target.value);
+                          }
+                        }
                       />
+                       
                     </FormControl>
+                    <Box mb={2} display="flex" gap={2}>
+                    <Typography variant="body2">{isAddressError && receiverAddress != '' ? 'Invalid address, please try again' : ''}</Typography> 
+                    </Box>
 
                     <Box mb={2} display="flex" gap={2}>
                       <FormControl>
@@ -98,6 +129,7 @@ const SendPage: React.FC = () => {
                           label="Amount"
                           variant="outlined"
                           type="number"
+                          value={amount}
                           onChange={(v:any) => {setAmount(v.target.value)}}
                           inputProps={{ inputMode: "numeric", min: 0 }}
                           InputLabelProps={{
@@ -107,7 +139,7 @@ const SendPage: React.FC = () => {
                       </FormControl>
                     </Box>
 
-                    <Box mb={2}>
+                    {/* <Box mb={2}>
                       <Button
                         size="small"
                         color="primary"
@@ -117,10 +149,10 @@ const SendPage: React.FC = () => {
                         <SettingsIcon sx={{ mr: 1 }} /> Show transaction
                         settings
                       </Button>
-                    </Box>
+                    </Box> */}
 
                     <Box>
-                      <Button variant="contained">Send</Button>
+                      <Button variant="contained"  onClick={() => processTrx()}>Send</Button>
                     </Box>
                   </CardContent>
                 </Paper>

@@ -18,17 +18,15 @@ const HomeHero: React.FC = () => {
         }}
       >
         <Typography variant="h2" component="div" mb={6}>
-          Lorem
+          Conceal
           <Typography variant="h2" component="span" color="primary">
-            {" ipsum dolor "}
+            {" Protocol "}
           </Typography>
-          sit amet
         </Typography>
 
         <Typography variant="body2" component="div" mb={6}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
-          consequuntur quod ab dolorum nemo tempore, quisquam quibusdam
-          necessitatibus, officia inventore
+          Conceal Protocol is a decentralized, zk-SNARKs based privacy mixer for
+          popular cryptocurrencies and stable coins on Aurora and Fantom.
         </Typography>
         <Link to="/account" style={{ textDecoration: "none" }}>
           <Button color="primary" variant="contained" disableElevation>

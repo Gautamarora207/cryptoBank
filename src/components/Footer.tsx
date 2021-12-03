@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
         </Typography>
       </Box>
       <Box gridArea="product">
-        <Typography fontWeight="bold" mb={4}>
+        <Typography variant="body2" fontWeight="bold" mb={4}>
           Product
         </Typography>
         <Box mb={0.5}>
@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
         </Box>
       </Box>
       <Box gridArea="social">
-        <Typography fontWeight="bold" mb={4}>
+        <Typography variant="body2" fontWeight="bold" mb={4}>
           Social
         </Typography>
         <Box mb={0.5}>
@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
           </Link>
         </Box>
         <Box mb={0.5}>
-          <Link href="#" underline="none">
+          <Link href="https://t.me/Monero0xMR" underline="none">
             Telegram
           </Link>
         </Box>
@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
           </Link>
         </Box>
         <Box mb={0.5}>
-          <Link href="#" underline="none">
+          <Link href="https://twitter.com/concealprotocol" underline="none">
             Twitter
           </Link>
         </Box>

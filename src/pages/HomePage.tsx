@@ -10,9 +10,9 @@ const HomePage: React.FC = () => {
     <>
       <HomeHero />
 
-      <HomeSectionTwo />
-
       <HomeSectionOne />
+
+      <HomeSectionTwo />
 
       <JoinDiscordSection />
     </>

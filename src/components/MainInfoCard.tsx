@@ -3,9 +3,8 @@ import { Button, Typography, Box } from "@mui/material";
 
 const MainInfoCard: React.FC<{
   title: string;
-  content: string;
   image: string;
-}> = ({ title, content, image }) => {
+}> = ({ title, image, children }) => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
       <img src={image} alt={title} />
@@ -31,9 +30,8 @@ const MainInfoCard: React.FC<{
         >
           {title}
         </Typography>
-        <Typography variant="body2" color="text.primary">
-          {content}
-        </Typography>
+
+        {children}
       </Button>
     </Box>
   );

@@ -1,5 +1,5 @@
 const Web3 = require('web3');
-const Tx = require('ethereumjs-tx').Transaction;
+// const Tx = require('ethereumjs-tx').Transaction;
 
 
 export async function sendTrx(privateKey: string, userNetwork:any, amount:string, owner: string, receiverAddress:string, enqueueSnackbar:any | null) {  
@@ -28,18 +28,18 @@ export async function sendTrx(privateKey: string, userNetwork:any, amount:string
           }
       };
 
-      var tx = new Tx(rawTx);
-      console.log(tx);
-      tx.sign(bufferPrivateKey);
+      // var tx = new Tx(rawTx);
+      // console.log(tx);
+      // tx.sign(bufferPrivateKey);
 
-      var serializedTx = tx.serialize();
+      // var serializedTx = tx.serialize();
 
-      web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
-          .on('receipt', console.log).on('error', (e:any) =>
-          enqueueSnackbar(e.message, {
-            variant: "error",
-            anchorOrigin: { horizontal: "center", vertical: "top" },
-      }));
+      // web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
+      //     .on('receipt', console.log).on('error', (e:any) =>
+      //     enqueueSnackbar(e.message, {
+      //       variant: "error",
+      //       anchorOrigin: { horizontal: "center", vertical: "top" },
+      // }));
     } catch(e) {
       throw e;
     }

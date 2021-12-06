@@ -1,1 +1,0 @@
-../build/circuits/Verifier.sol

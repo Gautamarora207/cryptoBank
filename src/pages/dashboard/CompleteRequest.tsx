@@ -3,12 +3,8 @@ import {
     Button,
     Card,
     CardContent,
-    Dialog,
-    DialogContent,
-    DialogTitle,
     FormControl,
     Grid,
-    IconButton,
     InputLabel,
     MenuItem,
     Paper,
@@ -19,58 +15,62 @@ import {
   import React, { useState } from "react";
   import CloseIcon from "@mui/icons-material/Close";
   import SendReceiveSvg from "../../assets/images/hero.png";
-  import { useSelector } from "react-redux";
+  import { useDispatch, useSelector } from "react-redux";
   import { useSnackbar } from "notistack";
   import { CURRENCY_MAP } from "../../constants";
+  import { networkChainIds, networkGasCurrencys, networkRPCUrls, supportedNetworkNames } from "../../constants";
   import { sendTrx } from "../../hooks/sendTrx";
+import { userNetworkLoaded } from "../../store/actions";
 
   const Web3 = require('web3');
   
   const CompleteRequest: React.FC = () => {
     const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
-  
-    const [
-      isTransactionSettingsModalOpen,
-      setIsTransactionSettingsModalOpen,
-    ] = useState(false);
-  
-    const handleTransactionSettingsModalClose = () => {
-      setIsTransactionSettingsModalOpen(false);
-    };
+
+    const query = new URLSearchParams(window.location.search);
   
     let isAddressError: boolean;
-  
-    const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
-  
-    const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
-    const [amount, setAmount ] = useState("0");
+    
+    const selectedCurrencyIndex:any = query.get('currencyIndex');
+    const amount = query.get('amount');
   
     const { enqueueSnackbar } = useSnackbar();
   
-    const [receiverAddress, setReceiverAddress] = useState("");
+    const receiverAddress = query.get('receiverAddress');
   
     isAddressError = !web3.utils.isAddress(receiverAddress);
     console.log(isAddressError);
-  
-    const privateKey :any = localStorage.getItem("userPrivateKey");
+
+    const dispatch = useDispatch();
+
+    const networkIndex:any = query.get('networkIndex');
+
+    let userNetwork = useSelector(
+      (networkSelector:any) => 
+        networkSelector.user.network.chainId != networkChainIds[networkIndex] && networkIndex != null ?  
+        dispatch(userNetworkLoaded({
+          name: supportedNetworkNames[networkIndex],
+          chainId: networkChainIds[networkIndex],
+          gasCurrency: networkGasCurrencys[networkIndex],
+          rpcUrl: networkRPCUrls[networkIndex],
+    })).network : networkSelector.user.network );
     
-    let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
   
     let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
     
     function processTrx() {
-      if(isAddressError) {
-        enqueueSnackbar("Please enter a valid address", {
-          variant: "error",
-          anchorOrigin: { horizontal: "center", vertical: "top" },
-        });
-      } else {
-        try{
-          sendTrx(privateKey, userNetwork, amount, userAddress, receiverAddress,enqueueSnackbar );
-        } catch(e:any) {
-          console.error(e.message);
-        }
-      }
+      // if(isAddressError || amount == null || receiverAddress == null) {
+      //   enqueueSnackbar("Please enter a valid address", {
+      //     variant: "error",
+      //     anchorOrigin: { horizontal: "center", vertical: "top" },
+      //   });
+      // } else {
+      //   try{
+      //     sendTrx(privateKey, userNetwork, amount, userAddress, receiverAddress,enqueueSnackbar );
+      //   } catch(e:any) {
+      //     console.error(e.message);
+      //   }
+      // }
     }
     
   
@@ -79,10 +79,10 @@ import {
         <Box>
           <Box mb={3}>
             <Typography variant="h5" component="div">
-              Send
+            Complete Request
             </Typography>
             <Typography variant="body2" component="div">
-              Send crypto privately to any user.
+            Complete a crypto request.
             </Typography>
           </Box>
   
@@ -92,22 +92,6 @@ import {
                 <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
                   <Paper sx={{ height: "100%" }}>
                     <CardContent sx={{ padding: 3 }}>
-                      <FormControl fullWidth sx={{ mb: 2 }}>
-                        <TextField
-                          label="Recipient address"
-                          variant="outlined"
-                          placeholder="Enter wallet address or .nom"
-                          InputLabelProps={{
-                            style: { color: '#fff' },
-                          }}
-                          onChange={
-                            (v:any) => {
-                              setReceiverAddress(v.target.value);
-                            }
-                          }
-                        />
-                         
-                      </FormControl>
                       <Box mb={2} display="flex" gap={2}>
                       <Typography variant="body2">{isAddressError && receiverAddress != '' ? 'Invalid address, please try again' : ''}</Typography> 
                       </Box>
@@ -115,12 +99,10 @@ import {
                       <Box mb={2} display="flex" gap={2}>
                         <FormControl>
                           <InputLabel><Typography variant="body2">Currency</Typography></InputLabel>
-                          <Select  onChange={(v:any) => {
-                              setCurrencyIndex(v.target.value);
-                            }} defaultValue={0} label="Currency">
-                          {currentSupportedCurrencies.map((item, index) => (
-                            <MenuItem key={index} value={index}>{item}</MenuItem>
-                          ))}
+                          <Select defaultValue={selectedCurrencyIndex} label="Currency">
+                         
+                            <MenuItem key={selectedCurrencyIndex} value={selectedCurrencyIndex}>{currentSupportedCurrencies[selectedCurrencyIndex]}</MenuItem>
+                         
                           </Select>
                         </FormControl>
   
@@ -130,7 +112,6 @@ import {
                             variant="outlined"
                             type="number"
                             value={amount}
-                            onChange={(v:any) => {setAmount(v.target.value)}}
                             inputProps={{ inputMode: "numeric", min: 0 }}
                             InputLabelProps={{
                               style: { color: '#fff' },
@@ -139,20 +120,8 @@ import {
                         </FormControl>
                       </Box>
   
-                      {/* <Box mb={2}>
-                        <Button
-                          size="small"
-                          color="primary"
-                          sx={{ background: "rgba(255, 255, 64, 0.08)" }}
-                          onClick={() => setIsTransactionSettingsModalOpen(true)}
-                        >
-                          <SettingsIcon sx={{ mr: 1 }} /> Show transaction
-                          settings
-                        </Button>
-                      </Box> */}
-  
                       <Box>
-                        <Button variant="contained"  onClick={() => processTrx()}>Send</Button>
+                        <Button variant="contained"  onClick={() => processTrx()}>Connect Wallet</Button>
                       </Box>
                     </CardContent>
                   </Paper>
@@ -176,47 +145,6 @@ import {
             </Grid>
           </Grid>
         </Box>
-  
-        <Dialog
-          onClose={handleTransactionSettingsModalClose}
-          open={isTransactionSettingsModalOpen}
-          maxWidth="sm"
-          fullWidth
-        >
-          <DialogTitle>
-            Transaction settings{" "}
-            <IconButton
-              aria-label="close"
-              onClick={handleTransactionSettingsModalClose}
-              sx={{
-                position: "absolute",
-                right: 8,
-                top: 8,
-                color: (theme) => theme.palette.grey[500],
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          </DialogTitle>
-  
-          <DialogContent>
-            <Box mt={1} mb={2}>
-              <FormControl fullWidth>
-                <InputLabel>Relayer</InputLabel>
-                <Select defaultValue="1" label="Relayer">
-                  <MenuItem value="1">https://test.com</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-  
-            <Button
-              variant="outlined"
-              onClick={handleTransactionSettingsModalClose}
-            >
-              Save
-            </Button>
-          </DialogContent>
-        </Dialog>
       </>
     );
   };

@@ -15,9 +15,12 @@ import {
   DialogContent,
   CircularProgress,
 } from "@mui/material";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import SendReceiveSvg from "../../assets/images/hero.png";
+import { CURRENCY_MAP, networkChainIds } from "../../constants";
 
 const ReceivePage: React.FC = () => {
   const [isGenerateLinkModalOpen, setIsGenerateLinkModalOpen] = useState(false);
@@ -25,6 +28,30 @@ const ReceivePage: React.FC = () => {
   const handleGenerateLinkModalClose = () => {
     setIsGenerateLinkModalOpen(false);
   };
+
+  const onCopyGeneratedLink = () => {
+    navigator.clipboard.writeText("http://localhost:3000/complete-request?amount="+amount+"&networkIndex="+networkChainIds.indexOf(userNetwork.chainId)+"&currencyIndex="+selectedCurrencyIndex+"&receiverAddress="+userAddress);
+
+    enqueueSnackbar("Copied to clipboard", {
+      variant: "success",
+      anchorOrigin: { horizontal: "center", vertical: "top" },
+    });
+  };
+
+
+  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
+
+  const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
+  const [amount, setAmount ] = useState("0");
+
+  const { enqueueSnackbar } = useSnackbar();
+
+    
+  let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
+
+  let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
+
+
 
   return (
     <>
@@ -44,31 +71,41 @@ const ReceivePage: React.FC = () => {
               <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
                 <Paper sx={{ height: "100%" }}>
                   <CardContent sx={{ padding: 3 }}>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                      <InputLabel ><Typography variant="body2">Currency</Typography></InputLabel>
-                      <Select defaultValue="cUSD" label="Currency">
-                        <MenuItem value="CELO">CELO</MenuItem>
-                        <MenuItem value="cUSD">cUSD</MenuItem>
-                        <MenuItem value="cEUR">cEUR</MenuItem>
-                      </Select>
+                  <Box mb={2} display="flex" gap={2}>
+                  <FormControl>
+                        <InputLabel><Typography variant="body2">Currency</Typography></InputLabel>
+                        <Select  onChange={(v:any) => {
+                            setCurrencyIndex(v.target.value);
+                          }} defaultValue={0} label="Currency">
+                        {currentSupportedCurrencies.map((item, index) => (
+                          <MenuItem key={index} value={index}>{item}</MenuItem>
+                        ))}
+                        </Select>
                     </FormControl>
-
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                      <TextField
-                        label="Amount"
-                        variant="outlined"
-                        type="number"
-                        inputProps={{ inputMode: "numeric", min: 0 }}
-                        InputLabelProps={{
-                          style: { color: '#fff' },
-                        }}
-                      />
+                    </Box>
+                    <Box mb={2} display="flex" gap={2}>
+                    <FormControl sx={{ flexGrow: 1 }}>
+                        <TextField
+                          label="Amount"
+                          variant="outlined"
+                          type="number"
+                          value={amount}
+                          onChange={(v:any) => {setAmount(v.target.value)}}
+                          inputProps={{ inputMode: "numeric", min: 0 }}
+                          InputLabelProps={{
+                            style: { color: '#fff' },
+                          }}
+                        />
                     </FormControl>
+                    </Box>
 
                     <Box>
                       <Button
                         variant="contained"
-                        onClick={() => setIsGenerateLinkModalOpen(true)}
+                        onClick={() => {amount != "" ? setIsGenerateLinkModalOpen(true) :  enqueueSnackbar("Amount cannot be null", {
+                          variant: "error",
+                          anchorOrigin: { horizontal: "center", vertical: "top" },
+                        });}}
                       >
                         Generate Link
                       </Button>
@@ -103,18 +140,26 @@ const ReceivePage: React.FC = () => {
         fullWidth
       >
         <DialogContent>
-          <Box textAlign="center" mt={1} mb={2}>
-            <CircularProgress
-              sx={{ height: "150px !important", width: "150px !important" }}
-            />
+          <Typography variant="h6" component="div" textAlign="center" mb={2}>
+          Link Has been Generated. 
+          </Typography>
+          <Grid
+            item
+            xs={12}
+            md={12}
+            display={{ xs: "none", md: "flex" }}
+            justifyContent="center"
+          >
+          <Box>
+            <Button
+              variant="contained"
+              onClick={() => onCopyGeneratedLink()}
+            >
+              Copy Link
+            </Button>
           </Box>
-          <Typography variant="h6" component="div" textAlign="center">
-            Please Wait
-          </Typography>
-
-          <Typography variant="body2" component="div" textAlign="center">
-            This process takes usually approx. 2 minutes
-          </Typography>
+          </Grid>
+      
         </DialogContent>
       </Dialog>
     </>

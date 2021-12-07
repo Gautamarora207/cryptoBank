@@ -13,14 +13,16 @@ import {
     Typography,
   } from "@mui/material";
   import React, { useState } from "react";
-  import CloseIcon from "@mui/icons-material/Close";
   import SendReceiveSvg from "../../assets/images/hero.png";
   import { useDispatch, useSelector } from "react-redux";
   import { useSnackbar } from "notistack";
   import { CURRENCY_MAP } from "../../constants";
   import { networkChainIds, networkGasCurrencys, networkRPCUrls, supportedNetworkNames } from "../../constants";
-  import { sendTrx } from "../../hooks/sendTrx";
-import { userNetworkLoaded } from "../../store/actions";
+  import { userNetworkLoaded } from "../../store/actions";
+import { ChainId } from "@celo-tools/use-contractkit";
+import { doDeposit } from "../../hooks/doDeposit";
+import { getNotes } from "../../utils/notes";
+import { useDeposit } from "../../hooks/writeContract";
 
   const Web3 = require('web3');
   
@@ -29,21 +31,24 @@ import { userNetworkLoaded } from "../../store/actions";
 
     const query = new URLSearchParams(window.location.search);
   
-    let isAddressError: boolean;
+    let isError: any;
     
     const selectedCurrencyIndex:any = query.get('currencyIndex');
-    const amount = query.get('amount');
+    const amount:any = query.get('amount');
   
     const { enqueueSnackbar } = useSnackbar();
+    const [notes, setNotes] = useState([]);
   
     const receiverAddress = query.get('receiverAddress');
-  
-    isAddressError = !web3.utils.isAddress(receiverAddress);
-    console.log(isAddressError);
 
     const dispatch = useDispatch();
 
     const networkIndex:any = query.get('networkIndex');
+    const privateKey :any = localStorage.getItem("userPrivateKey");
+
+    if(networkIndex == undefined || receiverAddress == undefined || amount == undefined || selectedCurrencyIndex == undefined || !web3.utils.isAddress(receiverAddress)) {
+      isError = true;
+    }
 
     let userNetwork = useSelector(
       (networkSelector:any) => 
@@ -57,21 +62,42 @@ import { userNetworkLoaded } from "../../store/actions";
     
   
     let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
-    
-    function processTrx() {
-      // if(isAddressError || amount == null || receiverAddress == null) {
-      //   enqueueSnackbar("Please enter a valid address", {
-      //     variant: "error",
-      //     anchorOrigin: { horizontal: "center", vertical: "top" },
-      //   });
-      // } else {
-      //   try{
-      //     sendTrx(privateKey, userNetwork, amount, userAddress, receiverAddress,enqueueSnackbar );
-      //   } catch(e:any) {
-      //     console.error(e.message);
-      //   }
-      // }
+
+    function getNotesForDeposit() {
+      if(userNetwork.chainId == ChainId.Mainnet) {
+        
+        const notes:any = getNotes(amount,currentSupportedCurrencies[selectedCurrencyIndex], userNetwork.chainId);
+        setNotes(notes.notes);   
+        console.log(notes.notes);
+        initiateDeposit(); 
+      } else {
+        try {
+          doDeposit(userNetwork, amount.toString(), receiverAddress).then((v) => console.log(v));
+        } catch(e:any){
+          enqueueSnackbar(e.message, {
+            variant: "error",
+            anchorOrigin: { horizontal: "center", vertical: "top" },
+          });
+        }
+        console.log('other networks');
+      }
     }
+  
+    async function initiateDeposit() {
+      if(userNetwork.chainId == ChainId.Mainnet) {
+        try { 
+          deposit("").then((v) => console.log(v));
+        } catch(e) {
+          console.error(e); 
+        }
+      } else {
+  
+      }
+    }
+  
+    const [txHash, deposit, depositLoading] = useDeposit(
+      notes.map((note: { noteString: any; }) => note.noteString)
+    );
     
   
     return (
@@ -88,13 +114,13 @@ import { userNetworkLoaded } from "../../store/actions";
   
           <Grid container spacing={4}>
             <Grid item xs={12} md={5}>
+              { isError ? <Box>
+                <Typography variant="body2">Invalid Request</Typography>
+              </Box> : 
               <Box>
                 <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
                   <Paper sx={{ height: "100%" }}>
                     <CardContent sx={{ padding: 3 }}>
-                      <Box mb={2} display="flex" gap={2}>
-                      <Typography variant="body2">{isAddressError && receiverAddress != '' ? 'Invalid address, please try again' : ''}</Typography> 
-                      </Box>
   
                       <Box mb={2} display="flex" gap={2}>
                         <FormControl>
@@ -121,12 +147,13 @@ import { userNetworkLoaded } from "../../store/actions";
                       </Box>
   
                       <Box>
-                        <Button variant="contained"  onClick={() => processTrx()}>Connect Wallet</Button>
+                        <Button variant="contained"  onClick={() => getNotesForDeposit()}>Connect Wallet</Button>
                       </Box>
                     </CardContent>
                   </Paper>
                 </Card>
               </Box>
+  }
             </Grid>
   
             <Grid

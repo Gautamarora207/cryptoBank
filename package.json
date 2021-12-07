@@ -3,13 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@celo-tools/use-contractkit": "npm:@poofcash/use-contractkit@^1.0.1",
-    "@walletconnect/client": "1.6.6",
+    "@celo-tools/use-contractkit": "^2.0.1",
     "@emotion/react": "^11.6.0",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.1.1",
     "@mui/material": "^5.1.1",
-    "@poofcash/poof-kit": "^1.0.36",
+    "@poofcash/poof-kit": "=1.0.36",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -20,6 +19,7 @@
     "@types/react-modal": "^3.12.0",
     "circomlib": "git+https://github.com/tornadocash/circomlib.git#c372f14d324d57339c88451834bf2824e73bbdbc",
     "ethereumjs-tx": "^2.1.2",
+    "fraction.js": "^4.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "notistack": "^2.0.3",
@@ -34,11 +34,10 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.0",
     "reselect": "^4.1.4",
-    "slick-carousel": "^1.8.1",
     "snarkjs": "git+https://github.com/peppersec/snarkjs.git#869181cfaf7526fe8972073d31655493a04326d5",
-    "typescript": "^4.4.4",
+    "typescript": "^4.5.2",
     "web-vitals": "^1.1.2",
-    "web3": "^1.6.1"
+    "web3": "^1.3.1"
   },
   "scripts": {
     "start": "react-scripts start",

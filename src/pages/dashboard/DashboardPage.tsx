@@ -34,6 +34,9 @@ import { userNetworkLoaded } from "../../store/actions";
 
 
 const DashboardPage: React.FC = () => {
+  const Web3 = require('web3');
+  const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
+
   const navigate = useNavigate();
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
 
@@ -57,6 +60,8 @@ const DashboardPage: React.FC = () => {
 
   Object.values(CURRENCY_MAP[userNetwork.chainId]);
 
+  let txs: any[] = [];
+
   useTokenBalance(
     CURRENCY_MAP[userNetwork.chainId][userNetwork.gasCurrency],
     userNetwork.gasCurrency.toLowerCase(),
@@ -69,6 +74,26 @@ const DashboardPage: React.FC = () => {
       balance: balance,
     })
   }  
+
+  getTransactionHistory();
+
+  async function getTransactionHistory() {
+    const latest = await web3.eth.getBlockNumber()
+    console.log(latest);
+    var block = await web3.eth.getBlock(latest);
+    
+
+    for(var i = 0; i < latest; i++) {
+        var block = await web3.eth.getBlock(i, true);
+        for(var j = 0; j < block.transactions; j++) {
+            if( block.transactions[j].to == userAddress) {
+                let trx = web3.eth.getTransaction(block.transactions[j]);
+                txs.push(trx);
+            }
+        }
+    }
+    console.log(txs);
+  }
 
 
   useEffect(() => {
@@ -215,7 +240,7 @@ const DashboardPage: React.FC = () => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             <TableContainer
-              sx={{ borderRadius: 4, height: balances.length > 1 ? "60%" : "25%", minHeight:"150px" }}
+              sx={{ borderRadius: 4, height: balances.length > 1 ? "100%" : "25%", minHeight:"150px" }}
               component={Paper}
               variant="outlined"
             >
@@ -301,170 +326,54 @@ const DashboardPage: React.FC = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
+            <Card variant="outlined" sx={{ borderRadius: 4, height: txs.length > 0 ? "100%" : "80%", }}>
               <CardHeader subheader="Transaction History" />
               <Paper sx={{ height: "100%" }}>
                 <CardContent sx={{ padding: 3 }}>
                   <TableContainer>
                     <Table size="medium">
+
                       <TableHead>
                         <TableRow>
-                          <TableCell>Date</TableCell>
-                          <TableCell>Amount</TableCell>
+                          <TableCell>Account</TableCell>
+                          <TableCell>Value</TableCell>
                           <TableCell></TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell>01/01/2021</TableCell>
-                          <TableCell>$10</TableCell>
-                          <TableCell align="right">
-                            <IconButton
-                              color="info"
-                              sx={[
-                                {
-                                  background: "rgba(41, 182, 246, 0.08)",
-                                },
-                                {
-                                  "&:hover": {
-                                    background: "rgba(255, 255, 255, 0.08)",
-                                  },
-                                },
-                              ]}
-                            >
-                              <OpenInNewIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell>01/01/2021</TableCell>
-                          <TableCell>$20</TableCell>
-                          <TableCell align="right">
-                            <IconButton
-                              color="info"
-                              sx={[
-                                {
-                                  background: "rgba(41, 182, 246, 0.08)",
-                                },
-                                {
-                                  "&:hover": {
-                                    background: "rgba(255, 255, 255, 0.08)",
-                                  },
-                                },
-                              ]}
-                            >
-                              <OpenInNewIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell>01/01/2021</TableCell>
-                          <TableCell>$30</TableCell>
-                          <TableCell align="right">
-                            <IconButton
-                              color="info"
-                              sx={[
-                                {
-                                  background: "rgba(41, 182, 246, 0.08)",
-                                },
-                                {
-                                  "&:hover": {
-                                    background: "rgba(255, 255, 255, 0.08)",
-                                  },
-                                },
-                              ]}
-                            >
-                              <OpenInNewIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell>01/01/2021</TableCell>
-                          <TableCell>$40</TableCell>
-                          <TableCell align="right">
-                            <IconButton
-                              color="info"
-                              sx={[
-                                {
-                                  background: "rgba(41, 182, 246, 0.08)",
-                                },
-                                {
-                                  "&:hover": {
-                                    background: "rgba(255, 255, 255, 0.08)",
-                                  },
-                                },
-                              ]}
-                            >
-                              <OpenInNewIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                        <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell>01/01/2021</TableCell>
-                          <TableCell>$50</TableCell>
-                          <TableCell align="right">
-                            <IconButton
-                              color="info"
-                              sx={[
-                                {
-                                  background: "rgba(41, 182, 246, 0.08)",
-                                },
-                                {
-                                  "&:hover": {
-                                    background: "rgba(255, 255, 255, 0.08)",
-                                  },
-                                },
-                              ]}
-                            >
-                              <OpenInNewIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                        {/* <TableRow
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell>01/01/2021</TableCell>
-                          <TableCell>$60</TableCell>
-                          <TableCell align="right">
-                            <IconButton
-                              color="info"
-                              sx={[
-                                {
-                                  background: "rgba(41, 182, 246, 0.08)",
-                                },
-                                {
-                                  "&:hover": {
-                                    background: "rgba(255, 255, 255, 0.08)",
-                                  },
-                                },
-                              ]}
-                            >
-                              <OpenInNewIcon />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow> */}
+                      {txs.length == 0 ?  <TableRow
+                           sx={{
+                             "&:last-child td, &:last-child th": { border: 0 },
+                           }}
+                         ><br></br><Typography variant="body2">No transaction history found</Typography></TableRow> :
+                         txs.map((item:any, index:any) => ( 
+                           <TableRow
+                           sx={{
+                             "&:last-child td, &:last-child th": { border: 0 },
+                           }}
+                         >
+                           <TableCell>txs[index].from</TableCell>
+                           <TableCell>txs[index].value</TableCell>
+                           <TableCell align="right">
+                             <IconButton
+                               color="info"
+                               sx={[
+                                 {
+                                   background: "rgba(41, 182, 246, 0.08)",
+                                 },
+                                 {
+                                   "&:hover": {
+                                     background: "rgba(255, 255, 255, 0.08)",
+                                   },
+                                 },
+                               ]}
+                             >
+                               <OpenInNewIcon />
+                             </IconButton>
+                           </TableCell>
+                         </TableRow>
+                        
+                      ))}
                       </TableBody>
                     </Table>
                   </TableContainer>

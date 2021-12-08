@@ -25,10 +25,11 @@ import { getNotes } from "../../utils/notes";
 
 const DepositPage: React.FC = () => {
 
-  const Web3 = require('web3');
-  const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
-
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
+  
+  
+
+  // web3.eth.getTransactionList(userAddress).then((v:any) => console.log(v));
 
   const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
   const [amount, setAmount ] = useState("0");
@@ -40,6 +41,8 @@ const DepositPage: React.FC = () => {
 
   let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
   const { enqueueSnackbar } = useSnackbar();
+
+ 
  
   function getNotesForDeposit() {
     if(userNetwork.chainId == ChainId.Mainnet) {

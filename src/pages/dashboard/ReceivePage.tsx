@@ -30,7 +30,7 @@ const ReceivePage: React.FC = () => {
   };
 
   const onCopyGeneratedLink = () => {
-    navigator.clipboard.writeText("http://localhost:3000/complete-request?amount="+amount+"&networkIndex="+networkChainIds.indexOf(userNetwork.chainId)+"&currencyIndex="+selectedCurrencyIndex+"&receiverAddress="+userAddress);
+    navigator.clipboard.writeText("https://semilla-labs-dev.web.app/complete-request?amount="+amount+"&networkIndex="+networkChainIds.indexOf(userNetwork.chainId)+"&currencyIndex="+selectedCurrencyIndex+"&receiverAddress="+userAddress);
 
     enqueueSnackbar("Copied to clipboard", {
       variant: "success",

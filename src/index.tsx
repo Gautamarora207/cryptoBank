@@ -9,8 +9,8 @@ import { ConcealThemeProvider } from "./context/ConcealTheme";
 
 import "./index.css";
 import "@celo-tools/use-contractkit/lib/styles.css";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 ReactDOM.render(
   <React.StrictMode>

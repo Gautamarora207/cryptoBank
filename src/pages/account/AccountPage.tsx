@@ -185,9 +185,7 @@ const AccountPage: React.FC = () => {
         </Link>
         {loginWithPassword ? <div></div> : 
       <Typography component="p" variant="body2" color="text-secondary">
-         *Your key never leaves the browser and stays encrypted at rest. If
-          this is your first time here, you are encouraged to create a new Poof
-          wallet rather than use a private key from an existing wallet.
+         *Your key never leaves the browser and stays encrypted. If this is your first time here, you are encouraged to create a new Conceal Protocol wallet rather than use a private key from an existing wallet.
         </Typography>
         }
         

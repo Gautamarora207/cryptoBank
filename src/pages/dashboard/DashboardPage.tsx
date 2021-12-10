@@ -35,7 +35,7 @@ import { userNetworkLoaded } from "../../store/actions";
 
 const DashboardPage: React.FC = () => {
   const Web3 = require('web3');
-  const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
+  const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/20de382e6be74214854ccf558284a440"));
 
   const navigate = useNavigate();
   const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);

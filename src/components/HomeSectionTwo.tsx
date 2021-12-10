@@ -17,28 +17,28 @@ const HomeSectionTwo: React.FC = () => {
         <Grid item sm={6} md={4}>
           <MainInfoCard
             title="How does Conceal Protocol work?"
-            image="https://via.placeholder.com/200"
+            image="https://toppng.com/uploads/preview/gear-icon-white-white-cogs-icon-11553450642pyzpexmstj.png"
           >
             <Typography variant="body2" color="text.primary" mb={1}>
               Deposit - Wait - Withdraw
             </Typography>
             <Typography variant="body2" color="text.primary" mb={1}>
               Deposit select cryptocurrencies on Aurora or Fantom and receive a
-              private key
+              private key.
             </Typography>
             <Typography variant="body2" color="text.primary" mb={1}>
               Wait to increase your anonymity.
             </Typography>
             <Typography variant="body2" color="text.primary">
               Withdraw to claim your cryptocurrencies on a new wallet using your
-              deposit private key
+              deposit private key.
             </Typography>
           </MainInfoCard>
         </Grid>
         <Grid item sm={6} md={4}>
           <MainInfoCard
             title="How does Conceal Protocol provide privacy?"
-            image="https://via.placeholder.com/200"
+            image="https://www.pinpng.com/pngs/m/369-3697891_anonymous-white-logo-png-transparent-png.png"
           >
             <Typography variant="body2" color="text.primary" mb={1}>
               Conceal protocol provides transaction privacy by breaking the
@@ -55,7 +55,7 @@ const HomeSectionTwo: React.FC = () => {
         <Grid item sm={6} md={4}>
           <MainInfoCard
             title="Why use Conceal Protocol?"
-            image="https://via.placeholder.com/200"
+            image="https://img1.pnghut.com/12/20/0/USEnYymAri/login-art-symbol-illuminati-area.jpg"
           >
             <Typography variant="body2" color="text.primary" mb={1}>
               Conceal Protocol is built using MIT fair-use licensed zk-SNARKs

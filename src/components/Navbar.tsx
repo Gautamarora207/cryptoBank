@@ -29,12 +29,12 @@ const Navbar: React.FC = () => {
 
         <Box sx={{ display: "flex", gap: "1rem" }}>
           <Link to="/lorem1" style={{ textDecoration: "none" }}>
-            <Button>Lorem 1</Button>
+            <Button>conceal protocol</Button>
           </Link>
-          <Button sx={{ display: { xs: "none", sm: "block" } }}>Discord</Button>
-          <Link to="/lorem2" style={{ textDecoration: "none" }}>
-            <Button>Lorem 2</Button>
-          </Link>
+          <Button sx={{ display: { xs: "none", sm: "block" } }} href="https://twitter.com/concealprotocol" target="blank">twitter </Button>
+          {/* <Link to="/lorem2" style={{ textDecoration: "none" }}> */}
+            <Button href="https://t.me/Monero0xMR" target="blank">Telegram </Button>
+          {/* </Link> */}
           <Link to="/account" style={{ textDecoration: "none" }}>
             <Button color="primary" variant="contained" disableElevation>
               <Typography fontWeight="bold">Launch App</Typography>

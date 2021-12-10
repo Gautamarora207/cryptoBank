@@ -97,7 +97,7 @@ const DashboardNavbar: React.FC = () => {
           </Typography>
         </Link>
 
-        <Link to="/home" style={{ textDecoration: "none" }}>
+        {/* <Link to="/home" style={{ textDecoration: "none" }}>
           <Typography
             color="text.primary"
             sx={[
@@ -108,7 +108,7 @@ const DashboardNavbar: React.FC = () => {
           >
             Docs
           </Typography>
-        </Link>
+        </Link> */}
       </Box>
 
       <Box

@@ -7,7 +7,13 @@ const MainInfoCard: React.FC<{
 }> = ({ title, image, children }) => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-      <img src={image} alt={title} />
+      <img
+        src={image}
+        alt={title}
+        width="200"
+        height="200"
+        style={{ objectFit: "cover" }}
+      />
 
       <Button
         variant="outlined"

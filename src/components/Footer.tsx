@@ -34,15 +34,15 @@ const Footer: React.FC = () => {
             height="auto"
           />
         </Box>
-        <Typography variant="body2" mb={4}>
+        {/* <Typography variant="body2" mb={4}>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero neque
           fuga id inventore maxime asperiores nisi.
         </Typography>
         <Typography variant="body2">
           Copyright &copy; Lorem ipsum dolor sit amet consectetur.
-        </Typography>
+        </Typography> */}
       </Box>
-      <Box gridArea="product">
+      {/* <Box gridArea="product">
         <Typography variant="body2" fontWeight="bold" mb={4}>
           Product
         </Typography>
@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
             Lorem 6
           </Link>
         </Box>
-      </Box>
+      </Box> */}
       <Box gridArea="social">
         <Typography variant="body2" fontWeight="bold" mb={4}>
           Social

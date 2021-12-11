@@ -13,9 +13,9 @@ const HomePage: React.FC = () => {
 
       <HomeSectionTwo />
 
-      <HomeSectionOne />
+      {/* <HomeSectionOne /> */}
 
-      <JoinDiscordSection />
+      {/* <JoinDiscordSection /> */}
 
       <Partners />
     </>

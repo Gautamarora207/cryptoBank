@@ -55,7 +55,7 @@ const HomeSectionTwo: React.FC = () => {
         <Grid item sm={6} md={4}>
           <MainInfoCard
             title="Why use Conceal Protocol?"
-            image="/images/why_use.jpg"
+            image="/images/items.jpg"
           >
             <Typography variant="body2" color="text.primary" mb={1}>
               Conceal Protocol is built using MIT fair-use licensed zk-SNARKs

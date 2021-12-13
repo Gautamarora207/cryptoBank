@@ -17,7 +17,7 @@ const HomeSectionTwo: React.FC = () => {
         <Grid item sm={6} md={4}>
           <MainInfoCard
             title="How does Conceal Protocol work?"
-            image="/images/setting.png"
+            image="/images/setting1.png"
           >
             <Typography variant="body2" color="text.primary" mb={1}>
               Deposit - Wait - Withdraw
@@ -38,7 +38,7 @@ const HomeSectionTwo: React.FC = () => {
         <Grid item sm={6} md={4}>
           <MainInfoCard
             title="How does Conceal Protocol provide privacy?"
-            image="/images/mask.jpg"
+            image="/images/mask1.png"
           >
             <Typography variant="body2" color="text.primary" mb={1}>
               Conceal protocol provides transaction privacy by breaking the
@@ -55,7 +55,7 @@ const HomeSectionTwo: React.FC = () => {
         <Grid item sm={6} md={4}>
           <MainInfoCard
             title="Why use Conceal Protocol?"
-            image="/images/set.jpg"
+            image="/images/set2.png"
           >
             <Typography variant="body2" color="text.primary" mb={1}>
               Conceal Protocol is built using MIT fair-use licensed zk-SNARKs

@@ -5,7 +5,7 @@ const Tx = require('ethereumjs-tx').Transaction;
 export async function sendTrx(privateKey: string, userNetwork:any, amount:string, owner: string, receiverAddress:string, enqueueSnackbar:any | null) {  
       
     try {
-      const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
+      const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
       
       let gasPrice;
 

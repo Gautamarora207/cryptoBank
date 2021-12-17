@@ -63,6 +63,7 @@ const AccountPage: React.FC = () => {
         const account = web3.eth.accounts.decrypt(userCrypto, password);
         localStorage.setItem('userPrivateKey', account.privateKey);
         dispatch(userAccountLoaded(account.address));
+        console.log(userAccountLoaded(account.address));
         navigate("/home");
       } catch(e) {
         enqueueSnackbar("Incorrect password, please try again", {
@@ -75,6 +76,7 @@ const AccountPage: React.FC = () => {
         const account =  web3.eth.accounts.privateKeyToAccount('0x'+privateKey);
         localStorage.setItem('userPrivateKey', privateKey);
         dispatch(userAccountLoaded(account.address));
+        console.log(userAccountLoaded(account.address));
         handleClickOpen();
       } catch(e) {
         enqueueSnackbar("Please enter a valid private key!", {

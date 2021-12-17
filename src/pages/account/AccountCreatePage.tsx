@@ -52,6 +52,7 @@ const AccountCreatePage: React.FC = () => {
     localStorage.setItem('userCrypto', JSON.stringify(keystoreJsonV3));
     localStorage.setItem('userPrivateKey', privateKey);
     dispatch(userAccountLoaded(account.address));
+    console.log(userAccountLoaded(account.address));
     navigate("/home");
   }
 

@@ -44,7 +44,7 @@ const DepositPage: React.FC = () => {
 
  
  
-  function getNotesForDeposit() {
+  async function getNotesForDeposit() {
     if(userNetwork.chainId == ChainId.Mainnet) {
       
       const notes:any = getNotes(amount,currentSupportedCurrencies[selectedCurrencyIndex], userNetwork.chainId);
@@ -52,7 +52,9 @@ const DepositPage: React.FC = () => {
       initiateDeposit(); 
     } else {
       try {
-        doDeposit(userNetwork, amount.toString(), userAddress).then((v) => console.log(v));
+        console.log("IN else try")
+        console.log(userNetwork, amount.toString(), userAddress)
+        await doDeposit({...userNetwork, rpcUrl: 'https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f'}, amount.toString(), userAddress)
       } catch(e:any){
         enqueueSnackbar(e.message, {
           variant: "error",

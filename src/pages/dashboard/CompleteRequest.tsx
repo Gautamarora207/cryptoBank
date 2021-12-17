@@ -27,7 +27,7 @@ import { useDeposit } from "../../hooks/writeContract";
   const Web3 = require('web3');
   
   const CompleteRequest: React.FC = () => {
-    const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
+    const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
 
     const query = new URLSearchParams(window.location.search);
   

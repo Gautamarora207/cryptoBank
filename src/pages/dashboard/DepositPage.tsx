@@ -14,71 +14,101 @@ import {
   Button,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import SendReceiveSvg from "../../assets/images/hero.png";
 import { CURRENCY_MAP } from "../../constants";
 import { doDeposit } from "../../hooks/doDeposit";
 import { useDeposit } from "../../hooks/writeContract";
 import { getNotes } from "../../utils/notes";
+import { useWeb3React } from "@web3-react/core";
+import { InjectedConnector } from "@web3-react/injected-connector";
 
+const injected = new InjectedConnector({
+  supportedChainIds: [3, 4], // Change according to supported Network Ids
+});
 
 const DepositPage: React.FC = () => {
+  const userAddress = useSelector(
+    (addressSelector: any) => addressSelector.user.address
+  );
+  const [activatingConnector, setActivatingConnector] = useState();
 
-  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
-  
-  
+  const { account, activate, connector, library } = useWeb3React();
 
   // web3.eth.getTransactionList(userAddress).then((v:any) => console.log(v));
 
-  const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
-  const [amount, setAmount ] = useState("0");
+  const [selectedCurrencyIndex, setCurrencyIndex] = useState(0);
+  const [amount, setAmount] = useState("0");
   const [notes, setNotes] = useState([]);
 
-  const privateKey :any = localStorage.getItem("userPrivateKey");
+  const privateKey: any = localStorage.getItem("userPrivateKey");
 
-  let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
+  let userNetwork = useSelector(
+    (networkSelector: any) => networkSelector.user.network
+  );
 
-  let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
+  let currentSupportedCurrencies = Object.keys(
+    CURRENCY_MAP[userNetwork.chainId]
+  );
   const { enqueueSnackbar } = useSnackbar();
 
- 
- 
+  useEffect(() => {
+    if (activatingConnector && activatingConnector === connector) {
+      setActivatingConnector(undefined);
+    }
+  }, [activatingConnector, connector]);
+
   async function getNotesForDeposit() {
-    if(userNetwork.chainId == ChainId.Mainnet) {
-      
-      const notes:any = getNotes(amount,currentSupportedCurrencies[selectedCurrencyIndex], userNetwork.chainId);
-      setNotes(notes.notes);   
-      initiateDeposit(); 
+    if (userNetwork.chainId == ChainId.Mainnet) {
+      const notes: any = getNotes(
+        amount,
+        currentSupportedCurrencies[selectedCurrencyIndex],
+        userNetwork.chainId
+      );
+      setNotes(notes.notes);
+      initiateDeposit();
     } else {
       try {
-        console.log("IN else try")
-        console.log(userNetwork, amount.toString(), userAddress)
-        await doDeposit({...userNetwork, rpcUrl: 'https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f'}, amount.toString(), userAddress)
-      } catch(e:any){
+        console.log("IN else try");
+        console.log(userNetwork, amount.toString(), userAddress);
+        // @ts-ignore
+        setActivatingConnector(injected);
+        activate(injected);
+        await doDeposit(
+          {
+            ...userNetwork,
+            rpcUrl:
+              "https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f",
+          },
+          amount.toString(),
+          userAddress,
+          account
+        );
+      } catch (e: any) {
+        console.log(e);
         enqueueSnackbar(e.message, {
           variant: "error",
           anchorOrigin: { horizontal: "center", vertical: "top" },
         });
       }
-      console.log('other networks');
+      console.log("other networks");
     }
   }
 
   async function initiateDeposit() {
-    if(userNetwork.chainId == ChainId.Mainnet) {
-      try { 
+    if (userNetwork.chainId == ChainId.Mainnet) {
+      try {
         deposit(privateKey).then((v) => console.log(v));
-      } catch(e) {
-        console.error(e); 
+      } catch (e) {
+        console.error(e);
       }
     } else {
-
     }
   }
 
   const [txHash, deposit, depositLoading] = useDeposit(
-    notes.map((note: { noteString: any; }) => note.noteString)
+    notes.map((note: { noteString: any }) => note.noteString)
   );
   return (
     <Box>
@@ -98,13 +128,22 @@ const DepositPage: React.FC = () => {
               <Paper sx={{ height: "100%" }}>
                 <CardContent sx={{ padding: 3 }}>
                   <FormControl fullWidth sx={{ mb: 2 }}>
-                    <InputLabel> <Typography variant="body2">Currency</Typography></InputLabel>
-                    <Select onChange={(v:any) => {
-                      setCurrencyIndex(v.target.value);
-                    }} defaultValue={0} label="Currency">
-                    {currentSupportedCurrencies.map((item, index) => (
-                      <MenuItem key={index} value={index}>{item}</MenuItem>
-                    ))}
+                    <InputLabel>
+                      {" "}
+                      <Typography variant="body2">Currency</Typography>
+                    </InputLabel>
+                    <Select
+                      onChange={(v: any) => {
+                        setCurrencyIndex(v.target.value);
+                      }}
+                      defaultValue={0}
+                      label="Currency"
+                    >
+                      {currentSupportedCurrencies.map((item, index) => (
+                        <MenuItem key={index} value={index}>
+                          {item}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
 
@@ -113,18 +152,20 @@ const DepositPage: React.FC = () => {
                       label="Amount"
                       variant="outlined"
                       type="number"
-                      onChange={(v:any) => {setAmount(v.target.value)}}
-                      inputProps={{ inputMode: "numeric", min: 0,
+                      onChange={(v: any) => {
+                        setAmount(v.target.value);
                       }}
+                      inputProps={{ inputMode: "numeric", min: 0 }}
                       InputLabelProps={{
-                        style: { color: '#fff' },
+                        style: { color: "#fff" },
                       }}
-                    
                     />
                   </FormControl>
 
                   <Box>
-                    <Button onClick={getNotesForDeposit} variant="contained">Connect Wallet</Button>
+                    <Button onClick={getNotesForDeposit} variant="contained">
+                      Connect Wallet
+                    </Button>
                   </Box>
                 </CardContent>
               </Paper>

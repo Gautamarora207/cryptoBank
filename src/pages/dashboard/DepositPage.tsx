@@ -23,6 +23,7 @@ import { useDeposit } from "../../hooks/writeContract";
 import { getNotes } from "../../utils/notes";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
+import Loader from "react-loader-spinner";
 
 const injected = new InjectedConnector({
   supportedChainIds: [3, 4], // Change according to supported Network Ids
@@ -36,11 +37,10 @@ const DepositPage: React.FC = () => {
 
   const { account, activate, connector, library } = useWeb3React();
 
-  // web3.eth.getTransactionList(userAddress).then((v:any) => console.log(v));
-
   const [selectedCurrencyIndex, setCurrencyIndex] = useState(0);
   const [amount, setAmount] = useState("0");
   const [notes, setNotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const privateKey: any = localStorage.getItem("userPrivateKey");
 
@@ -70,8 +70,6 @@ const DepositPage: React.FC = () => {
       initiateDeposit();
     } else {
       try {
-        console.log("IN else try");
-        console.log(userNetwork, amount.toString(), userAddress);
         // @ts-ignore
         setActivatingConnector(injected);
         activate(injected);
@@ -83,16 +81,15 @@ const DepositPage: React.FC = () => {
           },
           amount.toString(),
           userAddress,
-          account
+          enqueueSnackbar,
+          setIsLoading
         );
       } catch (e: any) {
-        console.log(e);
         enqueueSnackbar(e.message, {
           variant: "error",
           anchorOrigin: { horizontal: "center", vertical: "top" },
         });
       }
-      console.log("other networks");
     }
   }
 
@@ -163,8 +160,22 @@ const DepositPage: React.FC = () => {
                   </FormControl>
 
                   <Box>
-                    <Button onClick={getNotesForDeposit} variant="contained">
-                      Connect Wallet
+                    <Button
+                      onClick={getNotesForDeposit}
+                      variant="contained"
+                      disabled={isLoading}
+                    >
+                      {" "}
+                      {isLoading ? (
+                        <Loader
+                          type="ThreeDots"
+                          color="#000000"
+                          height={10}
+                          width={20}
+                        />
+                      ) : (
+                        "Connect Wallet"
+                      )}
                     </Button>
                   </Box>
                 </CardContent>

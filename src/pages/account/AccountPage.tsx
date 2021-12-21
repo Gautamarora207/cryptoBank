@@ -16,8 +16,7 @@ import {
 } from "@mui/material";
 import { userAccountLoaded, userCryptoLoaded } from "../../store/actions";
 
-const Web3 = require('web3');
-
+const Web3 = require("web3");
 
 const AccountPage: React.FC = () => {
   const navigate = useNavigate();
@@ -27,14 +26,18 @@ const AccountPage: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider("http://localhost:8545")
+  );
 
   const serialisedUserCrypto = localStorage.getItem("userCrypto");
   let userCrypto: any;
 
-  const [loginWithPassword, setLoginWithPassword] = useState(serialisedUserCrypto != null ? true : false);
+  const [loginWithPassword, setLoginWithPassword] = useState(
+    serialisedUserCrypto != null ? true : false
+  );
 
-  if(serialisedUserCrypto != null) {
+  if (serialisedUserCrypto != null) {
     userCrypto = JSON.parse(serialisedUserCrypto);
   }
 
@@ -50,22 +53,19 @@ const AccountPage: React.FC = () => {
 
   const encryptPrivateKey = () => {
     const keystoreJsonV3 = web3.eth.accounts.encrypt(privateKey, password);
-    console.log(keystoreJsonV3);
-    localStorage.setItem('userCrypto', JSON.stringify(keystoreJsonV3));
+    localStorage.setItem("userCrypto", JSON.stringify(keystoreJsonV3));
     navigate("/home");
-  }
-
+  };
 
   const onLoginHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(loginWithPassword) {
+    if (loginWithPassword) {
       try {
         const account = web3.eth.accounts.decrypt(userCrypto, password);
-        localStorage.setItem('userPrivateKey', account.privateKey);
+        localStorage.setItem("userPrivateKey", account.privateKey);
         dispatch(userAccountLoaded(account.address));
-        console.log(userAccountLoaded(account.address));
         navigate("/home");
-      } catch(e) {
+      } catch (e) {
         enqueueSnackbar("Incorrect password, please try again", {
           variant: "error",
           anchorOrigin: { horizontal: "center", vertical: "top" },
@@ -73,25 +73,26 @@ const AccountPage: React.FC = () => {
       }
     } else {
       try {
-        const account =  web3.eth.accounts.privateKeyToAccount('0x'+privateKey);
-        localStorage.setItem('userPrivateKey', privateKey);
+        const account = web3.eth.accounts.privateKeyToAccount(
+          "0x" + privateKey
+        );
+        localStorage.setItem("userPrivateKey", privateKey);
         dispatch(userAccountLoaded(account.address));
-        console.log(userAccountLoaded(account.address));
         handleClickOpen();
-      } catch(e) {
+      } catch (e) {
         enqueueSnackbar("Please enter a valid private key!", {
           variant: "error",
           anchorOrigin: { horizontal: "center", vertical: "top" },
         });
       }
-    } 
+    }
   };
 
   const onLogoutHandler = () => {
     setLoginWithPassword(false);
-    localStorage.removeItem('userCrypto');
-    localStorage.removeItem('userPrivateKey');
-  }
+    localStorage.removeItem("userCrypto");
+    localStorage.removeItem("userPrivateKey");
+  };
 
   return (
     <Box
@@ -106,7 +107,9 @@ const AccountPage: React.FC = () => {
       </Typography>
 
       <Typography component="p" variant="body2" color="text-secondary">
-       {!loginWithPassword ? "Enter your Conceal Protocol account" : "Enter your password to unlock your Conceal Protocol wallet" } 
+        {!loginWithPassword
+          ? "Enter your Conceal Protocol account"
+          : "Enter your password to unlock your Conceal Protocol wallet"}
       </Typography>
 
       <Box component="form" onSubmit={onLoginHandler} noValidate sx={{ mt: 1 }}>
@@ -118,11 +121,15 @@ const AccountPage: React.FC = () => {
           label={loginWithPassword ? "Password" : "Private Key"}
           value={loginWithPassword ? password : privateKey}
           onChange={(v) => {
-            loginWithPassword ? setPassword(v.target.value) : setPrivateKey(v.target.value);
+            loginWithPassword
+              ? setPassword(v.target.value)
+              : setPrivateKey(v.target.value);
           }}
-          placeholder={loginWithPassword ? "Enter password" : "Enter your private key"} 
+          placeholder={
+            loginWithPassword ? "Enter password" : "Enter your private key"
+          }
           InputLabelProps={{
-            style: { color: '#fff' },
+            style: { color: "#fff" },
           }}
         />
 
@@ -134,22 +141,20 @@ const AccountPage: React.FC = () => {
         >
           Log In
         </Button>
-          {
-            loginWithPassword ? 
-            <Button
+        {loginWithPassword ? (
+          <Button
             fullWidth
-            onClick={
-              () => { 
-                onLogoutHandler();
-              }
-            }
+            onClick={() => {
+              onLogoutHandler();
+            }}
             variant="outlined"
             sx={{ mt: 1, mb: 1 }}
           >
             Log Out
-          </Button> : <div></div>
-          }
-        
+          </Button>
+        ) : (
+          <div></div>
+        )}
 
         <Box
           my={3}
@@ -168,7 +173,7 @@ const AccountPage: React.FC = () => {
               py: 0.5,
               px: 1,
               display: "inline-block",
-              color:"white"
+              color: "white",
             }}
           >
             Or
@@ -185,12 +190,16 @@ const AccountPage: React.FC = () => {
             Create A Wallet
           </Button>
         </Link>
-        {loginWithPassword ? <div></div> : 
-      <Typography component="p" variant="body2" color="text-secondary">
-         *Your key never leaves the browser and stays encrypted. If this is your first time here, you are encouraged to create a new Conceal Protocol wallet rather than use a private key from an existing wallet.
-        </Typography>
-        }
-        
+        {loginWithPassword ? (
+          <div></div>
+        ) : (
+          <Typography component="p" variant="body2" color="text-secondary">
+            *Your key never leaves the browser and stays encrypted. If this is
+            your first time here, you are encouraged to create a new Conceal
+            Protocol wallet rather than use a private key from an existing
+            wallet.
+          </Typography>
+        )}
       </Box>
       <Dialog open={openPasswordDialog} onClose={handleClose}>
         <DialogTitle>Enter account password</DialogTitle>
@@ -220,7 +229,6 @@ const AccountPage: React.FC = () => {
         </DialogActions>
       </Dialog>
     </Box>
-    
   );
 };
 

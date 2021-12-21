@@ -6,21 +6,35 @@ export async function doDeposit(
   userNetwork: any,
   amount: string,
   owner: string | null,
-  account?: string | null
+  enqueueSnackbar: any,
+  setIsLoading: any
 ) {
   if (window.ethereum) {
     try {
+      setIsLoading(true);
       await window.ethereum.enable();
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
-      const data = await window.web3.eth.sendTransaction({
-        from: account,
-        to: owner,
-        value: window.web3.utils.toWei(amount.toString(), "ether"),
+      const accounts = await window.web3.eth.getAccounts();
+      await window.web3.eth
+        .sendTransaction({
+          from: accounts[0],
+          to: owner,
+          value: window.web3.utils.toWei(amount.toString(), "ether"),
+        })
+        .on("receipt", function (receipt: any) {
+          enqueueSnackbar("Deposit Successful", {
+            variant: "success",
+            anchorOrigin: { horizontal: "center", vertical: "top" },
+          });
+          setIsLoading(false);
+        })
+        .on("error", console.error);
+    } catch (e: any) {
+      enqueueSnackbar(e.message, {
+        variant: "error",
+        anchorOrigin: { horizontal: "center", vertical: "top" },
       });
-      return data;
-    } catch (e) {
-      console.log(e);
       throw e;
     }
   }

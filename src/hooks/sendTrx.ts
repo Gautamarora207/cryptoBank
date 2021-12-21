@@ -1,50 +1,72 @@
-const Web3 = require('web3');
-const Tx = require('ethereumjs-tx').Transaction;
+const Web3 = require("web3");
+const Tx = require("ethereumjs-tx").Transaction;
+const { Transaction } = require("@ethereumjs/tx");
+const axios = require("axios");
 
+export async function sendTrx(
+  privateKey: string,
+  userNetwork: any,
+  amount: string,
+  owner: string,
+  receiverAddress: string,
+  enqueueSnackbar: any | null,
+  setIsLoading: any
+) {
+  try {
+    setIsLoading(true);
 
-export async function sendTrx(privateKey: string, userNetwork:any, amount:string, owner: string, receiverAddress:string, enqueueSnackbar:any | null) {  
-      
-    try {
-      const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
-      
-      let gasPrice;
+    const web3 = new Web3(
+      new Web3.providers.HttpProvider(
+        "https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"
+      )
+    );
 
-      await web3.eth.getGasPrice(function(e:any, r:any) { gasPrice = r });
+    const estimateGasFees = async () => {
+      const ethresult = await axios.get(
+        `https://ethgasstation.info/api/ethgasAPI.json?api-key=0c07e8f02048b2d2802b50c726edf63f96bc58b2f10b07a8c8ce25c73d7e`
+      );
+      return { ethgasFees: ethresult.data };
+    };
 
+    const { ethgasFees } = await estimateGasFees();
 
+    const fromAddressNonce = await web3.eth.getTransactionCount(
+      owner,
+      "pending"
+    );
 
-      var bufferPrivateKey = Buffer.from(privateKey.substring(2), 'hex');
-      var rawTx = {
-          nonce: await web3.eth.getTransactionCount(owner) + 1,
-          gasPrice: Number(gasPrice), 
-          gasLimit: '0x2710',
-          to: receiverAddress, 
-          value: Number(amount), 
-          common: {
-            customChain: {
-              name: userNetwork.name,
-              chainId: userNetwork.chainId,
-              networkId: userNetwork.chainId
-            }
-          }
-      };
+    var bufferPrivateKey = Buffer.from(privateKey, "hex");
 
-      var tx = new Tx(rawTx);
-      console.log(tx);
-      
-      tx.sign(bufferPrivateKey);
+    var rawTx = {
+      nonce: web3.utils.toHex(fromAddressNonce),
+      to: receiverAddress,
+      value: web3.utils.numberToHex(web3.utils.toWei(`${amount}`, "ether")),
+      gasPrice: web3.utils.toHex(
+        web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
+      ),
+      gasLimit: web3.utils.toHex("3000000"),
+    };
 
-      var serializedTx = tx.serialize();
+    var tx = new Tx(rawTx, { chain: "rinkeby" });
+    tx.sign(bufferPrivateKey);
+    const serializedTx = tx.serialize();
 
-      web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'))
-          .on('receipt', console.log).on('error', (e:any) =>
-          enqueueSnackbar(e.message, {
-            variant: "error",
-            anchorOrigin: { horizontal: "center", vertical: "top" },
-      }));
-    } catch(e) {
-      throw e;
-    }
-
+    await web3.eth
+      .sendSignedTransaction(`0x${serializedTx.toString("hex")}`)
+      .on("receipt", function (receipt: any) {
+        enqueueSnackbar("Funds transferred sucessfully", {
+          variant: "success",
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+        setIsLoading(false);
+      })
+      .on("error", console.error);
+  } catch (e: any) {
+    setIsLoading(false);
+    enqueueSnackbar(e.message, {
+      variant: "error",
+      anchorOrigin: { horizontal: "center", vertical: "top" },
+    });
+    throw e;
   }
-  
+}

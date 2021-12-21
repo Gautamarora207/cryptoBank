@@ -18,8 +18,10 @@ import SendReciveLayout from "./layouts/SendReciveLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import AccountCreatePage from "./pages/account/AccountCreatePage";
 import Modal from "react-modal";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import "./App.css";
+
 import themeOptions from "./config/themeOptions";
 import { useConcealThemeContext } from "./context/ConcealTheme";
 import store from "./store/configureStore";

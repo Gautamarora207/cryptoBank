@@ -24,7 +24,7 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
       [137] : {
           MATIC: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
       },
-      [1] : {
+      [4] : {
           ETH: "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe"
       }
     };
@@ -34,7 +34,7 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
         "Fantom",
         "Avalanche",
         "Polygon",
-        "Ethereum"
+        "Rinkeby"
     ];
     
     export const networkChainIds:any = [
@@ -42,7 +42,7 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
         250,
         43114,
         137,
-        1
+        4
     ];
     
     export const networkGasCurrencys:any =[
@@ -58,6 +58,7 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
         'https://rpc.ftm.tools',
         'https://api.avax.network/ext/bc/C/rpc',
         'https://polygon-rpc.com',
+        'https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f'
         
     ];
     

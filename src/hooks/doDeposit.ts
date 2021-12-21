@@ -1,38 +1,41 @@
-declare const window: any; 
+const Web3 = require("web3");
 
-export async function doDeposit(userNetwork:any, amount:string, owner: string | null) {
+declare const window: any;
 
-  const Web3 = require('web3');
-
-  if (window.web3) {
+export async function doDeposit(
+  userNetwork: any,
+  amount: string,
+  owner: string | null,
+  enqueueSnackbar: any,
+  setIsLoading: any
+) {
+  if (window.ethereum) {
     try {
-      window.web3 = new Web3(window.web3.currentProvider);
+      setIsLoading(true);
       await window.ethereum.enable();
-
-      const wasAdded = await window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [{
-          chainId: '0x'+userNetwork.chainId.toString(16),
-          chainName: userNetwork.name,
-          nativeCurrency: {
-              name: userNetwork.gasCurrency,
-              symbol: userNetwork.gasCurrency,
-              decimals: 18
-          },
-          rpcUrls: [userNetwork.rpcUrl],
-          }]
-      });
-
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
       const accounts = await window.web3.eth.getAccounts();
-
-      await window.web3.eth.sendTransaction({
-        from: accounts[0],
-        to: owner,
-        value: window.web3.utils.toWei(amount.toString(), 'ether')
+      await window.web3.eth
+        .sendTransaction({
+          from: accounts[0],
+          to: owner,
+          value: window.web3.utils.toWei(amount.toString(), "ether"),
+        })
+        .on("receipt", function (receipt: any) {
+          enqueueSnackbar("Deposit Successful", {
+            variant: "success",
+            anchorOrigin: { horizontal: "center", vertical: "top" },
+          });
+          setIsLoading(false);
+        })
+        .on("error", console.error);
+    } catch (e: any) {
+      enqueueSnackbar(e.message, {
+        variant: "error",
+        anchorOrigin: { horizontal: "center", vertical: "top" },
       });
-    } catch(e) {
       throw e;
     }
-    
   }
 }

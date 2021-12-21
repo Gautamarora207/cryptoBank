@@ -23,16 +23,19 @@ import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import { CURRENCY_MAP } from "../../constants";
 import { sendTrx } from "../../hooks/sendTrx";
-const Web3 = require('web3');
+import Loader from "react-loader-spinner";
 
+const Web3 = require("web3");
 
 const SendPage: React.FC = () => {
-  const web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"));
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(
+      "https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"
+    )
+  );
 
-  const [
-    isTransactionSettingsModalOpen,
-    setIsTransactionSettingsModalOpen,
-  ] = useState(false);
+  const [isTransactionSettingsModalOpen, setIsTransactionSettingsModalOpen] =
+    useState(false);
 
   const handleTransactionSettingsModalClose = () => {
     setIsTransactionSettingsModalOpen(false);
@@ -40,39 +43,52 @@ const SendPage: React.FC = () => {
 
   let isAddressError: boolean;
 
-  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
+  const userAddress = useSelector(
+    (addressSelector: any) => addressSelector.user.address
+  );
 
-  const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
-  const [amount, setAmount ] = useState("0");
+  const [selectedCurrencyIndex, setCurrencyIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [amount, setAmount] = useState("0");
 
   const { enqueueSnackbar } = useSnackbar();
 
   const [receiverAddress, setReceiverAddress] = useState("");
 
   isAddressError = !web3.utils.isAddress(receiverAddress);
-  console.log(isAddressError);
 
-  const privateKey :any = localStorage.getItem("userPrivateKey");
-  
-  let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
+  const privateKey: any = localStorage.getItem("userPrivateKey");
 
-  let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
-  
+  let userNetwork = useSelector(
+    (networkSelector: any) => networkSelector.user.network
+  );
+
+  let currentSupportedCurrencies = Object.keys(
+    CURRENCY_MAP[userNetwork.chainId]
+  );
+
   function processTrx() {
-    if(isAddressError) {
+    if (isAddressError) {
       enqueueSnackbar("Please enter a valid address", {
         variant: "error",
         anchorOrigin: { horizontal: "center", vertical: "top" },
       });
     } else {
-      try{
-        sendTrx(privateKey, userNetwork, amount, userAddress, receiverAddress,enqueueSnackbar );
-      } catch(e:any) {
+      try {
+        sendTrx(
+          privateKey,
+          userNetwork,
+          amount,
+          userAddress,
+          receiverAddress,
+          enqueueSnackbar,
+          setIsLoading
+        );
+      } catch (e: any) {
         console.error(e.message);
       }
     }
   }
-  
 
   return (
     <>
@@ -98,29 +114,38 @@ const SendPage: React.FC = () => {
                         variant="outlined"
                         placeholder="Enter wallet address or .nom"
                         InputLabelProps={{
-                          style: { color: '#fff' },
+                          style: { color: "#fff" },
                         }}
-                        onChange={
-                          (v:any) => {
-                            setReceiverAddress(v.target.value);
-                          }
-                        }
+                        onChange={(v: any) => {
+                          setReceiverAddress(v.target.value);
+                        }}
                       />
-                       
                     </FormControl>
                     <Box mb={2} display="flex" gap={2}>
-                    <Typography variant="body2">{isAddressError && receiverAddress != '' ? 'Invalid address, please try again' : ''}</Typography> 
+                      <Typography variant="body2">
+                        {isAddressError && receiverAddress != ""
+                          ? "Invalid address, please try again"
+                          : ""}
+                      </Typography>
                     </Box>
 
                     <Box mb={2} display="flex" gap={2}>
                       <FormControl>
-                        <InputLabel><Typography variant="body2">Currency</Typography></InputLabel>
-                        <Select  onChange={(v:any) => {
+                        <InputLabel>
+                          <Typography variant="body2">Currency</Typography>
+                        </InputLabel>
+                        <Select
+                          onChange={(v: any) => {
                             setCurrencyIndex(v.target.value);
-                          }} defaultValue={0} label="Currency">
-                        {currentSupportedCurrencies.map((item, index) => (
-                          <MenuItem key={index} value={index}>{item}</MenuItem>
-                        ))}
+                          }}
+                          defaultValue={0}
+                          label="Currency"
+                        >
+                          {currentSupportedCurrencies.map((item, index) => (
+                            <MenuItem key={index} value={index}>
+                              {item}
+                            </MenuItem>
+                          ))}
                         </Select>
                       </FormControl>
 
@@ -130,10 +155,12 @@ const SendPage: React.FC = () => {
                           variant="outlined"
                           type="number"
                           value={amount}
-                          onChange={(v:any) => {setAmount(v.target.value)}}
+                          onChange={(v: any) => {
+                            setAmount(v.target.value);
+                          }}
                           inputProps={{ inputMode: "numeric", min: 0 }}
                           InputLabelProps={{
-                            style: { color: '#fff' },
+                            style: { color: "#fff" },
                           }}
                         />
                       </FormControl>
@@ -152,7 +179,23 @@ const SendPage: React.FC = () => {
                     </Box> */}
 
                     <Box>
-                      <Button variant="contained"  onClick={() => processTrx()}>Send</Button>
+                      <Button
+                        variant="contained"
+                        onClick={() => processTrx()}
+                        disabled={isLoading}
+                      >
+                        {" "}
+                        {isLoading ? (
+                          <Loader
+                            type="ThreeDots"
+                            color="#000000"
+                            height={10}
+                            width={20}
+                          />
+                        ) : (
+                          "Send"
+                        )}
+                      </Button>
                     </Box>
                   </CardContent>
                 </Paper>

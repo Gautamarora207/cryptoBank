@@ -21,16 +21,12 @@ import { useSnackbar } from "notistack";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 import { userAccountLoaded, userCryptoLoaded } from "../../store/actions";
-const Web3 = require('web3');
+const Web3 = require("web3");
 
+const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+let account = web3.eth.accounts.create(web3.utils.randomHex(32));
 
 const AccountCreatePage: React.FC = () => {
-  const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-  let account = web3.eth.accounts.create(web3.utils.randomHex(32));
-
-  let wallet = web3.eth.accounts.wallet.add(account);
-  // let keystore = wallet.encrypt(web3.utils.randomHex(32));
-
   const dispatch = useDispatch();
 
   const [privateKeyBackedUp, setPrivateKeyBackedUp] = useState(false);
@@ -49,11 +45,11 @@ const AccountCreatePage: React.FC = () => {
 
   const encryptPrivateKey = () => {
     const keystoreJsonV3 = web3.eth.accounts.encrypt(privateKey, password);
-    localStorage.setItem('userCrypto', JSON.stringify(keystoreJsonV3));
-    localStorage.setItem('userPrivateKey', privateKey);
+    localStorage.setItem("userCrypto", JSON.stringify(keystoreJsonV3));
+    localStorage.setItem("userPrivateKey", privateKey);
     dispatch(userAccountLoaded(account.address));
     navigate("/home");
-  }
+  };
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -111,7 +107,6 @@ const AccountCreatePage: React.FC = () => {
             control={<Checkbox checked={privateKeyBackedUp} color="primary" />}
             label="I backed up my private key"
             onChange={() => setPrivateKeyBackedUp((i) => !i)}
-            
           />
 
           <Box display="flex" justifyContent="center" gap={1}>
@@ -143,7 +138,7 @@ const AccountCreatePage: React.FC = () => {
             margin="normal"
             label="Password"
             type="password"
-            onChange={(v:any) => {
+            onChange={(v: any) => {
               setPassword(v.target.value);
             }}
             fullWidth
@@ -163,4 +158,4 @@ const AccountCreatePage: React.FC = () => {
 };
 
 // export default connect(mapStateToProps)(AccountCreatePage);
-export default AccountCreatePage
+export default AccountCreatePage;

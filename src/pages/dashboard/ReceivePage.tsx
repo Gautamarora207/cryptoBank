@@ -30,7 +30,27 @@ const ReceivePage: React.FC = () => {
   };
 
   const onCopyGeneratedLink = () => {
-    navigator.clipboard.writeText("https://semilla-labs-dev.web.app/complete-request?amount="+amount+"&networkIndex="+networkChainIds.indexOf(userNetwork.chainId)+"&currencyIndex="+selectedCurrencyIndex+"&receiverAddress="+userAddress);
+    // navigator.clipboard.writeText("https://semilla-labs-dev.web.app/complete-request?amount="+amount+"&networkIndex="+networkChainIds.indexOf(userNetwork.chainId)+"&currencyIndex="+selectedCurrencyIndex+"&receiverAddress="+userAddress);
+    navigator.clipboard.writeText(
+      "https://newsite-verision.netlify.app/complete-request?amount=" +
+        amount +
+        "&networkIndex=" +
+        networkChainIds.indexOf(userNetwork.chainId) +
+        "&currencyIndex=" +
+        selectedCurrencyIndex +
+        "&receiverAddress=" +
+        userAddress
+    );
+    // navigator.clipboard.writeText(
+    //   "http://localhost:3000/complete-request?amount=" +
+    //     amount +
+    //     "&networkIndex=" +
+    //     networkChainIds.indexOf(userNetwork.chainId) +
+    //     "&currencyIndex=" +
+    //     selectedCurrencyIndex +
+    //     "&receiverAddress=" +
+    //     userAddress
+    // );
 
     enqueueSnackbar("Copied to clipboard", {
       variant: "success",
@@ -38,20 +58,22 @@ const ReceivePage: React.FC = () => {
     });
   };
 
+  const userAddress = useSelector(
+    (addressSelector: any) => addressSelector.user.address
+  );
 
-  const userAddress = useSelector((addressSelector:any) => addressSelector.user.address);
-
-  const [selectedCurrencyIndex, setCurrencyIndex ] = useState(0);
-  const [amount, setAmount ] = useState("0");
+  const [selectedCurrencyIndex, setCurrencyIndex] = useState(0);
+  const [amount, setAmount] = useState("0");
 
   const { enqueueSnackbar } = useSnackbar();
 
-    
-  let userNetwork = useSelector((networkSelector:any) => networkSelector.user.network );
+  let userNetwork = useSelector(
+    (networkSelector: any) => networkSelector.user.network
+  );
 
-  let currentSupportedCurrencies = Object.keys(CURRENCY_MAP[userNetwork.chainId]);
-
-
+  let currentSupportedCurrencies = Object.keys(
+    CURRENCY_MAP[userNetwork.chainId]
+  );
 
   return (
     <>
@@ -71,41 +93,58 @@ const ReceivePage: React.FC = () => {
               <Card variant="outlined" sx={{ borderRadius: 4, height: "100%" }}>
                 <Paper sx={{ height: "100%" }}>
                   <CardContent sx={{ padding: 3 }}>
-                  <Box mb={2} display="flex" gap={2}>
-                  <FormControl>
-                        <InputLabel><Typography variant="body2">Currency</Typography></InputLabel>
-                        <Select  onChange={(v:any) => {
+                    <Box mb={2} display="flex" gap={2}>
+                      <FormControl>
+                        <InputLabel>
+                          <Typography variant="body2">Currency</Typography>
+                        </InputLabel>
+                        <Select
+                          onChange={(v: any) => {
                             setCurrencyIndex(v.target.value);
-                          }} defaultValue={0} label="Currency">
-                        {currentSupportedCurrencies.map((item, index) => (
-                          <MenuItem key={index} value={index}>{item}</MenuItem>
-                        ))}
+                          }}
+                          defaultValue={0}
+                          label="Currency"
+                        >
+                          {currentSupportedCurrencies.map((item, index) => (
+                            <MenuItem key={index} value={index}>
+                              {item}
+                            </MenuItem>
+                          ))}
                         </Select>
-                    </FormControl>
+                      </FormControl>
                     </Box>
                     <Box mb={2} display="flex" gap={2}>
-                    <FormControl sx={{ flexGrow: 1 }}>
+                      <FormControl sx={{ flexGrow: 1 }}>
                         <TextField
                           label="Amount"
                           variant="outlined"
                           type="number"
                           value={amount}
-                          onChange={(v:any) => {setAmount(v.target.value)}}
+                          onChange={(v: any) => {
+                            setAmount(v.target.value);
+                          }}
                           inputProps={{ inputMode: "numeric", min: 0 }}
                           InputLabelProps={{
-                            style: { color: '#fff' },
+                            style: { color: "#fff" },
                           }}
                         />
-                    </FormControl>
+                      </FormControl>
                     </Box>
 
                     <Box>
                       <Button
                         variant="contained"
-                        onClick={() => {amount != "" ? setIsGenerateLinkModalOpen(true) :  enqueueSnackbar("Amount cannot be null", {
-                          variant: "error",
-                          anchorOrigin: { horizontal: "center", vertical: "top" },
-                        });}}
+                        onClick={() => {
+                          amount != ""
+                            ? setIsGenerateLinkModalOpen(true)
+                            : enqueueSnackbar("Amount cannot be null", {
+                                variant: "error",
+                                anchorOrigin: {
+                                  horizontal: "center",
+                                  vertical: "top",
+                                },
+                              });
+                        }}
                       >
                         Generate Link
                       </Button>
@@ -141,7 +180,7 @@ const ReceivePage: React.FC = () => {
       >
         <DialogContent>
           <Typography variant="h6" component="div" textAlign="center" mb={2}>
-          Link Has been Generated. 
+            Link Has been Generated.
           </Typography>
           <Grid
             item
@@ -150,16 +189,12 @@ const ReceivePage: React.FC = () => {
             display={{ xs: "none", md: "flex" }}
             justifyContent="center"
           >
-          <Box>
-            <Button
-              variant="contained"
-              onClick={() => onCopyGeneratedLink()}
-            >
-              Copy Link
-            </Button>
-          </Box>
+            <Box>
+              <Button variant="contained" onClick={() => onCopyGeneratedLink()}>
+                Copy Link
+              </Button>
+            </Box>
           </Grid>
-      
         </DialogContent>
       </Dialog>
     </>

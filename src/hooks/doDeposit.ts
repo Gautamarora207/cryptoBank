@@ -31,6 +31,7 @@ export async function doDeposit(
         })
         .on("error", console.error);
     } catch (e: any) {
+      setIsLoading(false);
       enqueueSnackbar(e.message, {
         variant: "error",
         anchorOrigin: { horizontal: "center", vertical: "top" },

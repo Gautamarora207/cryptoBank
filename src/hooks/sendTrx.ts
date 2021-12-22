@@ -17,7 +17,7 @@ export async function sendTrx(
 
     const web3 = new Web3(
       new Web3.providers.HttpProvider(
-        "https://rinkeby.infura.io/v3/21b3f11d70d8469c99acd11e95427c3f"
+        "https://rinkeby.infura.io/v3/8376bb241320413b91dd2f592714dd8d"
       )
     );
 
@@ -35,6 +35,8 @@ export async function sendTrx(
       "pending"
     );
 
+    console.log("===============", privateKey);
+    console.log("===============", owner);
     var bufferPrivateKey = Buffer.from(privateKey, "hex");
 
     var rawTx = {

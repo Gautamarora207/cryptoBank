@@ -29,6 +29,7 @@ let account = web3.eth.accounts.create(web3.utils.randomHex(32));
 const AccountCreatePage: React.FC = () => {
   const dispatch = useDispatch();
 
+  console.log("here", account.privateKey);
   const [privateKeyBackedUp, setPrivateKeyBackedUp] = useState(false);
   const [password, setPassword] = useState("");
   const [privateKey] = useState(account.privateKey.slice(2));

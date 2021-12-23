@@ -36,7 +36,7 @@ export const supportedNetworkNames: any = [
   "Aurora",
   "Fantom",
   "Avalanche",
-  "Polygon",
+  // "Polygon",
   "Rinkeby",
 ];
 

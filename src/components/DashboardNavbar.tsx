@@ -9,10 +9,8 @@ import { Typography, Button, Menu, MenuItem, Box } from "@mui/material";
 import Logo from "../assets/images/logo.png";
 
 const DashboardNavbar: React.FC = () => {
-  const [
-    userContextMenuEl,
-    setUserContextMenuEl,
-  ] = useState<null | HTMLElement>(null);
+  const [userContextMenuEl, setUserContextMenuEl] =
+    useState<null | HTMLElement>(null);
 
   const isUserContextMenuOpen = Boolean(userContextMenuEl);
 
@@ -24,10 +22,8 @@ const DashboardNavbar: React.FC = () => {
     setUserContextMenuEl(null);
   };
 
-  const [
-    accountsContextMenuEl,
-    setAccountsContextMenuEl,
-  ] = useState<null | HTMLElement>(null);
+  const [accountsContextMenuEl, setAccountsContextMenuEl] =
+    useState<null | HTMLElement>(null);
 
   const isAccountContextMenuOpen = Boolean(accountsContextMenuEl);
 
@@ -150,7 +146,7 @@ const DashboardNavbar: React.FC = () => {
             <MenuItem onClick={handleAccountMenuClose}>Celo</MenuItem>
             <MenuItem onClick={handleAccountMenuClose}>Fantom</MenuItem>
             <MenuItem onClick={handleAccountMenuClose}>Avalanche</MenuItem>
-            <MenuItem onClick={handleAccountMenuClose}>Polygon</MenuItem>
+            {/* <MenuItem onClick={handleAccountMenuClose}>Polygon</MenuItem> */}
             <MenuItem onClick={handleAccountMenuClose}>Ethereum</MenuItem>
           </Menu>
         </Box>

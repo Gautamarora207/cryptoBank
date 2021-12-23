@@ -70,9 +70,9 @@ const HomeSectionTwo: React.FC = () => {
           </MainInfoCard>
         </Grid>
       </Grid>
-      <Box textAlign="center" mt={6}>
-        <Button variant="outlined">Learn More</Button>
-      </Box>
+      {/*<Box textAlign="center" mt={6}>*/}
+      {/*  <Button variant="outlined">Learn More</Button>*/}
+      {/*</Box>*/}
     </Box>
   );
 };

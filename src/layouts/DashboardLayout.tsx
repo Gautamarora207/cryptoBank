@@ -167,18 +167,18 @@ const DashboardLayout: React.FC = () => {
             </Typography>
           </Link>
 
-          <Link to="/home" style={{ textDecoration: "none" }}>
-            <Typography
-              color="text.primary"
-              sx={[
-                {
-                  "&:hover": { color: "primary.main" },
-                },
-              ]}
-            >
-              Docs
-            </Typography>
-          </Link>
+          {/*<Link to="/home" style={{ textDecoration: "none" }}>*/}
+          {/*  <Typography*/}
+          {/*    color="text.primary"*/}
+          {/*    sx={[*/}
+          {/*      {*/}
+          {/*        "&:hover": { color: "primary.main" },*/}
+          {/*      },*/}
+          {/*    ]}*/}
+          {/*  >*/}
+          {/*    Docs*/}
+          {/*  </Typography>*/}
+          {/*</Link>*/}
         </Box>
 
         <Box

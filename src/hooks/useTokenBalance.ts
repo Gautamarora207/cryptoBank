@@ -29,18 +29,19 @@ export async function useTokenBalance(
     currency.includes("ceur")
   ) {
     const result = await tokenContract.methods.balanceOf(owner).call();
-    const format = web3.utils.fromWei(result);
-    return parseFloat((Math.round(format * 100) / 100).toFixed(2));
+    const formatOtherCurrency = web3.utils.fromWei(result);
+    return parseFloat((Math.round(formatOtherCurrency * 100) / 100).toFixed(2));
   } else if (currency.includes("eth")) {
-    let format = 0;
+    let formatETH: any;
     await web3.eth.getBalance(owner, function (err: any, result: any) {
       if (err) {
         console.error(err);
       } else {
-        format = web3.utils.fromWei(result, "ether");
+        formatETH = web3.utils.fromWei(result, "ether");
       }
     });
-    return parseFloat((Math.round(format * 100) / 100).toFixed(2));
+
+    return parseFloat(parseFloat(formatETH).toFixed(4));
   } else {
     let contract = new web3.eth.Contract(ERC20.abi, tokenAddress);
     try {

@@ -204,7 +204,7 @@ const CompleteRequest: React.FC = () => {
                               width={20}
                             />
                           ) : (
-                            "Connect Wallet"
+                            "Transfer Fund"
                           )}
                         </Button>
                       </Box>

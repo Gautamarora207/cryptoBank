@@ -32,7 +32,7 @@ const ReceivePage: React.FC = () => {
   const onCopyGeneratedLink = () => {
     // navigator.clipboard.writeText("https://semilla-labs-dev.web.app/complete-request?amount="+amount+"&networkIndex="+networkChainIds.indexOf(userNetwork.chainId)+"&currencyIndex="+selectedCurrencyIndex+"&receiverAddress="+userAddress);
     navigator.clipboard.writeText(
-      "https://newsite-verision.netlify.app/complete-request?amount=" +
+      "https://conceal-protocol-request.netlify.app/complete-request?amount=" +
         amount +
         "&networkIndex=" +
         networkChainIds.indexOf(userNetwork.chainId) +

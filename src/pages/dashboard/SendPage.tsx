@@ -98,7 +98,7 @@ const SendPage: React.FC = () => {
             Send
           </Typography>
           <Typography variant="body2" component="div">
-            Send crypto privately to any user.
+            Send crypto privately to any user
           </Typography>
         </Box>
 

@@ -110,7 +110,7 @@ const Footer: React.FC = () => {
                 </Box>
             </Box>
             <Typography variant="body2" component="div" textAlign="center" mb={6}>
-                Use Conceal Protocol in conjunction with a VPN for maximum privacy
+                Use Conceal Protocol in conjunction with a VPN for maximum privacy.
             </Typography>
         </Box>
     );

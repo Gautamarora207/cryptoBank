@@ -199,7 +199,7 @@ const DashboardPage: React.FC = () => {
                       Send
                     </Typography>
                     <Typography variant="body2">
-                      Send crypto to privately to any celo user
+                      Send crypto to privately to any user
                     </Typography>
                   </Box>
                 </CardContent>

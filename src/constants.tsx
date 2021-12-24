@@ -24,9 +24,9 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
   [43114]: {
     AVAX: "0x73a312acefb4730a30d18c40aebc617d93c1bfbb",
   },
-  [137]: {
-    MATIC: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
-  },
+  // [137]: {
+  //   MATIC: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+  // },
   [4]: {
     ETH: "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe",
   },
@@ -40,13 +40,14 @@ export const supportedNetworkNames: any = [
   "Rinkeby",
 ];
 
-export const networkChainIds: any = [1313161554, 250, 43114, 137, 4];
+// export const networkChainIds: any = [1313161554, 250, 43114, 137, 4];
+export const networkChainIds: any = [1313161554, 250, 43114, 4];
 
 export const networkGasCurrencys: any = [
   "AURORA",
   "FTM",
   "AVAX",
-  "MATIC",
+  // "MATIC",
   "ETH",
 ];
 
@@ -54,6 +55,6 @@ export const networkRPCUrls = [
   "https://mainnet.aurora.dev",
   "https://rpc.ftm.tools",
   "https://api.avax.network/ext/bc/C/rpc",
-  "https://polygon-rpc.com",
+  // "https://polygon-rpc.com",
   "https://rinkeby.infura.io/v3/8376bb241320413b91dd2f592714dd8d",
 ];

@@ -8,6 +8,7 @@ import { defaultScreens } from "@celo-tools/use-contractkit/lib/screens";
 export const CURRENCY_MAP: Record<any, Record<string, string>> = {
   [1313161554]: {
     Aurora: "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79",
+    NEAR: "0xc42c30ac6cc15fac9bd938618bcaa1a1fae8501d",
     WETH: "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     USDT: "0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     USDC: "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
@@ -15,6 +16,7 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
   },
   [250]: {
     FTM: "0x4e15361fd6b4bb609fa63c81a2be19d873717870",
+    "0XMR": "0xab41861399eb56896b24fbaabaa8bce45e4a626b",
     fETH: "0x658b0c7613e890ee50b8c4bc6a3f41ef411208ad",
     fUSDT: "0x940f41f0ec9ba1a34cf001cc03347ac092f5f6b5",
     USDC: "0x04068da6c83afcfa0e13ba15a6696662335d5b75",

@@ -145,7 +145,7 @@ const DashboardNavbar: React.FC = () => {
           >
             <MenuItem onClick={handleAccountMenuClose}>Celo</MenuItem>
             <MenuItem onClick={handleAccountMenuClose}>Fantom</MenuItem>
-            <MenuItem onClick={handleAccountMenuClose}>Avalanche</MenuItem>
+            {/* <MenuItem onClick={handleAccountMenuClose}>Avalanche</MenuItem> */}
             {/* <MenuItem onClick={handleAccountMenuClose}>Polygon</MenuItem> */}
             <MenuItem onClick={handleAccountMenuClose}>Ethereum</MenuItem>
           </Menu>

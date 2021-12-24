@@ -21,9 +21,9 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
     DAI: "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e",
     MIM: "0x82f0b8b456c1a451378467398982d4834b6829c1",
   },
-  [43114]: {
-    AVAX: "0x73a312acefb4730a30d18c40aebc617d93c1bfbb",
-  },
+  // [43114]: {
+  //   AVAX: "0x73a312acefb4730a30d18c40aebc617d93c1bfbb",
+  // },
   // [137]: {
   //   MATIC: "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
   // },
@@ -35,18 +35,18 @@ export const CURRENCY_MAP: Record<any, Record<string, string>> = {
 export const supportedNetworkNames: any = [
   "Aurora",
   "Fantom",
-  "Avalanche",
+  // "Avalanche",
   // "Polygon",
   "Rinkeby",
 ];
 
 // export const networkChainIds: any = [1313161554, 250, 43114, 137, 4];
-export const networkChainIds: any = [1313161554, 250, 43114, 4];
+export const networkChainIds: any = [1313161554, 250, 4];
 
 export const networkGasCurrencys: any = [
   "AURORA",
   "FTM",
-  "AVAX",
+  // "AVAX",
   // "MATIC",
   "ETH",
 ];
@@ -54,7 +54,7 @@ export const networkGasCurrencys: any = [
 export const networkRPCUrls = [
   "https://mainnet.aurora.dev",
   "https://rpc.ftm.tools",
-  "https://api.avax.network/ext/bc/C/rpc",
+  // "https://api.avax.network/ext/bc/C/rpc",
   // "https://polygon-rpc.com",
   "https://rinkeby.infura.io/v3/8376bb241320413b91dd2f592714dd8d",
 ];

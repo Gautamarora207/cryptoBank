@@ -46,7 +46,7 @@ export async function sendTrx(
       gasPrice: web3.utils.toHex(
         web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
       ),
-      gasLimit: web3.utils.toHex("30000"),
+      gasLimit: web3.utils.toHex("1000000"),
     };
 
     var tx = new Tx(rawTx, { chain: "rinkeby" });

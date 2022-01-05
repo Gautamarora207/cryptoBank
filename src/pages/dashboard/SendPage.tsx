@@ -33,6 +33,8 @@ const SendPage: React.FC = () => {
       "https://rinkeby.infura.io/v3/8376bb241320413b91dd2f592714dd8d"
     )
   );
+  
+
 
   const [isTransactionSettingsModalOpen, setIsTransactionSettingsModalOpen] =
     useState(false);

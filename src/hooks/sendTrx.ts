@@ -1,3 +1,5 @@
+import ConcealProtocol from "../abis/ConcealProtocol.json";
+
 const Web3 = require("web3");
 const Tx = require("ethereumjs-tx").Transaction;
 const { Transaction } = require("@ethereumjs/tx");
@@ -15,11 +17,15 @@ export async function sendTrx(
   try {
     setIsLoading(true);
 
+    
+
     const web3 = new Web3(
       new Web3.providers.HttpProvider(
         "https://rinkeby.infura.io/v3/8376bb241320413b91dd2f592714dd8d"
       )
     );
+
+    await web3.eth.accounts.wallet.add(privateKey);
 
     const estimateGasFees = async () => {
       const ethresult = await axios.get(
@@ -30,39 +36,64 @@ export async function sendTrx(
 
     const { ethgasFees } = await estimateGasFees();
 
-    const fromAddressNonce = await web3.eth.getTransactionCount(
-      owner,
-      "pending"
-    );
 
-    console.log("===============", privateKey);
-    console.log("===============", owner);
-    var bufferPrivateKey = Buffer.from(privateKey, "hex");
-
-    var rawTx = {
-      nonce: web3.utils.toHex(fromAddressNonce),
-      to: receiverAddress,
-      value: web3.utils.numberToHex(web3.utils.toWei(`${amount}`, "ether")),
+    let contract = new web3.eth.Contract(ConcealProtocol.abi, "0x7faedF782d77c7Dd7112682b3cbd0166eBa7FF43");
+    const result = await contract.methods.transfer(receiverAddress).send({
+      from: owner, 
+      value: web3.utils.toWei(`${amount}`, "ether"),
       gasPrice: web3.utils.toHex(
         web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
       ),
-      gasLimit: web3.utils.toHex("1000000"),
-    };
-
-    var tx = new Tx(rawTx, { chain: "rinkeby" });
-    tx.sign(bufferPrivateKey);
-    const serializedTx = tx.serialize();
-
-    await web3.eth
-      .sendSignedTransaction(`0x${serializedTx.toString("hex")}`)
-      .on("receipt", function (receipt: any) {
+      gas: web3.utils.toHex("1000000"),
+     })
+      .then((res:any) => {
         enqueueSnackbar("Funds transferred sucessfully", {
           variant: "success",
           anchorOrigin: { horizontal: "center", vertical: "top" },
         });
-        setIsLoading(false);
+          console.log('Success', res)
       })
-      .on("error", console.error);
+      .catch((err:any) =>  {
+        enqueueSnackbar(err.message, {
+          variant: "error",
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+        });
+        console.log(err)}) 
+    console.log(result);
+    setIsLoading(false);
+    
+
+    // const fromAddressNonce = await web3.eth.getTransactionCount(
+    //   owner,
+    //   "pending"
+    // );
+
+    // var bufferPrivateKey = Buffer.from(privateKey, "hex");
+
+    // var rawTx = {
+    //   nonce: web3.utils.toHex(fromAddressNonce),
+    //   to: receiverAddress,
+    //   value: web3.utils.numberToHex(web3.utils.toWei(`${amount}`, "ether")),
+    //   gasPrice: web3.utils.toHex(
+    //     web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
+    //   ),
+    //   gasLimit: web3.utils.toHex("1000000"),
+    // };
+
+    // var tx = new Tx(rawTx, { chain: "rinkeby" });
+    // tx.sign(bufferPrivateKey);
+    // const serializedTx = tx.serialize();
+
+    // await web3.eth
+    //   .sendSignedTransaction(`0x${serializedTx.toString("hex")}`)
+    //   .on("receipt", function (receipt: any) {
+        // enqueueSnackbar("Funds transferred sucessfully", {
+        //   variant: "success",
+        //   anchorOrigin: { horizontal: "center", vertical: "top" },
+        // });
+    //     setIsLoading(false);
+    //   })
+    //   .on("error", console.error);
   } catch (e: any) {
     setIsLoading(false);
     enqueueSnackbar(e.message, {

@@ -37,15 +37,21 @@ export async function sendTrx(
     const { ethgasFees } = await estimateGasFees();
 
 
-    let contract = new web3.eth.Contract(ConcealProtocol.abi, "0x7faedF782d77c7Dd7112682b3cbd0166eBa7FF43");
-    const result = await contract.methods.transfer(receiverAddress).send({
+    let contract = new web3.eth.Contract(ConcealProtocol.abi, "0x978cA787FbbA0F386A28b8783ca3DA35b8012000");
+
+    const result = await contract.methods.transfer(receiverAddress, web3.utils.toWei(`${amount}`, "ether"),)
+    .send({
       from: owner, 
-      value: web3.utils.toWei(`${amount}`, "ether"),
-      gasPrice: web3.utils.toHex(
-        web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
-      ),
       gas: web3.utils.toHex("1000000"),
-     })
+    })
+    // .send({
+    //   from: owner, 
+    //   value: web3.utils.toWei(`${amount}`, "ether"),
+    //   gasPrice: web3.utils.toHex(
+    //     web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
+    //   ),
+    //   gas: web3.utils.toHex("1000000"),
+    //  })
       .then((res:any) => {
         enqueueSnackbar("Funds transferred sucessfully", {
           variant: "success",

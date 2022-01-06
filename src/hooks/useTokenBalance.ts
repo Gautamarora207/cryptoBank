@@ -1,4 +1,6 @@
 import { useMemo } from "react";
+import ConcealProtocol from "../abis/ConcealProtocol.json";
+
 import ERC20 from "../abis/ERC20.json";
 import { useContractKit } from "@celo-tools/use-contractkit";
 import { AbiItem } from "web3-utils";
@@ -32,16 +34,25 @@ export async function useTokenBalance(
     const formatOtherCurrency = web3.utils.fromWei(result);
     return parseFloat((Math.round(formatOtherCurrency * 100) / 100).toFixed(2));
   } else if (currency.includes("eth")) {
-    let formatETH: any;
-    await web3.eth.getBalance(owner, function (err: any, result: any) {
-      if (err) {
-        console.error(err);
-      } else {
-        formatETH = web3.utils.fromWei(result, "ether");
-      }
-    });
 
-    return parseFloat(parseFloat(formatETH).toFixed(4));
+    let contract = new web3.eth.Contract(ConcealProtocol.abi, "0x978cA787FbbA0F386A28b8783ca3DA35b8012000");
+    let balance:any;
+    await contract.methods.getUserBalance()
+      .call({
+        from: owner, 
+      }).then((res:any) => {
+        if(res == undefined){ 
+          balance = 0;
+          return 0;
+        } else {
+          let formatETH = web3.utils.fromWei(res, "ether");
+          balance = parseFloat(parseFloat(formatETH).toFixed(4))
+        }
+      })
+    .catch((err:any) =>  {
+    
+    });
+    return balance;
   } else {
     let contract = new web3.eth.Contract(ERC20.abi, tokenAddress);
     try {

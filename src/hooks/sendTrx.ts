@@ -1,4 +1,5 @@
 import ConcealProtocol from "../abis/ConcealProtocol.json";
+import { networkChainIds, networkRPCUrls, SMART_CONTRACT_ADDRESS_MAP } from "../constants";
 
 const Web3 = require("web3");
 const Tx = require("ethereumjs-tx").Transaction;
@@ -15,17 +16,17 @@ export async function sendTrx(
   setIsLoading: any
 ) {
   try {
+    console.log(userNetwork);
     setIsLoading(true);
 
-    
 
     const web3 = new Web3(
       new Web3.providers.HttpProvider(
-        "https://rinkeby.infura.io/v3/8376bb241320413b91dd2f592714dd8d"
+        networkRPCUrls[
+          networkChainIds.indexOf(userNetwork.chainId)
+        ]
       )
     );
-
-    await web3.eth.accounts.wallet.add(privateKey);
 
     const estimateGasFees = async () => {
       const ethresult = await axios.get(
@@ -35,23 +36,18 @@ export async function sendTrx(
     };
 
     const { ethgasFees } = await estimateGasFees();
+    await web3.eth.accounts.wallet.add(privateKey);
 
-
-    let contract = new web3.eth.Contract(ConcealProtocol.abi, "0x978cA787FbbA0F386A28b8783ca3DA35b8012000");
+    let contract = new web3.eth.Contract(ConcealProtocol.abi,  SMART_CONTRACT_ADDRESS_MAP[userNetwork.chainId]);
 
     const result = await contract.methods.transfer(receiverAddress, web3.utils.toWei(`${amount}`, "ether"),)
     .send({
       from: owner, 
+      gasPrice: web3.utils.toHex(
+       web3.utils.toWei(`${ethgasFees.fast / 2 }`, "Gwei")
+      ),
       gas: web3.utils.toHex("1000000"),
     })
-    // .send({
-    //   from: owner, 
-    //   value: web3.utils.toWei(`${amount}`, "ether"),
-    //   gasPrice: web3.utils.toHex(
-    //     web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
-    //   ),
-    //   gas: web3.utils.toHex("1000000"),
-    //  })
       .then((res:any) => {
         enqueueSnackbar("Funds transferred sucessfully", {
           variant: "success",
@@ -68,38 +64,6 @@ export async function sendTrx(
     console.log(result);
     setIsLoading(false);
     
-
-    // const fromAddressNonce = await web3.eth.getTransactionCount(
-    //   owner,
-    //   "pending"
-    // );
-
-    // var bufferPrivateKey = Buffer.from(privateKey, "hex");
-
-    // var rawTx = {
-    //   nonce: web3.utils.toHex(fromAddressNonce),
-    //   to: receiverAddress,
-    //   value: web3.utils.numberToHex(web3.utils.toWei(`${amount}`, "ether")),
-    //   gasPrice: web3.utils.toHex(
-    //     web3.utils.toWei(`${ethgasFees.fast / 10}`, "Gwei")
-    //   ),
-    //   gasLimit: web3.utils.toHex("1000000"),
-    // };
-
-    // var tx = new Tx(rawTx, { chain: "rinkeby" });
-    // tx.sign(bufferPrivateKey);
-    // const serializedTx = tx.serialize();
-
-    // await web3.eth
-    //   .sendSignedTransaction(`0x${serializedTx.toString("hex")}`)
-    //   .on("receipt", function (receipt: any) {
-        // enqueueSnackbar("Funds transferred sucessfully", {
-        //   variant: "success",
-        //   anchorOrigin: { horizontal: "center", vertical: "top" },
-        // });
-    //     setIsLoading(false);
-    //   })
-    //   .on("error", console.error);
   } catch (e: any) {
     setIsLoading(false);
     enqueueSnackbar(e.message, {

@@ -78,8 +78,7 @@ const DashboardPage: React.FC = () => {
   let txs: any[] = [];
 
   useTokenBalance(
-    CURRENCY_MAP[userNetwork.chainId][userNetwork.gasCurrency],
-    userNetwork.gasCurrency.toLowerCase(),
+    userNetwork,
     address
   ).then((v) => setBalance(v));
 

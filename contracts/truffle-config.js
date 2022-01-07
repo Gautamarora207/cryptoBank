@@ -20,7 +20,13 @@ module.exports = {
       network_id: 4,
       skipDryRun: true
 
-    }
+    },
+    aurora: {
+      provider: () => setupWallet('https://testnet.aurora.dev'),
+      network_id: 0x4e454153,
+      gas: 10000000,
+      from: '0x6A33382de9f73B846878a57500d055B981229ac4' // CHANGE THIS ADDRESS
+    },
   },
 
   compilers: {

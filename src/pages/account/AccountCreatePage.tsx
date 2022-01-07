@@ -73,7 +73,7 @@ const AccountCreatePage: React.FC = () => {
         height="100%"
       >
         <Typography component="h1" variant="h5" mb={2}>
-          Secure your Poof private key
+          Secure your conceal protocol private key
         </Typography>
 
         <Typography component="p" variant="body2" color="text-secondary">

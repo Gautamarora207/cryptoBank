@@ -17,13 +17,13 @@ contract ConcealProtocol {
         return balances[msg.sender];
     }
 
-    function transfer(address payable receiver, uint amount) public {
-        require(balances[msg.sender] >= amount, "Insufficient funds");
-        emit Transfer(msg.sender, receiver, amount);
+    function transfer(address payable sender, address payable receiver, uint amount) public {
+        require(balances[sender] >= amount, "Insufficient funds");
+        emit Transfer(sender, receiver, amount);
         if(!receiver.send(amount)){
             revert("transaction failed");
         }
-        balances[msg.sender] -= amount;
+        balances[sender] -= amount;
         balances[receiver] += amount;
     }
 

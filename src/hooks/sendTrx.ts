@@ -1,10 +1,10 @@
 import ConcealProtocol from "../abis/ConcealProtocol.json";
-import { networkChainIds, networkRPCUrls, SMART_CONTRACT_ADDRESS_MAP } from "../constants";
+import { GAS_DIVIDE_NUM, HEX_CHAIN_ID, networkChainIds, networkRPCUrls, SMART_CONTRACT_ADDRESS_MAP } from "../constants";
 
 const Web3 = require("web3");
-const Tx = require("ethereumjs-tx").Transaction;
-const { Transaction } = require("@ethereumjs/tx");
 const axios = require("axios");
+
+declare const window: any;
 
 export async function sendTrx(
   privateKey: string,
@@ -16,17 +16,17 @@ export async function sendTrx(
   setIsLoading: any
 ) {
   try {
-    console.log(userNetwork);
     setIsLoading(true);
 
+    await window.ethereum.enable();
+    window.web3 = new Web3(window.ethereum);
 
-    const web3 = new Web3(
-      new Web3.providers.HttpProvider(
-        networkRPCUrls[
-          networkChainIds.indexOf(userNetwork.chainId)
-        ]
-      )
-    );
+    await window.web3.currentProvider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: HEX_CHAIN_ID[userNetwork.chainId] }]
+    });
+
+    const accounts = await window.web3.eth.getAccounts();
 
     const estimateGasFees = async () => {
       const ethresult = await axios.get(
@@ -36,17 +36,17 @@ export async function sendTrx(
     };
 
     const { ethgasFees } = await estimateGasFees();
-    await web3.eth.accounts.wallet.add(privateKey);
+    await window.web3.eth.accounts.wallet.add(privateKey);
 
-    let contract = new web3.eth.Contract(ConcealProtocol.abi,  SMART_CONTRACT_ADDRESS_MAP[userNetwork.chainId]);
+    let contract = new window.web3.eth.Contract(ConcealProtocol.abi,  SMART_CONTRACT_ADDRESS_MAP[userNetwork.chainId]);
 
-    const result = await contract.methods.transfer(receiverAddress, web3.utils.toWei(`${amount}`, "ether"),)
+    await contract.methods.transfer(owner, receiverAddress, window.web3.utils.toWei(`${amount}`, "ether"),)
     .send({
-      from: owner, 
-      gasPrice: web3.utils.toHex(
-       web3.utils.toWei(`${ethgasFees.fast / 2 }`, "Gwei")
+      from: accounts[0], 
+      gasPrice: window.web3.utils.toHex(
+        window.web3.utils.toWei(`${ethgasFees.fast / GAS_DIVIDE_NUM[userNetwork.chainId] }`, "Gwei")
       ),
-      gas: web3.utils.toHex("1000000"),
+      gas: window.web3.utils.toHex("1000000"),
     })
       .then((res:any) => {
         enqueueSnackbar("Funds transferred sucessfully", {
@@ -60,8 +60,8 @@ export async function sendTrx(
           variant: "error",
           anchorOrigin: { horizontal: "center", vertical: "top" },
         });
-        console.log(err)}) 
-    console.log(result);
+        console.log(err)
+      }) 
     setIsLoading(false);
     
   } catch (e: any) {

@@ -1,6 +1,4 @@
 /// <reference types="react-scripts" />
-declare module "circomlib";
-declare module "snarkjs";
 
 declare global {
     interface Window {

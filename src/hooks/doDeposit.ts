@@ -1,5 +1,5 @@
 import ConcealProtocol from "../abis/ConcealProtocol.json";
-import { SMART_CONTRACT_ADDRESS_MAP } from "../constants";
+import { GAS_DIVIDE_NUM, HEX_CHAIN_ID, SMART_CONTRACT_ADDRESS_MAP } from "../constants";
 
 const Web3 = require("web3");
 const axios = require("axios");
@@ -20,6 +20,13 @@ export async function doDeposit(
       await window.ethereum.enable();
       window.web3 = new Web3(window.ethereum);
 
+
+      await window.web3.currentProvider.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: HEX_CHAIN_ID[userNetwork.chainId] }]
+      });
+
+
       const accounts = await window.web3.eth.getAccounts();
 
 
@@ -39,7 +46,7 @@ export async function doDeposit(
         from: accounts[0], 
         value: window.web3.utils.toWei(`${amount}`, "ether"),
         gasPrice: window.web3.utils.toHex(
-          window.web3.utils.toWei(`${ethgasFees.fast / 2 }`, "Gwei")
+          window.web3.utils.toWei(`${ethgasFees.fast / GAS_DIVIDE_NUM[userNetwork.chainId] }`, "Gwei")
         ),
         gas: window.web3.utils.toHex("1000000"),
       })

@@ -24,10 +24,7 @@ import {
   supportedNetworkNames,
 } from "../../constants";
 import { userNetworkLoaded } from "../../store/actions";
-import { ChainId } from "@celo-tools/use-contractkit";
 import { doDeposit } from "../../hooks/doDeposit";
-import { getNotes } from "../../utils/notes";
-import { useDeposit } from "../../hooks/writeContract";
 import Loader from "react-loader-spinner";
 
 const Web3 = require("web3");
@@ -47,7 +44,6 @@ const CompleteRequest: React.FC = () => {
   const amount: any = query.get("amount");
 
   const { enqueueSnackbar } = useSnackbar();
-  const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const receiverAddress = query.get("receiverAddress");
@@ -86,15 +82,7 @@ const CompleteRequest: React.FC = () => {
   );
 
   function getNotesForDeposit() {
-    if (userNetwork.chainId == ChainId.Mainnet) {
-      const notes: any = getNotes(
-        amount,
-        currentSupportedCurrencies[selectedCurrencyIndex],
-        userNetwork.chainId
-      );
-      setNotes(notes.notes);
-      initiateDeposit();
-    } else {
+  
       try {
         doDeposit(
           userNetwork,
@@ -109,23 +97,9 @@ const CompleteRequest: React.FC = () => {
           anchorOrigin: { horizontal: "center", vertical: "top" },
         });
       }
-    }
+  
   }
 
-  async function initiateDeposit() {
-    if (userNetwork.chainId == ChainId.Mainnet) {
-      try {
-        deposit("").then((v) => console.log(v));
-      } catch (e) {
-        console.error(e);
-      }
-    } else {
-    }
-  }
-
-  const [txHash, deposit, depositLoading] = useDeposit(
-    notes.map((note: { noteString: any }) => note.noteString)
-  );
 
   return (
     <>

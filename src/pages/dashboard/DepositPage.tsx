@@ -19,8 +19,6 @@ import { useSelector } from "react-redux";
 import SendReceiveSvg from "../../assets/images/hero.png";
 import { CURRENCY_MAP } from "../../constants";
 import { doDeposit } from "../../hooks/doDeposit";
-import { useDeposit } from "../../hooks/writeContract";
-import { getNotes } from "../../utils/notes";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import Loader from "react-loader-spinner";
@@ -39,10 +37,8 @@ const DepositPage: React.FC = () => {
 
   const [selectedCurrencyIndex, setCurrencyIndex] = useState(0);
   const [amount, setAmount] = useState("0");
-  const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const privateKey: any = localStorage.getItem("userPrivateKey");
 
   let userNetwork = useSelector(
     (networkSelector: any) => networkSelector.user.network
@@ -60,15 +56,7 @@ const DepositPage: React.FC = () => {
   }, [activatingConnector, connector]);
 
   async function getNotesForDeposit() {
-    if (userNetwork.chainId == ChainId.Mainnet) {
-      const notes: any = getNotes(
-        amount,
-        currentSupportedCurrencies[selectedCurrencyIndex],
-        userNetwork.chainId
-      );
-      setNotes(notes.notes);
-      initiateDeposit();
-    } else {
+   
       try {
         // @ts-ignore
         setActivatingConnector(injected);
@@ -89,24 +77,10 @@ const DepositPage: React.FC = () => {
           variant: "error",
           anchorOrigin: { horizontal: "center", vertical: "top" },
         });
-      }
+
     }
   }
 
-  async function initiateDeposit() {
-    if (userNetwork.chainId == ChainId.Mainnet) {
-      try {
-        deposit(privateKey).then((v) => console.log(v));
-      } catch (e) {
-        console.error(e);
-      }
-    } else {
-    }
-  }
-
-  const [txHash, deposit, depositLoading] = useDeposit(
-    notes.map((note: { noteString: any }) => note.noteString)
-  );
   return (
     <Box>
       <Box mb={3}>

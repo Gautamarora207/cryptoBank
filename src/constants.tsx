@@ -71,5 +71,5 @@ export const GAS_DIVIDE_NUM: Record<any,any> = {
 export const HEX_CHAIN_ID: Record<any,string> = {
   [1313161555] :"0x4e454153",
   [0xfa2]:"0xfa2",
-  [4]: "0x04",
+  [4]: "0x4",
 };

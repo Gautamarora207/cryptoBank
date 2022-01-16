@@ -1,4 +1,3 @@
-import { ChainId } from "@celo-tools/use-contractkit";
 import {
   Box,
   Typography,

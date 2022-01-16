@@ -25,7 +25,6 @@ import "./App.css";
 import themeOptions from "./config/themeOptions";
 import { useConcealThemeContext } from "./context/ConcealTheme";
 import store from "./store/configureStore";
-import { ContractKitProvider, DEFAULT_NETWORKS } from "@celo-tools/use-contractkit";
 import CompleteRequest from "./pages/dashboard/CompleteRequest";
 
 const App: React.FC = () => {
@@ -47,14 +46,6 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <ContractKitProvider 
-      dapp={{
-        name: "Poof.cash",
-        description: "Decentralized, private transactions for Celo",
-        url: "https://app.poof.cash",
-        icon: "https://www.poof.cash/images/Logo.svg",
-      }}
-      network={DEFAULT_NETWORKS[0]}>
       <Provider store={store}>
         <CssBaseline />
 
@@ -86,7 +77,6 @@ const App: React.FC = () => {
           </Route>
         </Routes>
       </Provider>
-      </ContractKitProvider>
     </ThemeProvider>
   );
 };

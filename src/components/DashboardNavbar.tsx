@@ -52,7 +52,7 @@ const DashboardNavbar: React.FC = () => {
         <Box
           component="img"
           src={Logo}
-          alt="Conceal Protocol"
+          alt="Crypto Bank"
           width={{ xs: "150px", lg: "180px" }}
           height="auto"
           sx={{ cursor: "pointer" }}

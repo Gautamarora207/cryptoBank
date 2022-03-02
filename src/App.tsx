@@ -50,10 +50,16 @@ const App: React.FC = () => {
         <CssBaseline />
 
         <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/lorem1" element={<LoremOnePage />} />
-            <Route path="/lorem2" element={<LoremTwoPage />} />
+
+        <Route path="/" element={<DashboardLayout />}>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/send" element={<SendReciveLayout />}>
+              <Route path="/send" element={<SendPage />} />
+            </Route>
+            <Route path="/request" element={<SendReciveLayout />}>
+              <Route path="/request" element={<ReceivePage />} />
+            </Route>
+            <Route path="/deposit" element={<DepositPage />} />
           </Route>
 
           <Route path="/account" element={<AuthLayout />}>

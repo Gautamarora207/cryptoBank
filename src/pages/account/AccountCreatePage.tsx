@@ -30,7 +30,7 @@ const AccountCreatePage: React.FC = () => {
   const dispatch = useDispatch();
 
   console.log("here", account.privateKey);
-  const [privateKeyBackedUp, setPrivateKeyBackedUp] = useState(false);
+  const [privateKeyBackedUp, setPrivateKeyBackedUp] = useState(true);
   const [password, setPassword] = useState("");
   const [privateKey] = useState(account.privateKey.slice(2));
   const [openPasswordDialog, setOpen] = useState(false);
@@ -103,13 +103,6 @@ const AccountCreatePage: React.FC = () => {
               ),
             }}
           />
-
-          <FormControlLabel
-            control={<Checkbox checked={privateKeyBackedUp} color="primary" />}
-            label="I backed up my private key"
-            onChange={() => setPrivateKeyBackedUp((i) => !i)}
-          />
-
           <Box display="flex" justifyContent="center" gap={1}>
             <Link to="/account" style={{ textDecoration: "none" }}>
               <Button component="div" variant="outlined" sx={{ mt: 3, mb: 2 }}>

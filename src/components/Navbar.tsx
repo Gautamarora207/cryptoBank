@@ -20,16 +20,16 @@ const Navbar: React.FC = () => {
         <Box
           component="img"
           src={Logo}
-          alt="Conceal Protocol"
+          alt="Crypto Bank"
           width={{ xs: "100px", md: "150px", lg: "180px" }}
           height="auto"
           sx={{ cursor: "pointer" }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
         />
 
         <Box sx={{ display: "flex", gap: "1rem" }}>
           <Link to="/lorem1" style={{ textDecoration: "none" }}>
-            <Button>conceal protocol</Button>
+            <Button>Crypto Bank</Button>
           </Link>
           <Button sx={{ display: { xs: "none", sm: "block" } }} href="https://twitter.com/concealprotocol" target="blank">twitter </Button>
           {/* <Link to="/lorem2" style={{ textDecoration: "none" }}> */}

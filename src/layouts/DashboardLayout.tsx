@@ -113,7 +113,7 @@ const DashboardLayout: React.FC = () => {
         mb={{ xs: 2, md: 12 }}
       >
         <Box flex="1" order={1}>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/home" style={{ textDecoration: "none" }}>
             <Typography
               fontWeight="bold"
               variant="h5"
@@ -121,14 +121,14 @@ const DashboardLayout: React.FC = () => {
               color="text.primary"
               sx={{ textTransform: "uppercase" }}
             >
-              Conceal{" "}
+              Crypto{" "}
               <Typography
                 component="span"
                 variant="h5"
                 fontWeight="bold"
                 color="primary"
               >
-                Protocol
+                Bank
               </Typography>
             </Typography>
           </Link>

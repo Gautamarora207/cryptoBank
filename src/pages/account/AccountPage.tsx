@@ -108,8 +108,8 @@ const AccountPage: React.FC = () => {
 
       <Typography component="p" variant="body2" color="text-secondary">
         {!loginWithPassword
-          ? "Enter your Conceal Protocol account"
-          : "Enter your password to unlock your Conceal Protocol wallet"}
+          ? "Enter your account"
+          : "Enter your password to unlock your wallet"}
       </Typography>
 
       <Box component="form" onSubmit={onLoginHandler} noValidate sx={{ mt: 1 }}>

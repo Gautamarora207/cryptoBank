@@ -62,7 +62,7 @@ export async function doDeposit(
             variant: "error",
             anchorOrigin: { horizontal: "center", vertical: "top" },
           });
-          console.log(err)}) 
+          console.log(err)});
       console.log(result);
       setIsLoading(false);
 
